@@ -1,6 +1,6 @@
 import requests
 
-api_url = "https://jsonplaceholder.typicode.com/todos/1"
+api_url = "http://localhost:3002/"
 
 def postData(Ip, name, download, upload, ping):
     data = {"IP": Ip, "name": name, "download": download, "upload": upload, "ping": ping}
@@ -8,7 +8,9 @@ def postData(Ip, name, download, upload, ping):
 
 def getData(api_url):
     response = requests.get(api_url)
-    return response.json()
-    
-    
+    data = response.json()
+    # app = data["app"]
+    return data
+
+
 print(getData(api_url))
