@@ -3,6 +3,7 @@
 import socket
 import speedtest
 import requests
+import apiRequests as req
 
 print("Testing Speed...⏳")
 
