@@ -1,10 +1,18 @@
 # -- packages --
 # pip install speedtest-cli
-
+import socket
 import speedtest
+import requests
 
 print("Testing Speed...⏳")
 
+# ---------- ip addr --------------------------------
+ipAddr = socket.gethostbyname(socket.gethostname())
+publicIp = requests.get('https://checkip.amazonaws.com').text.strip()
+print(f"IP Address: {ipAddr}")
+print(f"Public IP: {publicIp}")
+
+# ---------- speed test --------------------------------
 speedTest = speedtest.Speedtest()
 
 downloadSpeed = speedTest.download()
