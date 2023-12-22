@@ -2,7 +2,7 @@ import requests
 
 api_url = "http://localhost:3002/"
 
-def postData(Ip, name, download, upload, ping):
+def postData(api_url, Ip, name, download, upload, ping):
     data = {"IP": Ip, "name": name, "download": download, "upload": upload, "ping": ping}
     response = requests.post(api_url, json=data)
 
