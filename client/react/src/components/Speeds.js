@@ -30,6 +30,8 @@ const Speeds = () => {
               download={item.download}
               upload={item.upload}
               ping={item.ping}
+              timestamp={item.timestamp}
+              id={item._id}
             />
           </div>
         ))}
