@@ -1,17 +1,14 @@
 import requests
-from datetime import datetime
-
-# Getting the current date and time
-current_date_and_time = datetime.now()
-
-# Formatting the date and time in the specified format: "time-mm/dd/yr"
-formatted_date_and_time = current_date_and_time.strftime("time-%m/%d/%Y")
-
 
 api_url = "http://localhost:3002/api/speeds/read"
 
 def postData(Ip, name, download, upload, ping, timestamp):
     api_url = "http://localhost:3002/api/speeds/create"
+    data = {"Ip": Ip, "name": name, "download": download, "upload": upload, "ping": ping, "timestamp":timestamp}
+    response = requests.post(api_url, json=data)
+    
+def updateData(Ip, name, download, upload, ping, timestamp, id):
+    api_url = f"http://localhost:3002/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download, "upload": upload, "ping": ping, "timestamp":timestamp}
     response = requests.post(api_url, json=data)
 
@@ -22,6 +19,5 @@ def getData(api_url):
     data = response.json()
     # app = data["app"]
     return data
-
 
 # print(getData(api_url))
