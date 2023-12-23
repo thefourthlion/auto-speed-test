@@ -1,7 +1,5 @@
 const Speeds = require("../models/Speeds");
 exports.createSpeeds = async (req, res) => {
-  const page = req.query.page || 0;
-  const limit = req.query.limit || 25;
   try {
     let newSpeeds = new Speeds({
       Ip: req.body.Ip,
@@ -18,6 +16,8 @@ exports.createSpeeds = async (req, res) => {
   }
 };
 exports.readSpeeds = async (req, res) => {
+  const page = req.query.page || 0;
+  const limit = req.query.limit || 25;
   try {
     Speeds.find({}, (err, result) => {
       if (err) {
