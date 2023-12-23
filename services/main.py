@@ -5,12 +5,14 @@ import speedtest
 import requests
 import apiRequests as req
 from datetime import datetime
+import pytz
 
-# Getting the current date and time
-current_date_and_time = datetime.now()
+#---------- get date and time -----------------------
+pst = pytz.timezone('US/Pacific')
 
-# Formatting the date and time in the specified format: "time-mm/dd/yr"
-formatted_date_and_time = current_date_and_time.strftime("time-%m/%d/%Y")
+utc_now = datetime.now(pytz.utc)
+pst_now = utc_now.astimezone(pst)
+date_and_time = pst_now.strftime('%m-%d-%Y %H:%M')
 
 print("Testing Speed...⏳")
 
@@ -46,9 +48,9 @@ if ip_in_data:
     print("Editing existing data for IP:", publicIp)
     item_id = matching_entry['_id']
     item_name = matching_entry['name']
-    req.updateData(publicIp, item_name, downloadMbps, uploadMbps, pingTime, formatted_date_and_time, item_id)
+    req.updateData(publicIp, item_name, downloadMbps, uploadMbps, pingTime, date_and_time, item_id)
 
 else:
     print("Creating new data for IP:", publicIp)
     name = ""
-    req.postData(publicIp, name, downloadMbps, uploadMbps, pingTime, formatted_date_and_time)
+    req.postData(publicIp, name, downloadMbps, uploadMbps, pingTime, date_and_time)
