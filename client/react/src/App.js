@@ -1,5 +1,6 @@
 import "./styles/SpeedCard.css";
 import "./styles/Speeds.css";
+import "./styles/globals.css";
 import React from "react";
 import Home from "./pages/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";

@@ -1,4 +1,22 @@
-.SpeedCard .container {
-  border: 1px solid black;
+.SpeedCard {
+  display: flex;
+  flex-direction: row;
+}
+.SpeedCard .card-container {
+  border: 1px solid aliceblue;
   border-radius: 5px;
+  max-width: 250px;
+  padding: 25px;
+  color: aliceblue;
+  background-color: rgb(33, 37, 41);
+  border-color: aliceblue;
+  box-shadow: 10px 10px 5px 0px rgba(33, 37, 41, 0.75);
+  margin: 15px;
+}
+.SpeedCard .delete-btn {
+  color: red;
+}
+.SpeedCard a {
+  margin-right: 10px;
+  cursor: pointer;
 }/*# sourceMappingURL=SpeedCard.css.map */

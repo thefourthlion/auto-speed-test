@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Card from "react-bootstrap/Card";
+
 import axios from "axios";
 const SpeedCard = ({ Ip, download, upload, ping, timestamp, name, id }) => {
   const [changeName, setChangeName] = useState(false);
@@ -14,28 +16,31 @@ const SpeedCard = ({ Ip, download, upload, ping, timestamp, name, id }) => {
   return (
     <div className="SpeedCard">
       <div className="container">
-        <h1 className="content-header">{name}</h1>
-        <h1 className="content-header">{Ip}</h1>
-        <h1 className="content-header">{timestamp}</h1>
-        <h1 className="content-header">{download} Mbps</h1>
-        <h1 className="content-header">{upload} Mbps</h1>
-        <h1 className="content-header">{ping} Ms</h1>
-        <button
-          onClick={() => {
-            deleteItem(id);
-          }}
-        >
-          Delete
-        </button>
+        <div className="card-container">
+          <h1 className="card-header">{name}</h1>
+          <p className="card-info">{Ip}</p>
+          <p className="card-info">{timestamp}</p>
+          <p className="card-info">{download} Mbps</p>
+          <p className="card-info">{upload} Mbps</p>
+          <p className="card-info">{ping} Ms</p>
+          <a
+            className="delete-btn"
+            onClick={() => {
+              deleteItem(id);
+            }}
+          >
+            Delete
+          </a>
 
-        <button
-          onClick={() => {
-            setChangeName(!changeName);
-          }}
-        >
-          Edit Name
-        </button>
-
+          <a
+            className="edit-btn"
+            onClick={() => {
+              setChangeName(!changeName);
+            }}
+          >
+            Edit Name
+          </a>
+        </div>
       </div>
     </div>
   );
