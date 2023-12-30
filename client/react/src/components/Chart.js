@@ -22,11 +22,12 @@ const Chart = () => {
     // Function to transform data for each chart
     const transformData = (speed) => {
         return speed.download.map((downloadValue, index) => {
-            const time = speed.timestamp.split(' ')[1]; // Assuming timestamp format is 'YYYY-MM-DD HH:MM:SS'
+            const time = speed.timestamp[index].split(' ')[1]; // Extracting time from the timestamp
             return {
-                name: time, // Using the time as the name (X-axis label)
+                name: time, // Using time as the x-axis label
                 Download: parseFloat(downloadValue),
-                Upload: parseFloat(speed.upload[index])
+                Upload: parseFloat(speed.upload[index]),
+                Ping: parseFloat(speed.ping[index]) // Including ping in the data if needed
             };
         });
     };
@@ -56,6 +57,8 @@ const Chart = () => {
                             <Legend />
                             <Line type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
                             <Line type="monotone" dataKey="Upload" stroke="#82ca9d" />
+                            {/* Optional: Line for Ping */}
+                            {/* <Line type="monotone" dataKey="Ping" stroke="#82ca9d" /> */}
                         </LineChart>
                     </div>
                 ))}
