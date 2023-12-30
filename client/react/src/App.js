@@ -1,3 +1,4 @@
+import "./styles/Chart.css";
 import "./styles/SpeedCard.css";
 import "./styles/Speeds.css";
 import "./styles/globals.css";
