@@ -50,10 +50,14 @@ def speedTest():
         item_id = matching_entry['_id']
         item_name = matching_entry['name']
         item_download = matching_entry['download']
+        item_download.append(f'{downloadMbps}')
         item_upload = matching_entry['upload']   
         item_upload.append(f'{uploadMbps}')
-        item_download.append(f'{downloadMbps}')
-        req.updateData(publicIp, item_name, item_download, item_upload, pingTime, date_and_time, item_id)
+        item_time = matching_entry['timestamp']
+        item_time.append(f'{date_and_time}')
+        item_ping = matching_entry['ping']
+        item_ping.append(f'{pingTime}')
+        req.updateData(publicIp, item_name, item_download, item_upload, item_ping, item_time, item_id)
 
     else:
         print("Creating new data for IP:", publicIp)
