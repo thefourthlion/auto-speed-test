@@ -66,4 +66,4 @@ while True:
     speedTest()
     end_time = time.time()
     execution_time = end_time - start_time
-    time.sleep(max(10 - execution_time, 0)) 
+    time.sleep(max(60 - execution_time, 0)) 
