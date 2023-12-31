@@ -2,7 +2,7 @@ const express = require("express");
 const session = require("express-session");
 const app = express();
 const cors = require("cors");
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3024;
 const connectDB = require("./config/mongoose");
 require("dotenv").config({ path: "./.env" });
 app.use(express.json());
