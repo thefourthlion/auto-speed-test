@@ -1,0 +1,5 @@
+apps:
+  - script: ./index.js
+    cwd: /home/everettdeleon/auto-speed-test/server/
+    name: "speed-test"
+    interpreter: /usr/bin/node
