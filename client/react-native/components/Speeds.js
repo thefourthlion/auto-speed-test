@@ -7,7 +7,7 @@ const Speeds = (Ip, download, upload, ping) => {
   const [speeds, setSpeeds] = useState([]);
 
   const getSpeeds = () => {
-    fetch("http://localhost:3002/api/speeds/read")
+    fetch("https://api.speeds.everettdeleon.com/api/speeds/read")
       .then((res) => res.json())
       .then((data) => {
         setSpeeds(data);

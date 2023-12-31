@@ -17,7 +17,7 @@ const Chart = () => {
     };
 
     const getSpeeds = () => {
-        fetch("http://localhost:3002/api/speeds/read")
+        fetch("https://api.speeds.everettdeleon.com/api/speeds/read")
             .then((res) => res.json())
             .then((data) => {
                 setSpeeds(data);
@@ -34,7 +34,7 @@ const Chart = () => {
     // Function to transform data for each chart, limiting to 10 data points
     const transformData = (speed) => {
         const maxLength = 15; // Maximum number of data points
-        return speed.download.slice(0, maxLength).map((downloadValue, index) => {
+        return speed.download.slice(-15).map((downloadValue, index) => {
             const time = speed.timestamp[index] ? speed.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
             return {
                 name: time, // Using time as the x-axis label, or a default label if time is not available
@@ -58,6 +58,8 @@ const Chart = () => {
                             </div>
                             : <h2 className="chart-title" onClick={() => handleEditClick(speed.Ip)}>{speed.name || speed.Ip}</h2>
                         }
+
+                        <h2></h2>
                         <LineChart
                             className="chart"
                             width={windowSize.current[0]}
