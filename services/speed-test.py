@@ -8,15 +8,15 @@ import pytz
 import time
 import requests
 
-api_url = "https://api.speeds.everettdeleon.com/api/speeds/read"
+api_url = "http://localhost:3024/api/speeds/read"
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "https://api.speeds.everettdeleon.com/api/speeds/create"
+    api_url = "http://localhost:3024/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download, "upload": upload, "ping": ping, "timestamp":timestamp}
     response = requests.post(api_url, json=data)
     
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"https://api.speeds.everettdeleon.com/api/speeds/update/{id}"
+    api_url = f"http://localhost:3024/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download, "upload": upload, "ping": ping, "timestamp":timestamp}
     response = requests.post(api_url, json=data)
 
@@ -25,8 +25,6 @@ def getData(api_url):
     data = response.json()
     # app = data["app"]
     return data
-
-print(getData("https://api.speeds.everettdeleon.com/api/speeds/read"))
 
 
 def testSpeed():
@@ -60,7 +58,7 @@ def testSpeed():
     print(f"Ping: {pingTime} ms" )
 
     # ---------- data entry --------------------------------
-    data = getData("https://api.speeds.everettdeleon.com/api/speeds/read")
+    data = getData("http://localhost:3024/api/speeds/read")
 
     # Check if the public IP is in the data
     ip_in_data = any(entry for entry in data if entry['Ip'] == publicIp)
@@ -91,6 +89,6 @@ while True:
     testSpeed()
     end_time = time.time()
     execution_time = end_time - start_time
-    time.sleep(max(60 - execution_time, 0)) 
+    time.sleep(max(5 - execution_time, 0)) 
 
 

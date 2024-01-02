@@ -39,7 +39,7 @@ def speedTest():
     print(f"Ping: {pingTime} ms" )
 
     # ---------- data entry --------------------------------
-    data = req.getData("https://api.speeds.everettdeleon.com/api/speeds/read")
+    data = req.getData("http://localhost:3024/api/speeds/read")
 
     # Check if the public IP is in the data
     ip_in_data = any(entry for entry in data if entry['Ip'] == publicIp)
@@ -70,4 +70,4 @@ while True:
     speedTest()
     end_time = time.time()
     execution_time = end_time - start_time
-    time.sleep(max(60 - execution_time, 0)) 
+    time.sleep(max(5 - execution_time, 0)) 
