@@ -1,0 +1,16 @@
+Authentication / Authorization
+
+External ping (fb google, ect) *own chart*
+
+Latency chart
+
+Self hosting speed test (libre speed)
+
+properly label (mb kb, ect)
+
+historical Outage reports or speed slowing reports *weekly* (email)
+
+Headend speed test (internal)
+
+Traceroute information 
+
