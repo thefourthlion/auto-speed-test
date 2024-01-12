@@ -10,7 +10,20 @@ properly label (mb kb, ect)
 
 historical Outage reports or speed slowing reports *weekly* (email)
 
-Headend speed test (internal)
+Headend speed test (internal) (libre speed)
 
 Traceroute information 
+
+Home page | dashboard overall health 
+    Clients available (green=good yellow=below expectations red=404)
+    avg charts 
+    list of Clients
+
+settings page 
+    yellow settings
+    add users
+
+External speed test (find more providers)
+
+Hostname rather than ip 
 
