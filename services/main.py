@@ -7,6 +7,11 @@ import apiRequests as req
 from datetime import datetime
 import pytz
 import time
+import platform
+
+# displaying the hostname of the device 
+# using the platform.node()python
+print("The hostname of this device is = ",platform.node())
 
 def speedTest():
     #---------- get date and time -----------------------
@@ -18,7 +23,7 @@ def speedTest():
 
     # ---------- ip addr --------------------------------
     ipAddr = socket.gethostbyname(socket.gethostname())
-    publicIp = requests.get('https://checkip.amazonaws.com').text.strip()
+    publicIp = platform.node()
     print(f"IP Address: {ipAddr}")
     print(f"Public IP: {publicIp}")
     
