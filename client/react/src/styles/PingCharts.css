@@ -1,0 +1,42 @@
+.PingCharts h1 {
+  text-align: center;
+  color: rgb(226, 228, 235);
+}
+.PingCharts .chart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 25px;
+  color: rgb(226, 228, 235);
+}
+.PingCharts .chart {
+  cursor: pointer !important;
+}
+.PingCharts .chart-title {
+  cursor: pointer;
+}
+.PingCharts .change-name-container {
+  display: flex;
+  gap: 15px;
+}
+.PingCharts .change-name-container button {
+  padding-bottom: 5px;
+  border-color: #ff6961;
+  border-radius: 5px;
+  background-color: #ff6961;
+}
+.PingCharts .change-name-container button:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.PingCharts .change-name-container input {
+  border-radius: 5px;
+  background-color: #bbbbbc;
+}
+.PingCharts .change-name-container input:active {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.PingCharts .change-name-container .hover-menu {
+  background-color: green;
+}/*# sourceMappingURL=PingCharts.css.map */

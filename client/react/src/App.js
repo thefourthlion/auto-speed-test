@@ -1,3 +1,7 @@
+import "./styles/PingCharts.css";
+import "./styles/SpeedCharts.css";
+import "./styles/PingChart.css";
+import "./styles/SpeedChart.css";
 import "./styles/Chart.css";
 import "./styles/SpeedCard.css";
 import "./styles/Speeds.css";

@@ -1,0 +1,63 @@
+.SpeedChart {
+  h1 {
+    text-align: center;
+    color: rgb(226, 228, 235);
+  }
+  .chart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 25px;
+    color: rgb(226, 228, 235);
+  }
+  .chart {
+    cursor: pointer !important;
+
+    // background-color: black;
+    // width: 80vw !important;
+    // padding: 25px 5px 10px 0;
+  }
+
+  .chart-title {
+    cursor: pointer;
+  }
+  .change-name-container {
+    display: flex;
+    gap: 15px;
+
+    button {
+      padding-bottom: 5px;
+      border-color: #ff6961;
+      border-radius: 5px;
+      background-color: #ff6961;
+    }
+
+    button:hover {
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    input {
+      border-radius: 5px;
+      background-color: #bbbbbc;
+    }
+    input:active {
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    }
+
+    .hover-menu {
+      background-color: green;
+    }
+  }
+
+  .recharts-surface:hover {
+    // box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    // border-radius: 5px;
+    // padding: 25px 5px 10px 0;
+  }
+
+  .recharts-surface {
+    // width: 80vw !important;
+  }
+}
