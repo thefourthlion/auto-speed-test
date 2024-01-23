@@ -1,3 +1,68 @@
+@import "./Variables.scss";
 body {
   background-color: rgb(68, 72, 81) !important;
+
+  .chart-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 25px;
+    color: rgb(226, 228, 235);
+  }
+
+  text-align: center;
+  h1, h2, h3, h4, p{
+    color: white;
+    text-align: center;
+  }
+
+  .green-outline-btn {
+    border: 2px solid $terminal-blue;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  .green-outline-btn:hover {
+    box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+    background-color: $off-white;
+  }
+
+  .red-outline-btn {
+    border: 2px solid red;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+  }
+
+  .red-outline-btn:hover {
+    box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+    background-color: $off-white;
+  }
+
+  .form-label {
+    box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+  }
+
+  .form-input:focus {
+    border-color: $terminal-blue;
+    box-shadow: none;
+    outline: 0 none;
+  }
+
+  textarea {
+    border-radius: 5px;
+    border-color: lightgray;
+    box-shadow: none;
+    outline: 0 none;
+    box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+  }
+
+  textarea:focus {
+    border-color: $terminal-blue;
+  }
+
+  textarea::placeholder {
+    color: $github-gray;
+  }
 }

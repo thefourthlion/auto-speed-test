@@ -1,0 +1,39 @@
+.ClientCharts {
+  text-align: center !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ClientCharts h1 {
+  text-align: center;
+  color: rgb(226, 228, 235);
+}
+.ClientCharts .chart {
+  cursor: pointer !important;
+}
+.ClientCharts .chart-title {
+  cursor: pointer;
+}
+.ClientCharts .change-name-container {
+  display: flex;
+  gap: 15px;
+}
+.ClientCharts .change-name-container button {
+  padding-bottom: 5px;
+  border-color: #ff6961;
+  border-radius: 5px;
+  background-color: #ff6961;
+}
+.ClientCharts .change-name-container button:hover {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.ClientCharts .change-name-container input {
+  border-radius: 5px;
+  background-color: #bbbbbc;
+}
+.ClientCharts .change-name-container input:active {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.ClientCharts .change-name-container .hover-menu {
+  background-color: green;
+}/*# sourceMappingURL=ClientCharts.css.map */

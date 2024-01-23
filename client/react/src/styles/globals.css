@@ -1,3 +1,59 @@
 body {
   background-color: rgb(68, 72, 81) !important;
+  text-align: center;
+}
+body .chart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 25px;
+  color: rgb(226, 228, 235);
+}
+body h1, body h2, body h3, body h4, body p {
+  color: white;
+  text-align: center;
+}
+body .green-outline-btn {
+  border: 2px solid rgb(0, 55, 218);
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0);
+}
+body .green-outline-btn:hover {
+  box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+  background-color: rgb(210, 207, 193);
+}
+body .red-outline-btn {
+  border: 2px solid red;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0);
+}
+body .red-outline-btn:hover {
+  box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+  background-color: rgb(210, 207, 193);
+}
+body .form-label {
+  box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+}
+body .form-input:focus {
+  border-color: rgb(0, 55, 218);
+  box-shadow: none;
+  outline: 0 none;
+}
+body textarea {
+  border-radius: 5px;
+  border-color: lightgray;
+  box-shadow: none;
+  outline: 0 none;
+  box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+}
+body textarea:focus {
+  border-color: rgb(0, 55, 218);
+}
+body textarea::-moz-placeholder {
+  color: rgb(44, 50, 59);
+}
+body textarea::placeholder {
+  color: rgb(44, 50, 59);
 }/*# sourceMappingURL=globals.css.map */

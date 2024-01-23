@@ -1,23 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
-const SpeedCharts = () => {
+
+const Speeds = () => {
+    const [searchParams] = useSearchParams();
+    const id = (searchParams.get('id'));
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
 
-    const [speeds, setSpeeds] = useState([]);
+    const [speedsData, setSpeedsData] = useState([]);
 
     const formatTick = (tick) => {
         return `${tick}Mbps`;
     };
 
+    const url = `https://api.speeds.everettdeleon.com/api/speeds/read/${id}`
 
 
     const getSpeeds = () => {
-        fetch("https://api.speeds.everettdeleon.com/api/speeds/read")
+        fetch(url)
             .then((res) => res.json())
             .then((data) => {
-                setSpeeds(data);
+                setSpeedsData([data]);
                 console.log(data);
             })
             .catch((error) => {
@@ -59,13 +64,12 @@ const SpeedCharts = () => {
     };
 
     return (
-        <div className="SpeedCharts">
+        <div className="Speeds">
             <div className="container">
                 <h1 className="content-header">Speed Test Charts</h1>
-                {speeds.map((speed, index) => (
+                {speedsData.map((speed, index) => (
                     <div className="chart-container" key={index}>
-                        
-                        <a href={`/client?id=${speed._id}`}><h2 className="chart-title" >{speed.name || speed.Ip}</h2></a>
+                        <h2 className="chart-title" >{speed.name || speed.Ip}</h2>
 
                         <h2></h2>
                         <LineChart
@@ -96,4 +100,4 @@ const SpeedCharts = () => {
     );
 };
 
-export default SpeedCharts;
+export default Speeds;

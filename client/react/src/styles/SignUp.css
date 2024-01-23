@@ -1,0 +1,22 @@
+.SignUp {
+  padding: 150px;
+  text-align: center;
+}
+.SignUp h2, .SignUp p {
+  color: white;
+}
+.SignUp .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.SignUp button {
+  text-align: center;
+  width: 250px;
+  height: 50px;
+  border-radius: 5px;
+}
+.SignUp .form-label {
+  width: 250px;
+}/*# sourceMappingURL=SignUp.css.map */

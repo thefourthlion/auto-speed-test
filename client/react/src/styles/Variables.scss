@@ -1,14 +1,28 @@
-$white: #fdfdfc;
-$black: #030302;
+// colors
+$teal: rgb(26, 148, 148);
+$teal-trans: rgba(26, 148, 148, 0.4);
+$github-gray: rgb(44, 50, 59);
+$github-light-gray: rgb(205, 217, 229);
 
-$bright-white: #fdfcfa;
-$dark-black: #000000;
+$github-mid-gray: rgb(56, 63, 73);
+$github-blue: rgb(63, 155, 244);
 
-$glass: rgba(255, 255, 255, 0.55);
+$terminal-blue: rgb(0, 55, 218);
+$green: #3dd230;
+$bright-white: whitesmoke;
+$white: rgb(228, 227, 222);
+$off-white: rgb(210, 207, 193);
 
-$primary-color: #616cae;
-$primary-dark-color: #616cae;
-$primary-light-color: #616cae;
-
-$secondary-color: #f3f1e7;
-$third-color: #39416f;
+$text: rgb(172, 181, 165);
+$light-gray: rgb(159, 163, 157);
+$pink: #d034d3;
+$trans: rgba(0, 0, 0, 0.3);
+$black: rgb(32, 32, 32);
+$hacker-green: rgb(60, 207, 47);
+$slime-green: rgb(159, 193, 49);
+$deep-black: black;
+$lellow: #ebe322;
+// font-sizes
+$lr-font: 2.5em;
+$md-font: 2em;
+$sm-font: 0.5em;
