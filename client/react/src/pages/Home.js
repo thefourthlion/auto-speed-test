@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
-import PingCharts from "../components/PingCharts"
-import SpeedCharts from "../components/SpeedCharts";
+
 const Home = () => {
   const [speeds, setSpeeds] = useState([])
 
@@ -23,10 +22,8 @@ const Home = () => {
 
   return (
     <div className="Home pages">
-
       <div className="clientListContainer">
         <h3>Client List</h3>
-        
         {speeds.map((item, index) => (
           <div key={index}>
             <a href={`client?id=${item._id}`}>
@@ -35,8 +32,8 @@ const Home = () => {
           </div>
         ))}
       </div>
-
     </div>
   );
 };
+
 export default Home;

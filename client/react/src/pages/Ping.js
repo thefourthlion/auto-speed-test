@@ -4,8 +4,6 @@ import { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
-
-
 const Ping = () => {
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
     const [speedsData, setSpeedsData] = useState([]);
@@ -30,8 +28,6 @@ const Ping = () => {
             });
     };
 
-   
-
     const msTick = (tick) => {
         return `${tick}ms`;
     };
@@ -45,7 +41,6 @@ const Ping = () => {
                 </div>
             );
         }
-
         return null;
     };
 
@@ -54,12 +49,11 @@ const Ping = () => {
         getSpeeds();
     }, []);
 
-    // Function to transform data for the ping chart
     const transformpingData = (data) => {
         return data.ping.slice(-15).map((pingValue, index) => {
             const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
             return {
-                time, // Using time as the x-axis label
+                time, 
                 Ping: parseFloat(pingValue)
             };
         });

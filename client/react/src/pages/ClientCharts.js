@@ -3,7 +3,6 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'r
 import { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-
 const ClientCharts = () => {
     const [searchParams] = useSearchParams();
     const id = (searchParams.get('id'));
@@ -11,7 +10,6 @@ const ClientCharts = () => {
 
     const [speedsData, setSpeedsData] = useState([]);
 
-    
     const url = `https://api.speeds.everettdeleon.com/api/speeds/read/${id}`
 
     const getSpeeds = () => {
@@ -33,7 +31,6 @@ const ClientCharts = () => {
     const mbTick = (tick) => {
         return `${tick}Mbps`;
     };
-
 
     const msTick = (tick) => {
         return `${tick}ms`;

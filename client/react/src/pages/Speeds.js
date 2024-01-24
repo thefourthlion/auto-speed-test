@@ -4,21 +4,18 @@ import { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
-
 const Speeds = () => {
     const [searchParams] = useSearchParams();
     const id = (searchParams.get('id'));
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
-
     const [speedsData, setSpeedsData] = useState([]);
     const navigate = useNavigate();
 
-    const formatTick = (tick) => {
+    const speedTick = (tick) => {
         return `${tick}Mbps`;
     };
 
     const url = `https://api.speeds.everettdeleon.com/api/speeds/read/${id}`
-
 
     const getSpeeds = () => {
         if (id == null) {
@@ -44,24 +41,19 @@ const Speeds = () => {
                     <p>{`Upload: ${payload[1].value} Mbps`}</p>
                 </div>
             );
-
         }
-
         return null;
     };
-
 
     useEffect(() => {
         getSpeeds();
     }, []);
 
-    // Function to transform data for each chart, limiting to 10 data points
     const transformData = (speed) => {
-        const maxLength = 15; // Maximum number of data points
         return speed.download.slice(-15).map((downloadValue, index) => {
             const time = speed.timestamp[index] ? speed.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
             return {
-                name: time, // Using time as the x-axis label, or a default label if time is not available
+                name: time, 
                 Download: parseFloat(downloadValue),
                 Upload: parseFloat(speed.upload[index])
             };
@@ -75,8 +67,6 @@ const Speeds = () => {
                 {speedsData.map((speed, index) => (
                     <div className="chart-container" key={index}>
                         <h2 className="chart-title" >{speed.name || speed.Ip}</h2>
-
-                        <h2></h2>
                         <LineChart
                             className="chart"
                             width={windowSize.current[0]}
@@ -91,7 +81,7 @@ const Speeds = () => {
                         >
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
                             <Tooltip content={<CustomTooltip />}  // Customizes the background and text color of the tooltip container
                             />
                             <Legend />
