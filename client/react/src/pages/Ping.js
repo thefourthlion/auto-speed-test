@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
+
 
 const Ping = () => {
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
     const [speedsData, setSpeedsData] = useState([]);
     const [searchParams] = useSearchParams();
     const id = (searchParams.get('id'));
+    const navigate = useNavigate();
 
     const url = `https://api.speeds.everettdeleon.com/api/speeds/read/${id}`
 
     const getSpeeds = () => {
+        if (id == null) {
+            navigate("/");
+        }
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
@@ -22,6 +29,8 @@ const Ping = () => {
                 console.error("Error fetching data: ", error);
             });
     };
+
+   
 
     const msTick = (tick) => {
         return `${tick}ms`;
