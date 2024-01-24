@@ -1,10 +1,10 @@
-import "./styles/ClientCharts.css"; import "./styles/Speeds.css";
+import "./styles/ClientCharts.css"; 
+import "./styles/Speeds.css";
 import "./styles/Ping.css";
 import "./styles/Login.css";
 import "./styles/SignUp.css";
 import "./styles/PingCharts.css";
 import "./styles/SpeedCharts.css";
-import "./styles/PingChart.css";
 import "./styles/SpeedChart.css";
 import "./styles/Chart.css";
 import "./styles/SpeedCard.css";
@@ -19,6 +19,7 @@ import Ping from "./pages/Ping"
 import ClientCharts from "./pages/ClientCharts";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+
 const App = () => {
   return (
     <div className="App">
@@ -32,11 +33,11 @@ const App = () => {
             <Route path="Speeds" element={<Speeds />} />
             <Route path="pings" element={<Ping />} />
             <Route path="Client" element={<ClientCharts />} />
-
           </Route>
         </Routes>
       </BrowserRouter>
     </div>
   );
 };
+
 export default App;
