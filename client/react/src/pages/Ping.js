@@ -62,7 +62,7 @@ const Ping = () => {
     return (
         <div className="Ping">
             <div className="container">
-                <h1 className="content-header">Ping Time Charts</h1>
+                <h1 className="content-header">Ping Time</h1>
                 {speedsData.map((speed, index) => (
                     <div className="chart-container" key={index}>
                         <h2 className="chart-title">{speed.name || speed.Ip}</h2>
@@ -83,7 +83,7 @@ const Ping = () => {
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
                             <Tooltip content={<PingToolTip />} />
                             <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
                         </LineChart>
                     </div>
                 ))}

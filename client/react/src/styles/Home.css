@@ -1,6 +1,13 @@
 .Home {
   background-color: rgb(68, 72, 81);
 }
+.Home .editClient {
+  cursor: pointer;
+}
+.Home .clientList {
+  display: flex;
+  gap: 10px;
+}
 .Home .clientListContainer {
   display: flex;
   flex-direction: column;

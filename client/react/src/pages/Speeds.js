@@ -63,7 +63,7 @@ const Speeds = () => {
     return (
         <div className="Speeds">
             <div className="container">
-                <h1 className="content-header">Speed Test Charts</h1>
+                <h1 className="content-header">Speed Tests</h1>
                 {speedsData.map((speed, index) => (
                     <div className="chart-container" key={index}>
                         <h2 className="chart-title" >{speed.name || speed.Ip}</h2>

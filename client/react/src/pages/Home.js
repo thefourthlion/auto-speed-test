@@ -3,7 +3,8 @@ import "../styles/Home.css";
 
 const Home = () => {
   const [speeds, setSpeeds] = useState([])
-
+  const [editClientList, setEditClientList] = useState(false);
+  const [deleteInput, setDeleteInput] = useState("")
   const getData = () => {
     fetch("https://api.speeds.everettdeleon.com/api/speeds/read")
       .then((res) => res.json())
@@ -23,15 +24,20 @@ const Home = () => {
   return (
     <div className="Home pages">
       <div className="clientListContainer">
-        <h3>Client List</h3>
+        <h3 >Client List</h3>
+        
         {speeds.map((item, index) => (
-          <div key={index}>
+          <div className="clientList" key={index}>
             <a href={`client?id=${item._id}`}>
             <p >{item.Ip}</p>
               </a>
+              <p className="editClient" onClick={()=>{setEditClientList(!editClientList)}}>🚫</p>
           </div>
         ))}
+        {editClientList && <input onChange={(e)=>{setDeleteInput(e.target.value)}} type="text" placeholder="client name"/ >}
       </div>
+
+      <p>{deleteInput}</p>
     </div>
   );
 };
