@@ -1,4 +1,4 @@
-import "./styles/InternalPing.css";
+import "./styles/ExternalPing.css";import "./styles/ExternalPing.css";
 import "./styles/ClientCharts.css"; 
 import "./styles/Speeds.css";
 import "./styles/Ping.css";
@@ -19,7 +19,7 @@ import SignUp from "./pages/SignUp";
 import Speeds from "./pages/Speeds";
 import Ping from "./pages/Ping"
 import ClientCharts from "./pages/ClientCharts";
-import InternalPing from "./pages/InternalPing";
+import ExternalPing from "./pages/ExternalPing";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -37,7 +37,7 @@ const App = () => {
             <Route path="Speeds" element={<Speeds />} />
             <Route path="pings" element={<Ping />} />
             <Route path="Client" element={<ClientCharts />} />
-            <Route path="InternalPing" element={<InternalPing />} />
+            <Route path="ExternalPing" element={<ExternalPing />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -11,7 +11,11 @@ body .chart-container {
   margin-bottom: 25px;
   color: rgb(226, 228, 235);
 }
-body h1, body h2, body h3, body h4, body p {
+body h1,
+body h2,
+body h3,
+body h4,
+body p {
   color: white;
   text-align: center;
 }
@@ -35,6 +39,7 @@ body .red-outline-btn:hover {
 }
 body .form-label {
   box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+  width: 250px;
 }
 body .form-input:focus {
   border-color: rgb(0, 55, 218);
