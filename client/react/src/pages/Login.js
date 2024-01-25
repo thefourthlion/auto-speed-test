@@ -1,50 +1,88 @@
-import React, { useState } from "react";
-import { Form, Alert } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
 
-const Login = () => {
+const Login = ({ history }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
-    const handleSubmit = () => {
-        alert("submitted");
-    }
+    useEffect(() => {
+        if (localStorage.getItem("authToken")) {
+            history.push("/");
+        }
+    }, [history]);
+
+    const loginHandler = async (e) => {
+        e.preventDefault();
+
+        const config = {
+            header: {
+                "Content-Type": "application/json",
+            },
+        };
+
+        try {
+            const { data } = await axios.post(
+                "/api/auth/login",
+                { email, password },
+                config
+            );
+
+            localStorage.setItem("authToken", data.token);
+
+            history.push("/");
+        } catch (error) {
+            setError(error.response.data.error);
+            setTimeout(() => {
+                setError("");
+            }, 5000);
+        }
+    };
 
     return (
-        <div className="Login ">
-            <div className="container">
-                <h2>Log In</h2>
+        <div>
+            <form onSubmit={loginHandler}>
+                <h1>Login</h1>
+                {error && <span>{error}</span>}
+                <FloatingLabel className="form-label" label="Enter Email">
+                    <Form.Control
+                        className="form-input"
+                        type="email"
+                        placeholder="Enter Email"
+                        autoComplete="true"
+                        value={email}
+                        onChange={(e) => {
+                            setEmail(e.target.value);
+                        }}
+                    />
+                </FloatingLabel>
 
-                <Form >
-                    <Form.Group controlId="formBasicEmail">
-                        <FloatingLabel className="form-label" label="Email ">
-                            <Form.Control
-                                className="form-input"
-                                type="email"
-                                autoComplete="true"
-                                placeholder="Email "
-                                onChange={(e) => setEmail(e.target.value)}
-                            />
-                        </FloatingLabel>
-                    </Form.Group>
+                <FloatingLabel className="form-label" label="Enter Password ">
+                    <Form.Control
+                        className="form-input"
+                        type="password"
+                        placeholder="Enter Password"
+                        autoComplete="true"
+                        value={password}
+                        onChange={(e) => {
+                            setPassword(e.target.value);
+                        }}
+                    />
+                </FloatingLabel>
 
-                    <Form.Group controlId="formBasicPassword">
-                        <FloatingLabel className="form-label" label="Password ">
-                            <Form.Control
-                                className="form-input"
-                                type="password"
-                                autoComplete="true"
-                                placeholder="Password"
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </FloatingLabel>
-                    </Form.Group>
+                <p>
+                    <Link to="/forgotpassword">Forgot Password?</Link>
+                </p>
 
-                    <button ><a href="http://localhost:3000/">Log In</a></button>
+                <button type="submit">Login</button>
 
-                    <p>Don't have an account <a href="/SignUp">Sign Up</a></p>
-                </Form>
-            </div>
+                <span>
+                    Don't have an account? <Link to="/register">Register</Link>
+                </span>
+            </form>
         </div>
     );
 };

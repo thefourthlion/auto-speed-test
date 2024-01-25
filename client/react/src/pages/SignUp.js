@@ -1,64 +1,118 @@
-import React, { useState } from "react";
-import { Form, Alert } from "react-bootstrap";
+import { useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
+import Form from "react-bootstrap/Form";
 
-const SignUp = () => {
+const Register = ({ history }) => {
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleSubmit = ()=>{
-    alert("submitted");
-  }
+  const registerHandler = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (password !== confirmPassword) {
+      setPassword("");
+      setConfirmPassword("");
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+      return setError("Passwords do not match");
+    }
+
+    try {
+      const { data } = await axios.post(
+        "http://localhost:3024/api/auth/register",
+        {
+          username,
+          email,
+          password,
+        },
+        config
+      );
+
+      localStorage.setItem("authToken", data.token);
+
+      history.push("/");
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
 
   return (
-    <div className="SignUp">
-        <div className="container">
-      <h2>Sign Up</h2>
+    <div>
+      <form onSubmit={registerHandler}>
+        <h1>Register</h1>
+        {error && <span>{error}</span>}
+        <FloatingLabel className="form-label" label="Enter username">
+          <Form.Control
+            className="form-input"
+            type="text"
+            required
+            id="name"
+            placeholder="Enter username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </FloatingLabel>
 
-      <Form >
-        <Form.Group controlId="formBasicEmail">
-          <FloatingLabel className="form-label" label="Email ">
-            <Form.Control
-              className="form-input"
-              type="email"
-              autoComplete="true"
-              placeholder="Email "
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </FloatingLabel>
-        </Form.Group>
+        <FloatingLabel className="form-label" label="Enter Email">
+          <Form.Control
+            className="form-input"
+            type="email"
+            required
+            id="email"
+            placeholder="Enter Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </FloatingLabel>
 
-        <Form.Group controlId="formBasicPassword">
-          <FloatingLabel className="form-label" label="Password ">
-            <Form.Control
-              className="form-input"
-              type="password"
-              autoComplete="true"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </FloatingLabel>
-        </Form.Group>
-        
-        <Form.Group controlId="formBasicPassword">
-          <FloatingLabel className="form-label" label="Confirm password ">
-            <Form.Control
-              className="form-input"
-              type="password"
-              autoComplete="true"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </FloatingLabel>
-        </Form.Group>
+        <FloatingLabel className="form-label" label="Enter Password">
+          <Form.Control
+            className="form-input"
+            type="password"
+            required
+            id="password"
+            autoComplete="true"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </FloatingLabel>
 
-       <button className=""> <a href="http://localhost:3000/">Log In</a></button>
+        <FloatingLabel className="form-label" label="Confirm password">
+          <Form.Control
+            className="form-input"
+            type="password"
+            required
+            id="confirmPassword"
+            autoComplete="true"
+            placeholder="Confirm password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </FloatingLabel>
 
-        <p>Already have an account <a href="/Login">Login</a></p>
-      </Form>
-      </div>
+        <button type="submit">Register</button>
+        <span>
+          Already have an account? <Link to="/login">Login</Link>
+        </span>
+      </form>
     </div>
   );
 };
 
-export default SignUp;
+export default Register;
