@@ -126,7 +126,7 @@ const Speeds = () => {
 
                         {/* <ResponsiveContainer width="100%" height="100%"> */}
                             <AreaChart
-                                width={windowSize.current[0]}
+                                width={windowSize.current[0] }
                                 height={windowSize.current[1]}
                                 data={WeekData(speed)}
                                 margin={{

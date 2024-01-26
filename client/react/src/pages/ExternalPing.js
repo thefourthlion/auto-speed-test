@@ -64,7 +64,7 @@ const ExternalPing = () => {
     }, [])
 
     return (
-        <div className="ExternalPing">
+        <div className="ExternalPing page">
             <div className="container">
                 <ExternalPingData />
 

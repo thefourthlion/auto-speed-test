@@ -1,4 +1,4 @@
-import "./styles/ClientList.css";
+import "./styles/AllExternalPingData.css";import "./styles/ClientList.css";
 import "./styles/Navigation.css";
 import "./styles/SingleExternalPingData.css";
 import "./styles/ExternalPingData.css";
@@ -27,6 +27,7 @@ import Ping from "./pages/Ping"
 import ClientCharts from "./pages/ClientCharts";
 import ExternalPing from "./pages/ExternalPing";
 import ExternalPingData from "./pages/ExternalPingData";
+import AllExternalPingData from "./pages/AllExternalPingData";
 import SingleExternalPingData from "./pages/SingleExternalPingData";
 import Navigation from "./components/Navigation";
 
@@ -52,6 +53,8 @@ const App = () => {
             <Route path="ExternalPing" element={<ExternalPing />} />
             <Route path="SingleExternalPingData" element={<SingleExternalPingData />} />
             <Route path="ExternalPingData" element={<ExternalPingData />} />
+            <Route path="AllExternalPingData" element={<AllExternalPingData />} />
+
           </Route>
         </Routes>
       </BrowserRouter>
