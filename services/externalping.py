@@ -49,12 +49,14 @@ while True:
                 item_link = matching_entry['link']
                 item_ping = matching_entry['ping']
                 item_ping.append(f'{ping}')
-                
+                item_timestamp = matching_entry['timestamp']
+                item_timestamp.append(f'{timestamp}')
+
                 data = {
                     "_id":item_id,
                     "link":item_link,
                     "ping":item_ping,
-                    "timestamp":timestamp
+                    "timestamp":item_timestamp
                 }
                 
                 requests.post(f"http://localhost:3024/api/externalpingdata/update/{item_id}", json=data)
