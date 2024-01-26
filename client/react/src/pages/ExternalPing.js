@@ -36,7 +36,7 @@ const ExternalPing = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:3024/api/externalping/delete/${id}`, formData);
+            const response = await axios.delete(`http://localhost:3024/api/externalping/delete/${id}`);
             console.log('Response:', response.data);
             refreshPage()
         } catch (error) {
@@ -110,20 +110,20 @@ const ExternalPing = () => {
 
 
 
-                        
+
                     </div>
                 ))}
                 {deleteData && <FloatingLabel className="form-label" label="ping name ">
-                            <Form.Control
-                                className="form-input"
-                                type="text"
-                                autoComplete="true"
-                                placeholder="ping name"
-                                onChange={(e) => setDeleteWhat(e.target.value)}
-                            />
-                        </FloatingLabel>}
-                {deleteWhat != ""  && deleteWhat == deletePing && <button onClick={()=>{handleDelete(deleteId)}}>Delete</button>}
-             
+                    <Form.Control
+                        className="form-input"
+                        type="text"
+                        autoComplete="true"
+                        placeholder="ping name"
+                        onChange={(e) => setDeleteWhat(e.target.value)}
+                    />
+                </FloatingLabel>}
+                {deleteWhat != "" && deleteWhat == deletePing && <button onClick={() => { handleDelete(deleteId) }}>Delete</button>}
+
             </div>
         </div>
     );

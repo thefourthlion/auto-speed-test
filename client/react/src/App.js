@@ -1,3 +1,4 @@
+import "./styles/ClientList.css";
 import "./styles/Navigation.css";
 import "./styles/SingleExternalPingData.css";
 import "./styles/ExternalPingData.css";
@@ -15,6 +16,7 @@ import "./styles/Chart.css";
 import "./styles/SpeedCard.css";
 import "./styles/Speeds.css";
 import "./styles/globals.css";
+import "./styles/Home.css"
 
 import React from "react";
 import Home from "./pages/Home";

@@ -85,7 +85,7 @@ const ExternalPingData = () => {
         ];
 
     return (
-        <div className="ExternalPingData page">
+        <div className="ExternalPingData">
             <div className="container">
                 <h1 className="content-header">External Pings</h1>
                 <div className="chart-container">
