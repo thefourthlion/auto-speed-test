@@ -17,7 +17,11 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/private", require("./routes/private"));
-app.use("/api/Speeds", require("./routes/Speeds"));
+app.use("/api/Speeds", require("./routes/Speeds")); 
+app.use("/api/ExternalPing", require("./routes/ExternalPing")); 
+app.use("/api/ExternalPingData", require("./routes/ExternalPingData"));
+app.use("/api/InternalPing", require("./routes/InternalPing"));
+app.use("/api/InternalPingData", require("./routes/InternalPingData"));
 
 app.use(errorHandler);
 
