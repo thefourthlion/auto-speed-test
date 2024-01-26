@@ -19,6 +19,9 @@ body p {
   color: white;
   text-align: center;
 }
+body .page {
+  padding-top: 100px;
+}
 body .green-outline-btn {
   border: 2px solid rgb(0, 55, 218);
   border-radius: 5px;

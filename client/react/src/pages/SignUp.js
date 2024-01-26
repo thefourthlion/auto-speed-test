@@ -52,7 +52,7 @@ const Register = ({ history }) => {
   };
 
   return (
-    <div>
+    <div className="SignUp page">
       <form onSubmit={registerHandler}>
         <h1>Register</h1>
         {error && <span>{error}</span>}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
+import ExternalPingData from "./ExternalPingData";
 
 const Home = () => {
   const [speeds, setSpeeds] = useState([])
@@ -22,22 +23,24 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="Home pages">
+    <div className="Home page">
       <div className="clientListContainer">
         <h3 >Client List</h3>
-        
+
         {speeds.map((item, index) => (
           <div className="clientList" key={index}>
             <a href={`client?id=${item._id}`}>
-            <p >{item.Ip}</p>
-              </a>
-              <p className="editClient" onClick={()=>{setEditClientList(!editClientList)}}>🚫</p>
+              <p >{item.Ip}</p>
+            </a>
+            <p className="editClient" onClick={() => { setEditClientList(!editClientList) }}>🚫</p>
           </div>
         ))}
-        {editClientList && <input onChange={(e)=>{setDeleteInput(e.target.value)}} type="text" placeholder="client name"/ >}
+        {editClientList && <input onChange={(e) => { setDeleteInput(e.target.value) }} type="text" placeholder="client name" />}
       </div>
 
       <p>{deleteInput}</p>
+
+      <ExternalPingData/>
     </div>
   );
 };

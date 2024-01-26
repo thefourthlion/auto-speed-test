@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Alert } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import axios from "axios"
+import ExternalPingData from "./ExternalPingData";
 
 const ExternalPing = () => {
     const [name, setName] = useState("");
@@ -61,8 +62,9 @@ const ExternalPing = () => {
     return (
         <div className="ExternalPing">
             <div className="container">
-                <h1 className="content-header">ExternalPing</h1>
+                <ExternalPingData/>
 
+                <h2>Add ping site</h2>
                 <Form  >
                     <Form.Group >
                         <FloatingLabel className="form-label" label="Website Name ">
@@ -90,7 +92,7 @@ const ExternalPing = () => {
                     <button onClick={()=>{handleSubmit()}}className="sub-btn">Submit</button>
                 </Form>
 
-                <h3>ping list</h3>
+                <h3>list of pings</h3>
                 {externalPings.map((item, index) => (
                     <div className="clientList" key={index}>
                        <a href={`${item.link}`}><p >{item.name}</p></a>
@@ -99,6 +101,8 @@ const ExternalPing = () => {
                        }}>🚫</p>
                     </div>
                 ))}
+
+               
 
             </div>
         </div>

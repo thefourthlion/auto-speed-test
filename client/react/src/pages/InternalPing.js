@@ -13,7 +13,7 @@ const InternalPing = () => {
 
 
     return (
-        <div className="InternalPing">
+        <div className="InternalPing page">
             <div className="container">
                 <h1 className="content-header">InternalPing</h1>
 

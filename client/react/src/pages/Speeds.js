@@ -117,7 +117,7 @@ const Speeds = () => {
 
 
     return (
-        <div className="Speeds">
+        <div className="Speeds page">
             <div className="container">
                 <h1 className="content-header">Speed Tests</h1>
                 {speedsData.map((speed, index) => (

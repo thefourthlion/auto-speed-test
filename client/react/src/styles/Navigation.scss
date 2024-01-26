@@ -1,0 +1,114 @@
+@import "./Variables.scss";
+
+.Navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: bold;
+  z-index: 1;
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  position: fixed;
+  width: 100vw;
+
+  a{
+    color: $teal;
+  }
+
+  .burger {
+    display: none;
+    cursor: pointer;
+  }
+  .nav-title {
+    position: relative;
+    top: 3px;
+    left: 55px;
+    display: none;
+    color: white;
+  }
+  .burger div {
+    width: 35px;
+    height: 5px;
+    border-radius: 5px;
+    background-color: white;
+    margin: 5px;
+  }
+  ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  li {
+    font-size: $md-font;
+    padding: 20px;
+    flex-direction: row;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .nav-item {
+    a:hover {
+      color: $teal;
+    }
+    a::before {
+      content: "";
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 3px;
+      top: 40px;
+      background-color: $teal;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    a:hover::before {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (max-width: 900px) {
+    z-index: 7;
+
+    box-shadow: 9px 9px 4px -6px hsla(0, 0%, 0%, 0.3);
+    position: fixed;
+    color: white ;
+    a {
+      color: white;
+    }
+    background-color: $github-gray;
+
+    height: 75px;
+    .nav-title {
+      display: block;
+    }
+
+    .nav-links {
+      background-color: $github-gray;
+      position: absolute;
+      height: calc(100vh - 75px);
+      top: 74px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.5s ease-in;
+      width: 100vw;
+    }
+
+    #nav-hidden {
+      transform: translateX(100%);
+    }
+
+    #nav-active {
+      transform: translateX(0%);
+    }
+
+    .burger {
+      display: block;
+    }
+  }
+}

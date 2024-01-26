@@ -113,7 +113,7 @@ const Ping = () => {
     };
 
     return (
-        <div className="Ping">
+        <div className="Ping page">
             <div className="container">
                 <h1 className="content-header">Ping Time</h1>
                 {speedsData.map((speed, index) => (

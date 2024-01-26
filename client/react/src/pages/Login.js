@@ -43,7 +43,7 @@ const Login = ({ history }) => {
     };
 
     return (
-        <div>
+        <div className="Login page">
             <form onSubmit={loginHandler}>
                 <h1>Login</h1>
                 {error && <span>{error}</span>}

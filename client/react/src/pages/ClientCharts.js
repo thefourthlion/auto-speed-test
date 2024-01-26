@@ -83,7 +83,7 @@ const ClientCharts = () => {
     };
 
     return (
-        <div className="ClientCharts">
+        <div className="ClientCharts page">
             <div className="container">
             <div className="speedContainer">
                 {speedsData.map((speed, index) => (
