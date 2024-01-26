@@ -8,6 +8,10 @@
   flex-direction: column;
   gap: 20px;
 }
+.ExternalPing .clientList {
+  display: flex;
+  gap: 10px;
+}
 .ExternalPing button {
   width: 250px;
   height: 50px;

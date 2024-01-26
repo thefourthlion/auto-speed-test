@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Home.css";
 import ExternalPingData from "./ExternalPingData";
-
+import trash from "../assets/trash.png"
 const Home = () => {
   const [speeds, setSpeeds] = useState([])
   const [editClientList, setEditClientList] = useState(false);
@@ -32,7 +32,10 @@ const Home = () => {
             <a href={`client?id=${item._id}`}>
               <p >{item.Ip}</p>
             </a>
-            <p className="editClient" onClick={() => { setEditClientList(!editClientList) }}>🚫</p>
+            <p className="editClient" onClick={() => { setEditClientList(!editClientList) }}>
+              <img className="trash-logo" src={trash} alt="trash can" />
+
+              </p>
           </div>
         ))}
         {editClientList && <input onChange={(e) => { setDeleteInput(e.target.value) }} type="text" placeholder="client name" />}

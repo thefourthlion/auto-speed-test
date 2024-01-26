@@ -3,10 +3,15 @@ import { Form, Alert } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import axios from "axios"
 import ExternalPingData from "./ExternalPingData";
-
+import trash from "../assets/trash.png"
 const ExternalPing = () => {
     const [name, setName] = useState("");
     const [link, setLink] = useState("");
+
+    const [deleteData, setDeleteData] = useState(false);
+    const [deleteWhat, setDeleteWhat] = useState("");
+    const [deletePing, setDeletePing] = useState("")
+    const [deleteId, setDeleteId] = useState("")
 
     const [externalPings, setExternalPings] = useState([])
     const postURL = 'http://localhost:3024/api/externalping/create';
@@ -21,7 +26,6 @@ const ExternalPing = () => {
     }
 
     const handleSubmit = async () => {
-       
         try {
             const response = await axios.post(postURL, formData);
             console.log('Response:', response.data);
@@ -52,8 +56,8 @@ const ExternalPing = () => {
 
     const refreshPage = () => {
         window.location.reload();
-      };
-    
+    };
+
 
     useEffect(() => {
         getSpeeds()
@@ -62,7 +66,7 @@ const ExternalPing = () => {
     return (
         <div className="ExternalPing">
             <div className="container">
-                <ExternalPingData/>
+                <ExternalPingData />
 
                 <h2>Add ping site</h2>
                 <Form  >
@@ -89,21 +93,37 @@ const ExternalPing = () => {
                         />
                     </FloatingLabel>
 
-                    <button onClick={()=>{handleSubmit()}}className="sub-btn">Submit</button>
+                    <button onClick={() => { handleSubmit() }} className="sub-btn">Submit</button>
                 </Form>
 
                 <h3>list of pings</h3>
                 {externalPings.map((item, index) => (
                     <div className="clientList" key={index}>
-                       <a href={`${item.link}`}><p >{item.name}</p></a>
-                       <p className="delete-btn" onClick={()=>{
-                        handleDelete(item._id)
-                       }}>🚫</p>
+                        <a href={`${item.link}`}><p >{item.name}</p></a>
+                        <p className="delete-btn" onClick={() => {
+                            setDeleteData(!deleteData)
+                            setDeletePing(item.name)
+                            setDeleteId(item._id)
+                        }}>
+                            <img className="trash-logo" src={trash} alt="trash can" />
+                        </p>
+
+
+
+                        
                     </div>
                 ))}
-
-               
-
+                {deleteData && <FloatingLabel className="form-label" label="ping name ">
+                            <Form.Control
+                                className="form-input"
+                                type="text"
+                                autoComplete="true"
+                                placeholder="ping name"
+                                onChange={(e) => setDeleteWhat(e.target.value)}
+                            />
+                        </FloatingLabel>}
+                {deleteWhat != ""  && deleteWhat == deletePing && <button onClick={()=>{handleDelete(deleteId)}}>Delete</button>}
+             
             </div>
         </div>
     );

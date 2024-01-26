@@ -1,1 +1,1 @@
-{"version":3,"sources":["ExternalPing.scss","ExternalPing.css"],"names":[],"mappings":"AAAA;EACI,kBAAA;ACCJ;ADCI;EACA,uBAAA;EACA,mBAAA;EACA,aAAA;EACA,sBAAA;EACA,SAAA;ACCJ;ADGI;EACI,YAAA;EACA,YAAA;EACA,kBAAA;ACDR;ADII;EACI,eAAA;ACFR","file":"ExternalPing.css"}
+{"version":3,"sources":["ExternalPing.scss","ExternalPing.css"],"names":[],"mappings":"AAAA;EACI,kBAAA;ACCJ;ADCI;EACA,uBAAA;EACA,mBAAA;EACA,aAAA;EACA,sBAAA;EACA,SAAA;ACCJ;ADGI;EACI,aAAA;EACA,SAAA;ACDR;ADII;EACI,YAAA;EACA,YAAA;EACA,kBAAA;ACFR;ADKI;EACI,eAAA;ACHR","file":"ExternalPing.css"}

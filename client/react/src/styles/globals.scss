@@ -13,6 +13,10 @@ body {
   }
 
   text-align: center;
+
+  a{
+    cursor: pointer;
+}
   h1,
   h2,
   h3,
@@ -57,6 +61,11 @@ body {
     border-color: $terminal-blue;
     box-shadow: none;
     outline: 0 none;
+  }
+
+  .trash-logo{
+    width: 20px;
+    height: auto;
   }
 
   textarea {
