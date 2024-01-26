@@ -128,7 +128,7 @@ const Speeds = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={YearData(speed)}
+                                data={WeekData(speed)}
                                 margin={{
                                     top: 5,
                                     right: 30,

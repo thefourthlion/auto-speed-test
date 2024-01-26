@@ -123,7 +123,7 @@ const Ping = () => {
                         <AreaChart
                               width={windowSize.current[0]}
                               height={windowSize.current[1]}
-                            data={OneYearData(speed)}
+                            data={OneWeekData(speed)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -135,7 +135,7 @@ const Ping = () => {
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
                             <Tooltip content={<PingToolTip />}/>
-                            <Area type="monotone" dataKey="Ping" stroke="#8884d8" fill="#8884d8" />
+                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <LineChart
                             className="chart"
