@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart,
+    Area,
+} from 'recharts';
 import { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
@@ -49,11 +52,61 @@ const Ping = () => {
         getSpeeds();
     }, []);
 
-    const transformpingData = (data) => {
-        return data.ping.slice(-15).map((pingValue, index) => {
+    const TwelveHourData = (data) => {
+        return data.ping.slice(-12).map((pingValue, index) => {
             const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
             return {
-                time, 
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
+
+    const OneDayData = (data) => {
+        return data.ping.slice(-24).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
+
+    const OneWeekData = (data) => {
+        return data.ping.slice(-168).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
+
+    const MonthData = (data) => {
+        return data.ping.slice(-672).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
+
+    const SixMonthData = (data) => {
+        return data.ping.slice(-4032).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
+
+    const OneYearData = (data) => {
+        return data.ping.slice(-8760).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
                 Ping: parseFloat(pingValue)
             };
         });
@@ -66,11 +119,29 @@ const Ping = () => {
                 {speedsData.map((speed, index) => (
                     <div className="chart-container" key={index}>
                         <h2 className="chart-title">{speed.name || speed.Ip}</h2>
+
+                        <AreaChart
+                              width={windowSize.current[0]}
+                              height={windowSize.current[1]}
+                            data={OneYearData(speed)}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />}/>
+                            <Area type="monotone" dataKey="Ping" stroke="#8884d8" fill="#8884d8" />
+                        </AreaChart>
                         <LineChart
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={transformpingData(speed)}
+                            data={TwelveHourData(speed)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -85,6 +156,112 @@ const Ping = () => {
                             <Legend />
                             <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
                         </LineChart>
+                        <p>12 Hour</p>
+
+                        <LineChart
+                            className="chart"
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={OneDayData(speed)}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />} />
+                            <Legend />
+                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
+                        </LineChart>
+                        <p>1 Day</p>
+
+                        <LineChart
+                            className="chart"
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={OneWeekData(speed)}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />} />
+                            <Legend />
+                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
+                        </LineChart>
+                        <p>1 Week</p>
+
+                        <LineChart
+                            className="chart"
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={MonthData(speed)}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />} />
+                            <Legend />
+                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
+                        </LineChart>
+                        <p>1 Month</p>
+
+                        <LineChart
+                            className="chart"
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={SixMonthData(speed)}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />} />
+                            <Legend />
+                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
+                        </LineChart>
+                        <p>6 Month</p>
+
+                        <LineChart
+                            className="chart"
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={OneYearData(speed)}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />} />
+                            <Legend />
+                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
+                        </LineChart>
+                        <p>1 Month</p>
                     </div>
                 ))}
             </div>
