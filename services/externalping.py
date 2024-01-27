@@ -79,4 +79,4 @@ while True:
             print(f"Failed to ping {website['name']}: {e}")
 
     # Sleep for 30 minutes (1800 seconds)
-    time.sleep(1800)
+    time.sleep(1)

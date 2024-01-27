@@ -107,9 +107,9 @@ const Register = ({ history }) => {
         </FloatingLabel>
 
         <button type="submit">Register</button>
-        <span>
+        {/* <span>
           Already have an account? <Link to="/login">Login</Link>
-        </span>
+        </span> */}
       </form>
     </div>
   );

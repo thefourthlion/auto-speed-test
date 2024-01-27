@@ -27,15 +27,18 @@ const signup = (
 };
 
 const login = (username, password) => {
+    console.log("hello")
     return axios
         .post("http://localhost:3024/api/auth/register", {
             username,
             password,
         })
         .then((response) => {
+            
             if (response.data.accessToken) {
                 localStorage.setItem("user", JSON.stringify(response.data));
             }
+            
             return response.data;
         });
 };

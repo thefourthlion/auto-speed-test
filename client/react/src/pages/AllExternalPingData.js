@@ -48,7 +48,6 @@ const AllExternalPingData = () => {
 
     function transformData(speed) {
         const data = [];
-
         if (speed && speed.ping && speed.timestamp) {
             for (let i = 0; i < speed.ping.length; i++) {
                 data.push({
@@ -57,7 +56,6 @@ const AllExternalPingData = () => {
                 });
             }
         }
-
         return data;
     }
 

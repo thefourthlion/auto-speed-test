@@ -26,7 +26,7 @@ const Login = ({ history }) => {
 
         try {
             const { data } = await axios.post(
-                "/api/auth/login",
+                "http://localhost:3024/api/auth/login",
                 { email, password },
                 config
             );
@@ -73,15 +73,15 @@ const Login = ({ history }) => {
                     />
                 </FloatingLabel>
 
-                <p>
+                {/* <p>
                     <Link to="/forgotpassword">Forgot Password?</Link>
-                </p>
+                </p> */}
 
                 <button type="submit">Login</button>
 
-                <span>
+                {/* <span>
                     Don't have an account? <Link to="/register">Register</Link>
-                </span>
+                </span> */}
             </form>
         </div>
     );
