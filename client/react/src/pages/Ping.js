@@ -120,23 +120,6 @@ const Ping = () => {
                     <div className="chart-container" key={index}>
                         <h2 className="chart-title">{speed.name || speed.Ip}</h2>
 
-                        <AreaChart
-                              width={windowSize.current[0]}
-                              height={windowSize.current[1]}
-                            data={OneWeekData(speed)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />}/>
-                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
-                        </AreaChart>
                         <LineChart
                             className="chart"
                             width={windowSize.current[0]}
@@ -179,8 +162,7 @@ const Ping = () => {
                         </LineChart>
                         <p>1 Day</p>
 
-                        <LineChart
-                            className="chart"
+                        <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
                             data={OneWeekData(speed)}
@@ -195,15 +177,13 @@ const Ping = () => {
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
                             <Tooltip content={<PingToolTip />} />
-                            <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
-                        </LineChart>
+                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                        </AreaChart>
                         <p>1 Week</p>
 
-                        <LineChart
-                            className="chart"
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
+                        <AreaChart
+                              width={windowSize.current[0]}
+                              height={windowSize.current[1]}
                             data={MonthData(speed)}
                             margin={{
                                 top: 5,
@@ -215,16 +195,14 @@ const Ping = () => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />} />
-                            <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
-                        </LineChart>
+                            <Tooltip content={<PingToolTip />}/>
+                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                        </AreaChart>
                         <p>1 Month</p>
 
-                        <LineChart
-                            className="chart"
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
+                        <AreaChart
+                              width={windowSize.current[0]}
+                              height={windowSize.current[1]}
                             data={SixMonthData(speed)}
                             margin={{
                                 top: 5,
@@ -236,16 +214,14 @@ const Ping = () => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />} />
-                            <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
-                        </LineChart>
+                            <Tooltip content={<PingToolTip />}/>
+                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                        </AreaChart>
                         <p>6 Month</p>
 
-                        <LineChart
-                            className="chart"
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
+                        <AreaChart
+                              width={windowSize.current[0]}
+                              height={windowSize.current[1]}
                             data={OneYearData(speed)}
                             margin={{
                                 top: 5,
@@ -257,10 +233,9 @@ const Ping = () => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />} />
-                            <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
-                        </LineChart>
+                            <Tooltip content={<PingToolTip />}/>
+                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                        </AreaChart>
                         <p>1 Month</p>
                     </div>
                 ))}

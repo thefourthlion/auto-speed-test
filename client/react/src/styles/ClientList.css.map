@@ -1,1 +1,1 @@
-{"version":3,"sources":[],"names":[],"mappings":"","file":"ClientList.css"}
+{"version":3,"sources":["ClientList.scss","ClientList.css"],"names":[],"mappings":"AACI;EACI,eAAA;ACAR;ADGM;EACE,aAAA;EACA,SAAA;ACDR;ADIM;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;ACFR;ADIQ;EACE,mBAAA;ACFV","file":"ClientList.css"}

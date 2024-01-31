@@ -1,1 +1,16 @@
-/*# sourceMappingURL=ClientList.css.map */
+.ClientList .editClient {
+  cursor: pointer;
+}
+.ClientList .clientList {
+  display: flex;
+  gap: 10px;
+}
+.ClientList .clientListContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ClientList .clientListContainer hr {
+  border-color: white;
+}/*# sourceMappingURL=ClientList.css.map */

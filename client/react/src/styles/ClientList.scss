@@ -1,1 +1,21 @@
-.ClientList{}
+.ClientList{
+    .editClient{
+        cursor: pointer;
+      }
+    
+      .clientList{
+        display: flex;
+        gap: 10px;
+      }
+    
+      .clientListContainer{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    
+        hr{
+          border-color: white;
+        }
+      }
+}

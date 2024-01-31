@@ -14,7 +14,7 @@ export default function Navigation() {
                 </li>
 
                 <li className="nav-item">
-                    <a className="nav-bio" href="/Client?id=65b3f33ff31b24d3d5cbe5cc">
+                    <a className="nav-bio" href="/Clients">
                         Clients
                     </a>
                 </li>

@@ -75,7 +75,6 @@ const ClientList = () => {
                     </FloatingLabel>}
                     {deleteWhat != "" && deleteWhat == deleteClient && <button onClick={() => { handleDelete(deleteId) }}>Delete</button>}
                 </div>
-                <ExternalPingData />
             </div>
         </div>
     );

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ClientList from "../components/ClientList";
- const Home = () => {
-
-
+import ExternalPingData from "./ExternalPingData"
+const Home = () => {
   return (
     <div className="Home page">
-<ClientList/>
-    </div>
-  );
-};
+        <ClientList/>
+        <ExternalPingData />
 
-export default Home;
+    </div>
+  )
+}
+
+export default Home

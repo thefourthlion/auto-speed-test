@@ -1,4 +1,6 @@
-import "./styles/AllExternalPingData.css";import "./styles/ClientList.css";
+import "./styles/Clients.css";
+import "./styles/AllExternalPingData.css";
+import "./styles/ClientList.css";
 import "./styles/Navigation.css";
 import "./styles/SingleExternalPingData.css";
 import "./styles/ExternalPingData.css";
@@ -30,6 +32,7 @@ import ExternalPingData from "./pages/ExternalPingData";
 import AllExternalPingData from "./pages/AllExternalPingData";
 import SingleExternalPingData from "./pages/SingleExternalPingData";
 import Navigation from "./components/Navigation";
+import Clients from "./pages/Clients"
 
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -39,9 +42,9 @@ const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
-      <Navigation/>
+        <Navigation />
         <Routes>
-        
+
           <Route path="/">
             <Route index element={<Home />} />
             <Route path="Home" element={<Home />} />
@@ -54,6 +57,7 @@ const App = () => {
             <Route path="SingleExternalPingData" element={<SingleExternalPingData />} />
             <Route path="ExternalPingData" element={<ExternalPingData />} />
             <Route path="AllExternalPingData" element={<AllExternalPingData />} />
+            <Route path="Clients" element={<Clients />} />
 
           </Route>
         </Routes>
