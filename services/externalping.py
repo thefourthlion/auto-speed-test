@@ -86,6 +86,6 @@ def externalping():
         except Exception as e:
             print(f"Failed to ping {website['name']}: {e}")
             
-while True:
-    externalping()
-    time.sleep(1800) 
+# while True:
+#     externalping()
+#     time.sleep(1800) 
