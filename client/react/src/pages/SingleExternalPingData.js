@@ -1,26 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-import { useRef } from 'react';
+import {
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart,
+    Area,
+} from 'recharts';import { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 const ExternalPingData = () => {
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
 
-    const [pings, setPings] = useState([]);
+    const [speeds, setSpeeds] = useState([]);
     const [searchParams] = useSearchParams();
     const id = (searchParams.get('id'));
-
-    const formatTick = (tick) => {
-        return `${tick}Mbps`;
-    };
-
-
 
     const getSpeeds = () => {
         fetch(`http://localhost:3025/api/externalpingdata/read/${id}`)
             .then((res) => res.json())
             .then((data) => {
-                setPings([data]);
+                setSpeeds([data]);
                 console.log(data);
             })
             .catch((error) => {
@@ -28,13 +24,17 @@ const ExternalPingData = () => {
             });
     };
 
-    const CustomTooltip = ({ active, payload, label }) => {
+    
+    const msTick = (tick) => {
+        return `${tick}ms`;
+    };
+
+    const PingToolTip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
-            const pingValue = payload[0].value; // Assuming the ping data is in the first payload
             return (
                 <div className="custom-tooltip" style={{ backgroundColor: 'rgb(68, 72, 81)', padding: '10px', border: '1px solid #ccc', color: "rgb(226, 228, 235)" }}>
                     <p className="label">{`${label}`}</p>
-                    <p>{`Ping Time: ${pingValue} ms`}</p>
+                    <p>{`Ping: ${payload[0].value}ms`}</p>
                 </div>
             );
         }
@@ -46,32 +46,78 @@ const ExternalPingData = () => {
         getSpeeds();
     }, []);
 
+    const TwelveHourData = (data) => {
+        return data.ping.slice(-12).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
 
-    function transformData(ping) {
-        const data = [];
-        if (ping && ping.ping && ping.timestamp) {
-            for (let i = 0; i < ping.ping.length; i++) {
-                data.push({
-                    name: ping.timestamp[i],
-                    Ping: parseFloat(ping.ping[i]),
-                });
-            }
-        }
-        return data;
-    }
+    const OneDayData = (data) => {
+        return data.ping.slice(-24).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
+
+    const OneWeekData = (data) => {
+        return data.ping.slice(-168).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
+
+    const MonthData = (data) => {
+        return data.ping.slice(-672).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
+
+    const SixMonthData = (data) => {
+        return data.ping.slice(-4032).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
+
+    const OneYearData = (data) => {
+        return data.ping.slice(-8760).map((pingValue, index) => {
+            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+            return {
+                time,
+                Ping: parseFloat(pingValue)
+            };
+        });
+    };
 
     return (
         <div className="ExternalPingData page">
             <div className="container">
                 <h1 className="content-header">Speed Test Charts</h1>
-                {pings.map((ping, index) => (
+                {speeds.map((speed, index) => (
                     <div className="chart-container" key={index}>
-                        <h2 className="chart-title">{ping.link}</h2>
+                        <h2 className="chart-title">{speed.link}</h2>
                         <LineChart
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={transformData(ping)}
+                            data={TwelveHourData(speed)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -80,11 +126,11 @@ const ExternalPingData = () => {
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
-                            <Tooltip content={<CustomTooltip />} />
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />} />
                             <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
                         </LineChart>
                         <p>12 Hour</p>
 
@@ -92,7 +138,7 @@ const ExternalPingData = () => {
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={transformData(ping)}
+                            data={OneDayData(speed)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -101,19 +147,18 @@ const ExternalPingData = () => {
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
-                            <Tooltip content={<CustomTooltip />} />
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />} />
                             <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
                         </LineChart>
-                        <p>Day</p>
+                        <p>1 Day</p>
 
-                        <LineChart
-                            className="chart"
+                        <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={transformData(ping)}
+                            data={OneWeekData(speed)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -122,19 +167,17 @@ const ExternalPingData = () => {
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#8884d8" activeDot={{ r: 8 }} />
-                        </LineChart>
-                        <p>Week</p>
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />} />
+                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                        </AreaChart>
+                        <p>1 Week</p>
 
-                        <LineChart
-                            className="chart"
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformData(ping)}
+                        <AreaChart
+                              width={windowSize.current[0]}
+                              height={windowSize.current[1]}
+                            data={MonthData(speed)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -143,19 +186,17 @@ const ExternalPingData = () => {
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#8884d8" activeDot={{ r: 8 }} />
-                        </LineChart>
-                        <p>Month</p>
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />}/>
+                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                        </AreaChart>
+                        <p>1 Month</p>
 
-                        <LineChart
-                            className="chart"
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformData(ping)}
+                        <AreaChart
+                              width={windowSize.current[0]}
+                              height={windowSize.current[1]}
+                            data={SixMonthData(speed)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -164,19 +205,17 @@ const ExternalPingData = () => {
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#8884d8" activeDot={{ r: 8 }} />
-                        </LineChart>
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />}/>
+                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                        </AreaChart>
                         <p>6 Month</p>
 
-                        <LineChart
-                            className="chart"
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformData(ping)}
+                        <AreaChart
+                              width={windowSize.current[0]}
+                              height={windowSize.current[1]}
+                            data={OneYearData(speed)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -185,12 +224,11 @@ const ExternalPingData = () => {
                             }}
                         >
                             <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#8884d8" activeDot={{ r: 8 }} />
-                        </LineChart>
+                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                            <Tooltip content={<PingToolTip />}/>
+                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                        </AreaChart>
                         <p>1 Year</p>
                     </div>
                 ))}

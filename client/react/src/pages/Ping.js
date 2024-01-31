@@ -236,7 +236,7 @@ const Ping = () => {
                             <Tooltip content={<PingToolTip />}/>
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
-                        <p>1 Month</p>
+                        <p>1 Year</p>
                     </div>
                 ))}
             </div>
