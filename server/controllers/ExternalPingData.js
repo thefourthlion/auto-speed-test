@@ -22,6 +22,16 @@ exports.readExternalPingDataFromID = async (req, res) => {
         });
     } catch (err) { console.log(err); }
 };
+
+exports.readExternalPingDataFromName = async (req, res) => {
+    try {
+        await ExternalPingData.findById({ hostname: req.params.hostname }, {}, (err, result) => {
+            if (err) { res.json({ app: err }); }
+            res.send(result);
+        });
+    } catch (err) { console.log(err); }
+};
+
 exports.updateExternalPingData = async (req, res) => {
     try {
         await ExternalPingData.findByIdAndUpdate(req.params.id, { hostname: req.body.hostname, link: req.body.link, ping: req.body.ping, timestamp: req.body.timestamp, }, (err, result) => {
