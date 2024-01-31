@@ -1,15 +1,15 @@
 import requests
 
-api_url = "http://localhost:3024/api/speeds/read"
+api_url = "http://localhost:3025/api/speeds/read"
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://localhost:3024/api/speeds/create"
+    api_url = "http://localhost:3025/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download, "upload": upload, "ping": ping, "timestamp":timestamp}
     print(data)
     response = requests.post(api_url, json=data)
     
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://localhost:3024/api/speeds/update/{id}"
+    api_url = f"http://localhost:3025/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download, "upload": upload, "ping": ping, "timestamp":timestamp}
     print(data)
     response = requests.post(api_url, json=data)

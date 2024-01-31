@@ -31,7 +31,7 @@ const Register = ({ history }) => {
 
     try {
       const { data } = await axios.post(
-        "http://localhost:3024/api/auth/register",
+        "http://localhost:3025/api/auth/register",
         {
           username,
           email,

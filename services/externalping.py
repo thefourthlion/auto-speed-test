@@ -4,25 +4,28 @@ from datetime import datetime
 import apiRequests as req
 import requests
 import pytz
+import platform
 
-# Define your list of websites
-websites = req.getData("http://localhost:3024/api/externalping/read")
-
-
-# Define the URL for the POST request to update another database
-api_url = "http://localhost:3024/api/externalpingdata/create"
-
-get_url = "http://localhost:3024/api/externalpingdata/read"
+def externalping():
+    # Define your list of websites
+    websites = req.getData("http://localhost:3025/api/externalping/read")
 
 
-#---------- get date and time -----------------------
-pst = pytz.timezone('US/Pacific')
+    # Define the URL for the POST request to update another database
+    api_url = "http://localhost:3025/api/externalpingdata/create"
 
-utc_now = datetime.now(pytz.utc)
-pst_now = utc_now.astimezone(pst)
-timestamp = pst_now.strftime('%m-%d-%Y %H:%M')
+    get_url = "http://localhost:3025/api/externalpingdata/read"
+    
 
-while True:
+    host_name = platform.node()
+
+    #---------- get date and time -----------------------
+    pst = pytz.timezone('US/Pacific')
+
+    utc_now = datetime.now(pytz.utc)
+    pst_now = utc_now.astimezone(pst)
+    timestamp = pst_now.strftime('%m-%d-%Y %H:%M')
+    
     for website in websites:
         target = website['link']
         packet_size_bytes = 32   # 32B
@@ -48,24 +51,29 @@ while True:
                 item_id = matching_entry['_id']
                 item_link = matching_entry['link']
                 item_ping = matching_entry['ping']
+                print("before ping ✅")
                 item_ping.append(f'{ping}')
+                print("ping ✅")
                 item_timestamp = matching_entry['timestamp']
                 item_timestamp.append(f'{timestamp}')
-
+                print("timestamp ✅")    
+                
                 data = {
                     "_id":item_id,
+                    "hostname":host_name,
                     "link":item_link,
                     "ping":item_ping,
                     "timestamp":item_timestamp
                 }
                 
-                requests.post(f"http://localhost:3024/api/externalpingdata/update/{item_id}", json=data)
+                requests.post(f"http://localhost:3025/api/externalpingdata/update/{item_id}", json=data)
         
         
             else:
                 print(f"Dont have data for {website['name']}")
                 # Create a data object to send in the POST request
                 data = {
+                    "hostname":host_name,
                     'link': website['name'],
                     'ping': ping,
                     'timestamp': timestamp
@@ -77,6 +85,7 @@ while True:
 
         except Exception as e:
             print(f"Failed to ping {website['name']}: {e}")
-
-    # Sleep for 30 minutes (1800 seconds)
-    time.sleep(1)
+            
+while True:
+    externalping()
+    time.sleep(1800) 

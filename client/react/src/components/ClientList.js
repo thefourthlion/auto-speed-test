@@ -31,7 +31,7 @@ const ClientList = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:3024/api/speeds/delete/${id}`);
+            const response = await axios.delete(`http://localhost:3025/api/speeds/delete/${id}`);
             console.log('Response:', response.data);
             refreshPage()
         } catch (error) {
