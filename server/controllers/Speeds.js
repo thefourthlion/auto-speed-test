@@ -47,15 +47,14 @@ exports.readSpeedsFromID = async (req, res) => {
 exports.updateSpeeds = async (req, res) => {
   try {
     await Speeds.findByIdAndUpdate(
-      req.params.id,
-      {
-        Ip: req.body.Ip,
-        name: req.body.name,
-        download: req.body.download,
-        upload: req.body.upload,
-        ping: req.body.ping,
-        timestamp: req.body.timestamp,
-      },
+      req.params.id, {
+      Ip: req.body.Ip,
+      name: req.body.name,
+      download: req.body.download,
+      upload: req.body.upload,
+      ping: req.body.ping,
+      timestamp: req.body.timestamp,
+    },
       (err, result) => {
         if (err) {
           res.json({ app: err });
