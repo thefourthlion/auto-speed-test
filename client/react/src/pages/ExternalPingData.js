@@ -5,7 +5,7 @@ import { useRef } from 'react';
 const ExternalPingData = () => {
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
 
-    const [speeds, setSpeeds] = useState([]);
+    const [pingdata, setpingdata] = useState([]);
 
     const formatTick = (tick) => {
         return `${tick} ms`;
@@ -15,7 +15,7 @@ const ExternalPingData = () => {
         fetch("http://localhost:3025/api/externalpingdata/read")
             .then((res) => res.json())
             .then((data) => {
-                setSpeeds(data);
+                setpingdata(data);
             })
             .catch((error) => {
                 console.error("Error fetching data: ", error);
@@ -31,15 +31,15 @@ const ExternalPingData = () => {
         const data = [];
 
         // Assuming all sites have the same timestamps (you may need to adjust this logic)
-        if (speeds.length > 0 && speeds[0].timestamp) {
-            const totalTimestamps = speeds[0].timestamp.length;
+        if (pingdata.length > 0 && pingdata[0].timestamp) {
+            const totalTimestamps = pingdata[0].timestamp.length;
             const startIndex = Math.max(totalTimestamps - maxDataPoints, 0);
 
             for (let i = startIndex; i < totalTimestamps; i++) {
-                const timestamp = speeds[0].timestamp[i];
+                const timestamp = pingdata[0].timestamp[i];
                 const pingData = {};
 
-                speeds.forEach((speed, index) => {
+                pingdata.forEach((speed, index) => {
                     pingData[`${speed.link}`] = parseFloat(speed.ping[i]);
                 });
 
@@ -74,14 +74,11 @@ const ExternalPingData = () => {
         return null;
     };
 
-    // Define an array of custom colors for lines
     const lineColors = [
         "#8884d8",
         "#82ca9d",
         "#FA4D8A",
         "#D98E32"
-
-        // Add more colors as needed
     ];
 
     return (
@@ -107,7 +104,7 @@ const ExternalPingData = () => {
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
                             <Tooltip content={customTooltip} />
                             <Legend />
-                            {speeds.map((speed, index) => (
+                            {pingdata.map((speed, index) => (
                                 <Line
                                     type="monotone"
                                     dataKey={`${speed.link}`}

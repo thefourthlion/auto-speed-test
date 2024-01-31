@@ -25,7 +25,7 @@ exports.readExternalPingDataFromID = async (req, res) => {
 
 exports.readExternalPingDataFromName = async (req, res) => {
     try {
-        await ExternalPingData.findById({ hostname: req.params.hostname }, {}, (err, result) => {
+        await ExternalPingData.find({ hostname: req.params.hostname }, {}, (err, result) => {
             if (err) { res.json({ app: err }); }
             res.send(result);
         });
