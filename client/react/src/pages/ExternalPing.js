@@ -66,11 +66,11 @@ const ExternalPing = () => {
     }, [])
 
     return (
-        <div className="ExternalPing page">
+        <div className="ExternalPing">
             <div className="container">
-                <ExternalPingData />
+                {/* <ExternalPingData /> */}
 
-                <h2>Add ping site</h2>
+                <h2>Add a site to ping list</h2>
                 <Form  >
                     <Form.Group >
                         <FloatingLabel className="form-label" label="Website Name ">
@@ -98,7 +98,7 @@ const ExternalPing = () => {
                     <Button onClick={() => { handleSubmit() }} className="sub-btn">Submit</Button>
                 </Form>
 
-                <h3>list of pings</h3>
+                <h2>List of sites to ping</h2>
                 {externalPings.map((item, index) => (
                     <div className="clientList" key={index}>
                         <a href={`${item.link}`}><p >{item.name}</p></a>

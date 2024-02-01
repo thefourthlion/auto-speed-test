@@ -48,7 +48,7 @@ const ClientList = () => {
         <div className="ClientList">
             <div className="container">
                 <div className="clientListContainer">
-                    <h3 >Client List</h3>
+                    <h2 >Client List</h2>
 
                     {speeds.map((item, index) => (
                         <div className="clientList" key={index}>

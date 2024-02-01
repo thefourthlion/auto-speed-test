@@ -20,14 +20,14 @@ export default function Navigation() {
                     </a>
                 </li>
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                     <a className="nav-tech" href="./externalping">
                         Ext pings
                     </a>
-                </li>
+                </li> */}
 
                 <li className="nav-item">
-                    <a className="nav-tech" href="./externalping">
+                    <a className="nav-tech" href="/Admin">
                         Admin
                     </a>
                 </li>

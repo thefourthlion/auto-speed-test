@@ -1,0 +1,33 @@
+.Admin .form-container {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.Admin .form-container .clients-header {
+  width: 210px !important;
+}
+.Admin .form-container .ping-header {
+  width: 260px;
+}
+.Admin .form-container .packages-header {
+  width: 240px;
+}
+.Admin .form-container .form-header:hover {
+  color: rgb(14, 116, 116);
+}
+.Admin .form-container .form-header::before {
+  content: "";
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 3px;
+  top: 45px;
+  background-color: rgb(14, 116, 116);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+.Admin .form-container .form-header:hover::before {
+  transform: scaleX(1);
+}/*# sourceMappingURL=Admin.css.map */

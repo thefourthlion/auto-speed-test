@@ -6,7 +6,6 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 20px;
 }
 .ExternalPing .clientList {
   display: flex;
@@ -15,6 +14,7 @@
 .ExternalPing button {
   width: 250px;
   height: 50px;
+  margin-bottom: 25px;
 }
 .ExternalPing .delete-btn {
   cursor: pointer;

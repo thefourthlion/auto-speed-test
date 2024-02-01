@@ -6,7 +6,6 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 20px;
   }
 
   .clientList {
@@ -17,6 +16,7 @@
   button {
     width: 250px;
     height: 50px;
+    margin-bottom: 25px;
   }
 
   .delete-btn {
