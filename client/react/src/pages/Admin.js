@@ -5,11 +5,13 @@ import ExternalPing from "./ExternalPing";
 import ClientList from "../components/ClientList";
 import Packages from "../components/Packages";
 import Groups from "../components/Groups";
+import SignUp from "./SignUp";
+
 const Admin = () => {
     const [showExternalPings, setShowExternalPings] = useState(false);
     const [showClients, setShowClients] = useState(false);
     const [showPackages, setShowPackages] = useState(false);
-    const [showUsers, setShowUsers] = useState(false);
+    const [showSignUp, setShowSignUp] = useState(false);
     const [showEmails, setShowEmails] = useState(false);
     const [showGroups, setShowGroups] = useState(false);
     return (
@@ -27,13 +29,18 @@ const Admin = () => {
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header packages-header" onClick={()=>{setShowPackages(!showPackages)}}>Set Packages</h1>
+                    <h1 className="form-header packages-header" onClick={()=>{setShowPackages(!showPackages)}}>Edit Packages</h1>
                     {showPackages && <Packages />}
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header packages-header" onClick={()=>{setShowGroups(!showGroups)}}>Set Groups</h1>
+                    <h1 className="form-header groups-header" onClick={()=>{setShowGroups(!showGroups)}}>Edit Groups</h1>
                     {showGroups && <Groups />}
+                </div>
+
+                <div className="form-container">
+                    <h1 className="form-header user-header" onClick={()=>{setShowSignUp(!showSignUp)}}>Add User</h1>
+                    {showSignUp && <SignUp />}
                 </div>
 
 

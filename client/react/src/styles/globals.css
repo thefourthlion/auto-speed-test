@@ -59,12 +59,19 @@ body .form-input:focus {
 }
 body .trash-logo {
   width: 20px;
-  height: auto;
+  height: 24px;
+  cursor: pointer;
 }
 body .pkg-logo {
-  margin-top: 2px;
-  width: 20px;
-  height: 23px;
+  width: 23px;
+  height: 25px;
+  cursor: pointer;
+}
+body .group-logo {
+  width: 23px;
+  height: 25px;
+  cursor: pointer;
+  back: red;
 }
 body textarea {
   border-radius: 5px;

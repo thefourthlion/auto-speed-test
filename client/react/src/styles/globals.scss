@@ -71,13 +71,23 @@ body {
 
   .trash-logo {
     width: 20px;
-    height: auto;
+    height: 24px;
+    cursor: pointer;
   }
 
   .pkg-logo {
-    margin-top: 2px;
-    width: 20px;
-    height: 23px;
+    // margin-top: 2px;
+    width: 23px;
+    height: 25px;
+    cursor: pointer;
+  }
+
+  .group-logo {
+    // margin-top: 2px;
+    width: 23px;
+    height: 25px;
+    cursor: pointer;
+    back: red;
   }
 
   textarea {

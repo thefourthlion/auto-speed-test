@@ -1,1 +1,1 @@
-{"version":3,"sources":["ClientList.scss","ClientList.css"],"names":[],"mappings":"AACE;EACE,eAAA;ACAJ;ADGE;EACE,aAAA;EACA,SAAA;ACDJ;ADIE;EACE,YAAA;EACA,YAAA;ACFJ;ADKE;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;ACHJ;ADKI;EACE,mBAAA;ACHN","file":"ClientList.css"}
+{"version":3,"sources":["ClientList.scss","ClientList.css"],"names":[],"mappings":"AACE;EACE,eAAA;ACAJ;ADGE;EACE,aAAA;EACA,SAAA;ACDJ;ADIE;EACE,kBAAA;EACA,WAAA;ACFJ;ADKE;EACE,YAAA;EACA,YAAA;ACHJ;ADME;EACE,gBAAA;ACJJ;ADOE;EACE,aAAA;EACA,sBAAA;EACA,mBAAA;EACA,uBAAA;ACLJ;ADOI;EACE,mBAAA;ACLN","file":"ClientList.css"}

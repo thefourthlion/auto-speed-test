@@ -19,7 +19,8 @@ const ClientList = () => {
 
     const [editPackage, setEditPackage] = useState(false);
     const [editGroup, setEditGroup] = useState(false);
-
+    const [groups, setGroups] = useState([])
+    const [chosenGroup, setChosenGroup] = useState("")
 
     const [packages, setpackages] = useState([])
     const [chosenSpeed, setChosenSpeed] = useState("")
@@ -52,6 +53,17 @@ const ClientList = () => {
             });
     };
 
+    const getGroupData = () => {
+        fetch("http://localhost:3025/api/groups/read")
+            .then((res) => res.json())
+            .then((data) => {
+                setGroups(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data: ", error);
+            });
+    };
+
     const updateClientpackage = async (id) => {
         try {
             const response = await axios.post(`http://localhost:3025/api/speeds/update/${id}`, { package: chosenSpeed });
@@ -61,6 +73,18 @@ const ClientList = () => {
             console.error('Error:', error);
         }
     };
+
+    const updateClientGroup = async (id) => {
+        try {
+            const response = await axios.post(`http://localhost:3025/api/speeds/update/${id}`, { group: chosenGroup });
+            console.log(response.data)
+            refreshPage()
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+
 
 
     const handleDelete = async (id) => {
@@ -76,6 +100,7 @@ const ClientList = () => {
     useEffect(() => {
         getData();
         getpackageData()
+        getGroupData()
     }, []);
 
     return (
@@ -87,19 +112,24 @@ const ClientList = () => {
                     {speeds.map((item, index) => (
                         <div className="clientList" key={index}>
                             <a href={`client?id=${item._id}`}>
-                                <p >{item.Ip}</p>
+                                <h4>{item.Ip}</h4>
                             </a>
-                            <p className="editClient" onClick={() => {
+
+                            <img className="trash-logo" src={trash} alt="delete-icon" onClick={() => {
                                 setEditClientList(!editClientList)
                                 setDeleteId(item._id)
                                 setDeleteClient(item.Ip)
-                            }}>
-                                <img className="trash-logo" src={trash} alt="trash can" />
-                            </p>
+                            }} />
 
-                            <img className="pkg-logo" src={pkg} onClick={() => { setEditPackage(!editPackage); setEditId(item._id); }} />
+                            <img className="pkg-logo" src={pkg} alt="package-icon" onClick={() => {
+                                setEditPackage(!editPackage);
+                                setEditId(item._id);
+                            }} />
 
-                            <img className="pkg-logo" src={group} onClick={() => { setEditGroup(!editGroup); setEditId(item._id); }} />
+                            <img className="group-logo" src={group} alt="group-icon" onClick={() => {
+                                setEditGroup(!editGroup);
+                                setEditId(item._id);
+                            }} />
 
                         </div>
                     ))}
@@ -120,21 +150,23 @@ const ClientList = () => {
 
                     {editGroup && <Dropdown>
                         <Dropdown.Toggle id="dropdown-basic">
-                            Packages
+                            Groups
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            {packages.map((item, index) => (
+                            {groups.map((item, index) => (
                                 <div>
-                                    <Dropdown.Item onClick={() => { setChosenSpeed(`${item.download} x ${item.upload}`); }}>{item.download}Mbps x {item.upload}Mbps</Dropdown.Item>
+                                    <Dropdown.Item onClick={() => { setChosenGroup(`${item.name}`); }}>{item.name}</Dropdown.Item>
 
                                 </div>
                             ))}
                         </Dropdown.Menu>
                     </Dropdown>}
 
-                    {chosenSpeed && <button onClick={() => { updateClientpackage(editId) }}>Submit</button>}
+                    {chosenSpeed && <Button className="update-btn" onClick={() => { updateClientpackage(editId) }}>Submit</Button>}
 
-                    <h1>{chosenSpeed}</h1>
+                    {chosenGroup && <Button className="update-btn" onClick={() => { updateClientGroup(editId) }}>Submit</Button>}
+
+
 
                     {editClientList && <FloatingLabel className="form-label" label="client name ">
                         <Form.Control

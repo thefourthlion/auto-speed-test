@@ -53,9 +53,9 @@ const Register = ({ history }) => {
   };
 
   return (
-    <div className="SignUp page">
+    <div className="SignUp">
       <form onSubmit={registerHandler}>
-        <h1>Register</h1>
+        <h1>Register User</h1>
         {error && <span>{error}</span>}
         <FloatingLabel className="form-label" label="Enter username">
           <Form.Control

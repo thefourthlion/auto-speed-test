@@ -5,9 +5,16 @@
   display: flex;
   gap: 10px;
 }
+.ClientList h4 {
+  position: relative;
+  bottom: 4px;
+}
 .ClientList button {
   width: 250px;
   height: 50px;
+}
+.ClientList .update-btn {
+  margin-top: 15px;
 }
 .ClientList .clientListContainer {
   display: flex;
