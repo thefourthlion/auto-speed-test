@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ExternalPingData from "../pages/ExternalPingData";
 import trash from "../assets/trash.png"
+import pkg from "../assets/pkg.png"
+import group from "../assets/group.png"
 import { Form, Alert } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import axios from "axios"
 import Button from 'react-bootstrap/Button';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const ClientList = () => {
     const [speeds, setSpeeds] = useState([])
@@ -13,6 +16,14 @@ const ClientList = () => {
     const [deleteWhat, setDeleteWhat] = useState("");
     const [deleteClient, setDeleteClient] = useState("")
     const [deleteId, setDeleteId] = useState("")
+
+    const [editPackage, setEditPackage] = useState(false);
+    const [editGroup, setEditGroup] = useState(false);
+
+
+    const [packages, setpackages] = useState([])
+    const [chosenSpeed, setChosenSpeed] = useState("")
+    const [editId, setEditId] = useState("")
 
     const refreshPage = () => {
         window.location.reload();
@@ -30,6 +41,28 @@ const ClientList = () => {
             });
     };
 
+    const getpackageData = () => {
+        fetch("http://localhost:3025/api/packages/read")
+            .then((res) => res.json())
+            .then((data) => {
+                setpackages(data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data: ", error);
+            });
+    };
+
+    const updateClientpackage = async (id) => {
+        try {
+            const response = await axios.post(`http://localhost:3025/api/speeds/update/${id}`, { package: chosenSpeed });
+            console.log(response.data)
+            refreshPage()
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+
     const handleDelete = async (id) => {
         try {
             const response = await axios.delete(`http://localhost:3025/api/speeds/delete/${id}`);
@@ -42,6 +75,7 @@ const ClientList = () => {
 
     useEffect(() => {
         getData();
+        getpackageData()
     }, []);
 
     return (
@@ -62,8 +96,45 @@ const ClientList = () => {
                             }}>
                                 <img className="trash-logo" src={trash} alt="trash can" />
                             </p>
+
+                            <img className="pkg-logo" src={pkg} onClick={() => { setEditPackage(!editPackage); setEditId(item._id); }} />
+
+                            <img className="pkg-logo" src={group} onClick={() => { setEditGroup(!editGroup); setEditId(item._id); }} />
+
                         </div>
                     ))}
+
+                    {editPackage && <Dropdown>
+                        <Dropdown.Toggle id="dropdown-basic">
+                            Packages
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {packages.map((item, index) => (
+                                <div>
+                                    <Dropdown.Item onClick={() => { setChosenSpeed(`${item.download} x ${item.upload}`); }}>{item.download}Mbps x {item.upload}Mbps</Dropdown.Item>
+
+                                </div>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>}
+
+                    {editGroup && <Dropdown>
+                        <Dropdown.Toggle id="dropdown-basic">
+                            Packages
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            {packages.map((item, index) => (
+                                <div>
+                                    <Dropdown.Item onClick={() => { setChosenSpeed(`${item.download} x ${item.upload}`); }}>{item.download}Mbps x {item.upload}Mbps</Dropdown.Item>
+
+                                </div>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>}
+
+                    {chosenSpeed && <button onClick={() => { updateClientpackage(editId) }}>Submit</button>}
+
+                    <h1>{chosenSpeed}</h1>
 
                     {editClientList && <FloatingLabel className="form-label" label="client name ">
                         <Form.Control
@@ -74,6 +145,7 @@ const ClientList = () => {
                             onChange={(e) => setDeleteWhat(e.target.value)}
                         />
                     </FloatingLabel>}
+
                     {deleteWhat != "" && deleteWhat == deleteClient && <Button variant="danger" onClick={() => { handleDelete(deleteId) }}>Delete</Button>}
                 </div>
             </div>

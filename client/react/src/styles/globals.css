@@ -61,6 +61,11 @@ body .trash-logo {
   width: 20px;
   height: auto;
 }
+body .pkg-logo {
+  margin-top: 2px;
+  width: 20px;
+  height: 23px;
+}
 body textarea {
   border-radius: 5px;
   border-color: lightgray;

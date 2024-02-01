@@ -5,11 +5,15 @@ import trash from "../assets/trash.png"
 
 import axios from "axios"
 const Packages = () => {
-    const [speed, setSpeed] = useState("");
+ 
     const [packages, setPackages] = useState([]);
 
+    const [downloadSpeed, setDownloadSpeed] = useState("")
+    const [uploadSpeed, setUploadSpeed] = useState("")
+
     const data = {
-        Speeds: speed
+        download: downloadSpeed,
+        upload:uploadSpeed
     }
 
     const getData = async () => {
@@ -54,13 +58,25 @@ const Packages = () => {
 
                 <Form  >
                     <Form.Group >
-                        <FloatingLabel className="form-label" label="Package Speed (Mbps)">
+                        <FloatingLabel className="form-label" label="Download Speed (Mbps)">
                             <Form.Control
                                 className="form-input"
                                 type="text"
                                 autoComplete="true"
-                                placeholder="Package Speed (Mbps)"
-                                onChange={(e) => setSpeed(e.target.value)}
+                                placeholder="Download Speed (Mbps)"
+                                onChange={(e) => setDownloadSpeed(e.target.value)}
+                            />
+                        </FloatingLabel>
+                    </Form.Group>
+
+                    <Form.Group >
+                        <FloatingLabel className="form-label" label="Upload Speed (Mbps)">
+                            <Form.Control
+                                className="form-input"
+                                type="text"
+                                autoComplete="true"
+                                placeholder="Upload Speed (Mbps)"
+                                onChange={(e) => setUploadSpeed(e.target.value)}
                             />
                         </FloatingLabel>
                     </Form.Group>
@@ -72,7 +88,7 @@ const Packages = () => {
                     <div>
                         <h2>Current Packages</h2>
                         {packages.map((item, index) => (
-                            <p >{item.Speeds} Mbps <img className="trash-logo" src={trash} onClick={() => { deleteItem(item._id) }}/></p>
+                            <p >{item.download}Mbps x {item.upload}Mbps <img className="trash-logo" src={trash} onClick={() => { deleteItem(item._id) }}/></p>
                         ))}
                     </div>
                 }

@@ -4,6 +4,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import ExternalPing from "./ExternalPing";
 import ClientList from "../components/ClientList";
 import Packages from "../components/Packages";
+import Groups from "../components/Groups";
 const Admin = () => {
     const [showExternalPings, setShowExternalPings] = useState(false);
     const [showClients, setShowClients] = useState(false);
@@ -29,6 +30,15 @@ const Admin = () => {
                     <h1 className="form-header packages-header" onClick={()=>{setShowPackages(!showPackages)}}>Set Packages</h1>
                     {showPackages && <Packages />}
                 </div>
+
+                <div className="form-container">
+                    <h1 className="form-header packages-header" onClick={()=>{setShowGroups(!showGroups)}}>Set Groups</h1>
+                    {showGroups && <Groups />}
+                </div>
+
+
+
+                
 
                 {/* <Form  >
                     <Form.Group >
