@@ -49,72 +49,25 @@ const Speeds = () => {
         getSpeeds();
     }, []);
 
-    const TwelveHourData = (speed) => {
-        return speed.download.slice(-12).map((downloadValue, index) => {
-            const time = speed.timestamp[index] ? speed.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+    const transformSpeedData = (data, maxDataPoints) => {
+        const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
+
+        return data.timestamp.slice(startIndex).map((timestamp, index) => {
+            const time = timestamp.split(' ')[1];
             return {
                 name: time,
-                Download: parseFloat(downloadValue),
-                Upload: parseFloat(speed.upload[index])
+                Download: parseFloat(data.download[startIndex + index]),
+                Upload: parseFloat(data.upload[startIndex + index])
             };
         });
     };
 
-    const OneDayData = (speed) => {
-        return speed.download.slice(-24).map((downloadValue, index) => {
-            const time = speed.timestamp[index] ? speed.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                name: time,
-                Download: parseFloat(downloadValue),
-                Upload: parseFloat(speed.upload[index])
-            };
-        });
-    };
-
-    const WeekData = (speed) => {
-        return speed.download.slice(-168).map((downloadValue, index) => {
-            const time = speed.timestamp[index] ? speed.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                name: time,
-                Download: parseFloat(downloadValue),
-                Upload: parseFloat(speed.upload[index])
-            };
-        });
-    };
-
-    const MonthData = (speed) => {
-        return speed.download.slice(-672).map((downloadValue, index) => {
-            const time = speed.timestamp[index] ? speed.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                name: time,
-                Download: parseFloat(downloadValue),
-                Upload: parseFloat(speed.upload[index])
-            };
-        });
-    };
-
-    const SixMonthData = (speed) => {
-        return speed.download.slice(-4032).map((downloadValue, index) => {
-            const time = speed.timestamp[index] ? speed.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                name: time,
-                Download: parseFloat(downloadValue),
-                Upload: parseFloat(speed.upload[index])
-            };
-        });
-    };
-
-    const YearData = (speed) => {
-        return speed.download.slice(-8760).map((downloadValue, index) => {
-            const time = speed.timestamp[index] ? speed.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                name: time,
-                Download: parseFloat(downloadValue),
-                Upload: parseFloat(speed.upload[index])
-            };
-        });
-    };
-
+    const twelveHours = 12;
+    const oneDay = 24;
+    const oneWeek = 168;
+    const oneMonth = 672;
+    const sixMonth = 4032;
+    const oneYear = 8760;
 
     return (
         <div className="Speeds page">
@@ -128,7 +81,7 @@ const Speeds = () => {
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={TwelveHourData(speed)}
+                            data={transformSpeedData(speed, twelveHours)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -151,7 +104,7 @@ const Speeds = () => {
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={OneDayData(speed)}
+                            data={transformSpeedData(speed, oneDay)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -173,7 +126,7 @@ const Speeds = () => {
                         <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={WeekData(speed)}
+                            data={transformSpeedData(speed, oneWeek)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -193,7 +146,7 @@ const Speeds = () => {
                         <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={MonthData(speed)}
+                            data={transformSpeedData(speed, oneMonth)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -213,7 +166,7 @@ const Speeds = () => {
                         <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={SixMonthData(speed)}
+                            data={transformSpeedData(speed, sixMonth)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -234,7 +187,7 @@ const Speeds = () => {
                         <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={YearData(speed)}
+                            data={transformSpeedData(speed, oneYear)}
                             margin={{
                                 top: 5,
                                 right: 30,

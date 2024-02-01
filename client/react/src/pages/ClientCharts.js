@@ -81,28 +81,6 @@ const ClientCharts = () => {
         return null;
     };
 
-    const transformSpeedData = (speed) => {
-        return speed.download.slice(-15).map((downloadValue, index) => {
-            const time = speed.timestamp[index] ? speed.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                name: time,
-                Download: parseFloat(downloadValue),
-                Upload: parseFloat(speed.upload[index])
-            };
-        });
-    };
-
-    const transformpingData = (data) => {
-        return data.ping.slice(-15).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
-
-
     const customTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (
@@ -125,8 +103,32 @@ const ClientCharts = () => {
         "#D98E32"
     ];
 
+    const transformSpeedData = (data, maxDataPoints) => {
+        const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
+        return data.timestamp.slice(startIndex).map((timestamp, index) => {
+            const time = timestamp.split(' ')[1];
+            return {
+                name: time,
+                Download: parseFloat(data.download[startIndex + index]),
+                Upload: parseFloat(data.upload[startIndex + index])
+            };
+        });
+    };
 
-    const transformpingdata = (maxDataPoints) => {
+    const transformPingData = (data, maxDataPoints) => {
+        const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
+        return data.timestamp.slice(startIndex).map((timestamp, index) => {
+            const time = timestamp.split(' ')[1];
+            return {
+                time,
+                Ping: parseFloat(data.ping[startIndex + index]),
+                Download: parseFloat(data.download[startIndex + index]),
+                Upload: parseFloat(data.upload[startIndex + index])
+            };
+        });
+    };
+
+    const transformExternalPingData = (maxDataPoints) => {
         const data = [];
         if (pingdata.length > 0 && pingdata[0].timestamp) {
             const totalTimestamps = pingdata[0].timestamp.length;
@@ -147,6 +149,9 @@ const ClientCharts = () => {
         return data;
     };
 
+    const twelveHours = 12;
+
+
 
     return (
         <div className="ClientCharts page">
@@ -161,7 +166,7 @@ const ClientCharts = () => {
                                     className="chart"
                                     width={windowSize.current[0]}
                                     height={windowSize.current[1]}
-                                    data={transformSpeedData(speed)}
+                                    data={transformSpeedData(speed, twelveHours)}
                                     margin={{
                                         top: 5,
                                         right: 30,
@@ -189,7 +194,7 @@ const ClientCharts = () => {
                                     className="chart"
                                     width={windowSize.current[0]}
                                     height={windowSize.current[1]}
-                                    data={transformpingData(speed)}
+                                    data={transformPingData(speed, twelveHours)}
                                     margin={{
                                         top: 5,
                                         right: 30,
@@ -219,7 +224,7 @@ const ClientCharts = () => {
                                     className="chart"
                                     width={windowSize.current[0]}
                                     height={windowSize.current[1]}
-                                    data={transformpingdata(12)}
+                                    data={transformExternalPingData(twelveHours)}
                                     margin={{
                                         top: 5,
                                         right: 30,

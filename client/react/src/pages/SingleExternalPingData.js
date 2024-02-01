@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, AreaChart,
     Area,
-} from 'recharts';import { useRef } from 'react';
+} from 'recharts'; import { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 const ExternalPingData = () => {
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
 
-    const [speeds, setSpeeds] = useState([]);
+    const [pingdata, setpingdata] = useState([]);
     const [searchParams] = useSearchParams();
     const id = (searchParams.get('id'));
 
@@ -16,7 +16,7 @@ const ExternalPingData = () => {
         fetch(`http://localhost:3025/api/externalpingdata/read/${id}`)
             .then((res) => res.json())
             .then((data) => {
-                setSpeeds([data]);
+                setpingdata([data]);
                 console.log(data);
             })
             .catch((error) => {
@@ -24,7 +24,7 @@ const ExternalPingData = () => {
             });
     };
 
-    
+
     const msTick = (tick) => {
         return `${tick}ms`;
     };
@@ -46,78 +46,39 @@ const ExternalPingData = () => {
         getSpeeds();
     }, []);
 
-    const TwelveHourData = (data) => {
-        return data.ping.slice(-12).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+
+    const transformExternalPingData = (data, maxDataPoints) => {
+        const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
+
+        return data.timestamp.slice(startIndex).map((timestamp, index) => {
+            const time = timestamp.split(' ')[1];
             return {
                 time,
-                Ping: parseFloat(pingValue)
+                Ping: parseFloat(data.ping[startIndex + index])
             };
         });
     };
 
-    const OneDayData = (data) => {
-        return data.ping.slice(-24).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
 
-    const OneWeekData = (data) => {
-        return data.ping.slice(-168).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
-
-    const MonthData = (data) => {
-        return data.ping.slice(-672).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
-
-    const SixMonthData = (data) => {
-        return data.ping.slice(-4032).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
-
-    const OneYearData = (data) => {
-        return data.ping.slice(-8760).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
+    const twelveHours = 12;
+    const oneDay = 24;
+    const oneWeek = 168;
+    const oneMonth = 672;
+    const sixMonth = 4032;
+    const oneYear = 8760;
 
     return (
         <div className="ExternalPingData page">
             <div className="container">
                 <h1 className="content-header">Speed Test Charts</h1>
-                {speeds.map((speed, index) => (
+                {pingdata.map((speed, index) => (
                     <div className="chart-container" key={index}>
                         <h2 className="chart-title">{speed.link}</h2>
                         <LineChart
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={TwelveHourData(speed)}
+                            data={transformExternalPingData(speed, twelveHours)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -138,7 +99,7 @@ const ExternalPingData = () => {
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={OneDayData(speed)}
+                            data={transformExternalPingData(speed, oneDay)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -158,7 +119,7 @@ const ExternalPingData = () => {
                         <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={OneWeekData(speed)}
+                            data={transformExternalPingData(speed, oneWeek)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -175,9 +136,9 @@ const ExternalPingData = () => {
                         <p>1 Week</p>
 
                         <AreaChart
-                              width={windowSize.current[0]}
-                              height={windowSize.current[1]}
-                            data={MonthData(speed)}
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={transformExternalPingData(speed, oneMonth)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -188,15 +149,15 @@ const ExternalPingData = () => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />}/>
+                            <Tooltip content={<PingToolTip />} />
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <p>1 Month</p>
 
                         <AreaChart
-                              width={windowSize.current[0]}
-                              height={windowSize.current[1]}
-                            data={SixMonthData(speed)}
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={transformExternalPingData(speed, sixMonth)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -207,15 +168,15 @@ const ExternalPingData = () => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />}/>
+                            <Tooltip content={<PingToolTip />} />
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <p>6 Month</p>
 
                         <AreaChart
-                              width={windowSize.current[0]}
-                              height={windowSize.current[1]}
-                            data={OneYearData(speed)}
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={transformExternalPingData(speed, oneYear)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -226,7 +187,7 @@ const ExternalPingData = () => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />}/>
+                            <Tooltip content={<PingToolTip />} />
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <p>1 Year</p>

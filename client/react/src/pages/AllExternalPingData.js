@@ -15,8 +15,6 @@ const AllExternalPingData = () => {
         return `${tick} ms`;
     };
 
-
-
     const getSpeeds = () => {
         fetch(`http://localhost:3025/api/externalpingdata/read/name/${hostname}`)
             .then((res) => res.json())
@@ -49,15 +47,20 @@ const AllExternalPingData = () => {
     }, []);
 
 
-    const transformData = (data) => {
-        return data.ping.slice(-12).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+    const transformExternalPingData = (data, maxDataPoints) => {
+        const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
+
+        return data.timestamp.slice(startIndex).map((timestamp, index) => {
+            const time = timestamp.split(' ')[1];
             return {
                 time,
-                Ping: parseFloat(pingValue)
+                Ping: parseFloat(data.ping[startIndex + index])
             };
         });
     };
+
+
+    const twelveHours = 12;
 
     return (
         <div className="AllExternalPingData page">
@@ -72,7 +75,7 @@ const AllExternalPingData = () => {
                                 className="chart"
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformData(speed)}
+                                data={transformExternalPingData(speed, twelveHours)}
                                 margin={{
                                     top: 5,
                                     right: 30,

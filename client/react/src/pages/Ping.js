@@ -52,65 +52,26 @@ const Ping = () => {
         getSpeeds();
     }, []);
 
-    const TwelveHourData = (data) => {
-        return data.ping.slice(-12).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
+    const transformPingData = (data, maxDataPoints) => {
+        const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
+
+        return data.timestamp.slice(startIndex).map((timestamp, index) => {
+            const time = timestamp.split(' ')[1];
             return {
                 time,
-                Ping: parseFloat(pingValue)
+                Ping: parseFloat(data.ping[startIndex + index]),
+                Download: parseFloat(data.download[startIndex + index]),
+                Upload: parseFloat(data.upload[startIndex + index])
             };
         });
     };
 
-    const OneDayData = (data) => {
-        return data.ping.slice(-24).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
-
-    const OneWeekData = (data) => {
-        return data.ping.slice(-168).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
-
-    const MonthData = (data) => {
-        return data.ping.slice(-672).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
-
-    const SixMonthData = (data) => {
-        return data.ping.slice(-4032).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
-
-    const OneYearData = (data) => {
-        return data.ping.slice(-8760).map((pingValue, index) => {
-            const time = data.timestamp[index] ? data.timestamp[index].split(' ')[1] : `Test ${index + 1}`;
-            return {
-                time,
-                Ping: parseFloat(pingValue)
-            };
-        });
-    };
+    const twelveHours = 12;
+    const oneDay = 24;
+    const oneWeek = 168;
+    const oneMonth = 672;
+    const sixMonth = 4032;
+    const oneYear = 8760;
 
     return (
         <div className="Ping page">
@@ -124,7 +85,7 @@ const Ping = () => {
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={TwelveHourData(speed)}
+                            data={transformPingData(speed, twelveHours)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -145,7 +106,7 @@ const Ping = () => {
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={OneDayData(speed)}
+                            data={transformPingData(speed, oneDay)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -165,7 +126,7 @@ const Ping = () => {
                         <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={OneWeekData(speed)}
+                            data={transformPingData(speed, oneWeek)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -182,9 +143,9 @@ const Ping = () => {
                         <p>1 Week</p>
 
                         <AreaChart
-                              width={windowSize.current[0]}
-                              height={windowSize.current[1]}
-                            data={MonthData(speed)}
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={transformPingData(speed, oneMonth)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -195,15 +156,15 @@ const Ping = () => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />}/>
+                            <Tooltip content={<PingToolTip />} />
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <p>1 Month</p>
 
                         <AreaChart
-                              width={windowSize.current[0]}
-                              height={windowSize.current[1]}
-                            data={SixMonthData(speed)}
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={transformPingData(speed, sixMonth)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -214,15 +175,15 @@ const Ping = () => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />}/>
+                            <Tooltip content={<PingToolTip />} />
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <p>6 Month</p>
 
                         <AreaChart
-                              width={windowSize.current[0]}
-                              height={windowSize.current[1]}
-                            data={OneYearData(speed)}
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={transformPingData(speed, oneYear)}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -233,7 +194,7 @@ const Ping = () => {
                             <CartesianGrid strokeDasharray="3 3" />
                             <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
                             <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />}/>
+                            <Tooltip content={<PingToolTip />} />
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <p>1 Year</p>

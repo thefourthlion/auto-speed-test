@@ -81,6 +81,8 @@ const ExternalPingData = () => {
         "#D98E32"
     ];
 
+    const twelveHours = 12;
+
     return (
         <div className="ExternalPingData">
             <div className="container">
@@ -91,7 +93,7 @@ const ExternalPingData = () => {
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
-                            data={transformData(12)}
+                            data={transformData(twelveHours)}
                             margin={{
                                 top: 5,
                                 right: 30,
