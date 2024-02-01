@@ -7,6 +7,8 @@ exports.createSpeeds = async (req, res) => {
       download: req.body.download,
       upload: req.body.upload,
       ping: req.body.ping,
+      group: req.body.group,
+      package: req.body.package,
       timestamp: req.body.timestamp,
     });
     await newSpeeds.save();
@@ -53,6 +55,8 @@ exports.updateSpeeds = async (req, res) => {
       download: req.body.download,
       upload: req.body.upload,
       ping: req.body.ping,
+      group: req.body.group,
+      package: req.body.package,
       timestamp: req.body.timestamp,
     },
       (err, result) => {

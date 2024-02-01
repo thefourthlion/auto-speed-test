@@ -5,6 +5,8 @@ const SpeedsSchema = new mongoose.Schema({
   download: { type: [String], required: [true, "Please provide download"] },
   upload: { type: [String], required: [true, "Please provide upload"] },
   ping: { type: [String], required: [true, "Please provide ping"] },
+  group: { type: String },
+  package: { type: String },
   timestamp: { type: [String], required: [true, "Please provide timestamp"] },
 }, { timestamps: true });
 const Speeds = mongoose.model("Speeds", SpeedsSchema);
