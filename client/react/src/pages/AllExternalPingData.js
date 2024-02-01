@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 
 const AllExternalPingData = () => {
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
 
     const [speeds, setSpeeds] = useState([]);
+    const [searchParams] = useSearchParams();
+    const hostname = (searchParams.get('hostname'));
 
     const formatTick = (tick) => {
         return `${tick} ms`;
@@ -14,7 +18,7 @@ const AllExternalPingData = () => {
 
 
     const getSpeeds = () => {
-        fetch("http://localhost:3025/api/externalpingdata/read")
+        fetch(`http://localhost:3025/api/externalpingdata/read/name/${hostname}`)
             .then((res) => res.json())
             .then((data) => {
                 setSpeeds(data);

@@ -22,6 +22,8 @@ const ClientCharts = () => {
                 setSpeedsData([data]);
                 setHostName(data.Ip)
                 const hostname = data.Ip
+                getpings(hostname);
+
             })
             .catch((error) => {
                 console.error("Error fetching data: ", error);
@@ -29,22 +31,21 @@ const ClientCharts = () => {
     };
 
 
-    const getpings = () => {
-      axios.get(`http://localhost:3025/api/externalpingdata/read/name/${hostName}`)
-        .then((response) => {
-          setpingdata(response.data);
-          console.log({ data: response.data });
-        })
-        .catch((error) => {
-          console.error("Error fetching data: ", error);
-        });
+    const getpings = (hostname) => {
+        axios.get(`http://localhost:3025/api/externalpingdata/read/name/${hostname}`)
+            .then((response) => {
+                setpingdata(response.data);
+                console.log({ data: response.data });
+            })
+            .catch((error) => {
+                console.error("Error fetching data: ", error);
+            });
     };
 
     useEffect(() => {
         getSpeeds();
         console.log(hostName)
         console.log(`http://localhost:3025/api/externalpingdata/read/name/${hostName}`)
-        getpings();
     }, []);
 
     const mbTick = (tick) => {
@@ -209,45 +210,40 @@ const ClientCharts = () => {
 
                 </div>
 
-                <a href={`http://localhost:3025/api/externalpingdata/read/name/${hostName}`}><p>link</p></a>
-
-                {pingdata.length != 0 ? 
-                // <p>something</p>
-                <div className="externalpingContainer">
-                    <div className="chart-container">
-                        <a href={`/AllExternalPingData`}>
-                            <LineChart
-                                className="chart"
-                                width={windowSize.current[0]}
-                                height={windowSize.current[1]}
-                                data={transformpingdata(12)}
-                                margin={{
-                                    top: 5,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                                <Tooltip content={customTooltip} />
-                                <Legend />
-                                {pingdata.map((speed, index) => (
-                                    <Line
-                                        type="monotone"
-                                        dataKey={`${speed.link}`}
-                                        key={index}
-                                        stroke={lineColors[index % lineColors.length]} activeDot={{ r: 8 }}
-                                    />
-                                ))}
-                            </LineChart>
-                        </a>
+                {pingdata.length != 0 &&
+                    // <p>something</p>
+                    <div className="externalpingContainer">
+                        <div className="chart-container">
+                            <a href={`/AllExternalPingData?hostname=${hostName}`}>
+                                <LineChart
+                                    className="chart"
+                                    width={windowSize.current[0]}
+                                    height={windowSize.current[1]}
+                                    data={transformpingdata(12)}
+                                    margin={{
+                                        top: 5,
+                                        right: 30,
+                                        left: 20,
+                                        bottom: 5,
+                                    }}
+                                >
+                                    <CartesianGrid strokeDasharray="3 3" />
+                                    <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
+                                    <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                                    <Tooltip content={customTooltip} />
+                                    <Legend />
+                                    {pingdata.map((speed, index) => (
+                                        <Line
+                                            type="monotone"
+                                            dataKey={`${speed.link}`}
+                                            key={index}
+                                            stroke={lineColors[index % lineColors.length]} activeDot={{ r: 8 }}
+                                        />
+                                    ))}
+                                </LineChart>
+                            </a>
+                        </div>
                     </div>
-                </div> 
-                
-                
-                : <p>nothing </p>
                 }
 
 
