@@ -1,27 +1,25 @@
-.ExternalPing{
-    text-align: center;
-    
-    .container{
+.ExternalPing {
+  text-align: center;
+
+  .container {
     justify-content: center;
     align-items: center;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    }
+  }
 
+  .clientList {
+    display: flex;
+    gap: 10px;
+  }
 
-    .clientList{
-        display: flex;
-        gap: 10px;
-    }
-    
-    button{
-        width: 250px;
-        height: 50px;
-        border-radius: 5px;
-    }
+  button {
+    width: 250px;
+    height: 50px;
+  }
 
-    .delete-btn{
-        cursor: pointer;
-    }
+  .delete-btn {
+    cursor: pointer;
+  }
 }

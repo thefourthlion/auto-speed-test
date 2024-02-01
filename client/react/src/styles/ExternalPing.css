@@ -15,7 +15,6 @@
 .ExternalPing button {
   width: 250px;
   height: 50px;
-  border-radius: 5px;
 }
 .ExternalPing .delete-btn {
   cursor: pointer;

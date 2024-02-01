@@ -5,6 +5,10 @@
   display: flex;
   gap: 10px;
 }
+.ClientList button {
+  width: 250px;
+  height: 50px;
+}
 .ClientList .clientListContainer {
   display: flex;
   flex-direction: column;
