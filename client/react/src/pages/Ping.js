@@ -102,7 +102,8 @@ const Ping = () => {
                         </LineChart>
                         <p>12 Hour</p>
 
-                        <LineChart
+                        {speed.download.length > twelveHours && <div>
+                            <LineChart
                             className="chart"
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
@@ -122,8 +123,12 @@ const Ping = () => {
                             <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
                         </LineChart>
                         <p>1 Day</p>
+                            </div>}
 
-                        <AreaChart
+                        
+
+                        {speed.download.length > oneDay && <div>
+                            <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
                             data={transformPingData(speed, oneWeek)}
@@ -140,9 +145,12 @@ const Ping = () => {
                             <Tooltip content={<PingToolTip />} />
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
-                        <p>1 Week</p>
+                        <p>1 Week</p>  
+                            </div>}
+                        
 
-                        <AreaChart
+                        {speed.download.length > oneWeek && <div>
+                            <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
                             data={transformPingData(speed, oneMonth)}
@@ -160,8 +168,11 @@ const Ping = () => {
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <p>1 Month</p>
+                            </div>}
+                        
 
-                        <AreaChart
+                        {speed.download.length > oneMonth && <div>
+                            <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
                             data={transformPingData(speed, sixMonth)}
@@ -179,8 +190,11 @@ const Ping = () => {
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <p>6 Month</p>
+                            </div>}
+                        
 
-                        <AreaChart
+                        {speed.download.length > sixMonth && <div>
+                            <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
                             data={transformPingData(speed, oneYear)}
@@ -198,6 +212,8 @@ const Ping = () => {
                             <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
                         </AreaChart>
                         <p>1 Year</p>
+                            </div>}
+                       
                     </div>
                 ))}
             </div>

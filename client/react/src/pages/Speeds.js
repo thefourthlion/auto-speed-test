@@ -100,91 +100,105 @@ const Speeds = () => {
                         </LineChart>
                         <p>12 Hour</p>
 
-                        <LineChart
-                            className="chart"
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformSpeedData(speed, oneDay)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
-                            <Tooltip content={<CustomTooltip />}  // Customizes the background and text color of the tooltip container
-                            />
-                            <Legend />
-                            <Line type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
-                            <Line type="monotone" dataKey="Upload" stroke="#82ca9d" />
-                        </LineChart>
-                        <p>1 Day</p>
+                        {speed.download.length > twelveHours && <div>
+                            <LineChart
+                                className="chart"
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformSpeedData(speed, oneDay)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
+                                <Tooltip content={<CustomTooltip />}  // Customizes the background and text color of the tooltip container
+                                />
+                                <Legend />
+                                <Line type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Line type="monotone" dataKey="Upload" stroke="#82ca9d" />
+                            </LineChart>
+                            <p>1 Day</p>
+                        </div>}
 
-                        <AreaChart
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformSpeedData(speed, oneWeek)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
-                            <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
-                        </AreaChart>
-                        <p>1 Week</p>
-
-                        <AreaChart
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformSpeedData(speed, oneMonth)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
-                            <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
-                        </AreaChart>
-                        <p>1 Month</p>
-
-                        <AreaChart
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformSpeedData(speed, sixMonth)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
-                            <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
-                        </AreaChart>
-                        <p>6 Month</p>
+                        {speed.download.length > oneDay && <div>
+                            <AreaChart
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformSpeedData(speed, oneWeek)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
+                                <Tooltip content={<CustomTooltip />} />
+                                <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
+                            </AreaChart>
+                            <p>1 Week</p>
+                        </div>}
 
 
-                        <AreaChart
+
+                        {speed.download.length > oneWeek && <div>
+                            <AreaChart
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformSpeedData(speed, oneMonth)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
+                                <Tooltip content={<CustomTooltip />} />
+                                <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
+                            </AreaChart>
+                            <p>1 Month</p>
+                        </div>}
+
+
+
+                        {speed.download.length > oneMonth && <div>
+                            <AreaChart
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformSpeedData(speed, sixMonth)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
+                                <Tooltip content={<CustomTooltip />} />
+                                <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
+                            </AreaChart>
+                            <p>6 Month</p>
+                        </div>}
+
+
+
+                        {speed.download.length > sixMonth && <div>
+                            <AreaChart
                             width={windowSize.current[0]}
                             height={windowSize.current[1]}
                             data={transformSpeedData(speed, oneYear)}
@@ -203,6 +217,10 @@ const Speeds = () => {
                             <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
                         </AreaChart>
                         <p>1 Year</p>
+                        </div>}
+
+
+                        
                     </div>
                 ))}
             </div>
