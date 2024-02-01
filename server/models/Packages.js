@@ -1,0 +1,1 @@
+const mongoose = require("mongoose"); const PackagesSchema = new mongoose.Schema( {Speeds: { type: String, required: [true, "Please provide Speeds"],  }, }, { timestamps: true } ); const Packages = mongoose.model("Packages", PackagesSchema); module.exports = Packages;
