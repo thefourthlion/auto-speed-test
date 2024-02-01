@@ -25,6 +25,10 @@ body p {
 body .page {
   padding-top: 100px;
 }
+body .solid-btn {
+  border-radius: 5px;
+  border: solid 1px black;
+}
 body .green-outline-btn {
   border: 2px solid rgb(0, 55, 218);
   border-radius: 5px;

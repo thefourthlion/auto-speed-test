@@ -14,9 +14,9 @@ body {
 
   text-align: center;
 
-  a{
+  a {
     cursor: pointer;
-}
+  }
   h1,
   h2,
   h3,
@@ -26,8 +26,14 @@ body {
     text-align: center;
   }
 
-  .page{
+  .page {
     padding-top: 100px;
+  }
+
+  .solid-btn{
+    border-radius: 5px;
+    border: solid 1px black;
+
   }
 
   .green-outline-btn {
@@ -63,7 +69,7 @@ body {
     outline: 0 none;
   }
 
-  .trash-logo{
+  .trash-logo {
     width: 20px;
     height: auto;
   }

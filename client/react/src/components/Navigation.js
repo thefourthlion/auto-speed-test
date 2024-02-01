@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Button from 'react-bootstrap/Button';
 export default function Navigation() {
     const [showLinks, setShowLinks] = useState(false);
     return (
@@ -24,6 +25,20 @@ export default function Navigation() {
                         Ext pings
                     </a>
                 </li>
+
+                <li className="nav-item">
+                    <a className="nav-tech" href="./externalping">
+                        Admin
+                    </a>
+                </li>
+
+                <li className="nav-item">
+                    <button className="nav-tech solid-btn" href="./externalping">
+                        Sign In
+                    </button>
+                </li>
+
+                
 
 
             </ul>
