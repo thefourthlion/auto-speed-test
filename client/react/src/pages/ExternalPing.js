@@ -4,6 +4,8 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import axios from "axios"
 import ExternalPingData from "./ExternalPingData";
 import trash from "../assets/trash.png"
+import Button from 'react-bootstrap/Button';
+
 const ExternalPing = () => {
     const [name, setName] = useState("");
     const [link, setLink] = useState("");
@@ -93,7 +95,7 @@ const ExternalPing = () => {
                         />
                     </FloatingLabel>
 
-                    <button onClick={() => { handleSubmit() }} className="sub-btn">Submit</button>
+                    <Button onClick={() => { handleSubmit() }} className="sub-btn">Submit</Button>
                 </Form>
 
                 <h3>list of pings</h3>
@@ -122,7 +124,7 @@ const ExternalPing = () => {
                         onChange={(e) => setDeleteWhat(e.target.value)}
                     />
                 </FloatingLabel>}
-                {deleteWhat != "" && deleteWhat == deletePing && <button onClick={() => { handleDelete(deleteId) }}>Delete</button>}
+                {deleteWhat != "" && deleteWhat == deletePing && <Button variant="danger" onClick={() => { handleDelete(deleteId) }}>Delete</Button>}
 
             </div>
         </div>

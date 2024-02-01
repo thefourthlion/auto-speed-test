@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
+import Button from 'react-bootstrap/Button';
 
 const Register = ({ history }) => {
   const [username, setUsername] = useState("");
@@ -106,7 +107,7 @@ const Register = ({ history }) => {
           />
         </FloatingLabel>
 
-        <button type="submit">Register</button>
+        <Button type="submit">Register</Button>
         {/* <span>
           Already have an account? <Link to="/login">Login</Link>
         </span> */}

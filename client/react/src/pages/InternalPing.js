@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Form, Alert } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import axios from "axios"
+import Button from 'react-bootstrap/Button';
 
 const InternalPing = () => {
     const [name, setName] = useState("");
     const [link, setLink] = useState("");
 
-    const sendForm = ()=>{
+    const sendForm = () => {
         axios.post()
     }
 
@@ -41,7 +42,7 @@ const InternalPing = () => {
                         />
                     </FloatingLabel>
 
-                    <button className="sub-btn">Submit</button>
+                    <Button className="sub-btn">Submit</Button>
 
 
                 </Form>

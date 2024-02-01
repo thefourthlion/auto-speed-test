@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
+import Button from 'react-bootstrap/Button';
 
 const Login = ({ history }) => {
     const [email, setEmail] = useState("");
@@ -77,7 +78,7 @@ const Login = ({ history }) => {
                     <Link to="/forgotpassword">Forgot Password?</Link>
                 </p> */}
 
-                <button type="submit">Login</button>
+                <Button varient="primary" type="submit">Login</Button>
 
                 {/* <span>
                     Don't have an account? <Link to="/register">Register</Link>

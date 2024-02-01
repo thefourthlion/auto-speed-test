@@ -4,6 +4,7 @@ import trash from "../assets/trash.png"
 import { Form, Alert } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import axios from "axios"
+import Button from 'react-bootstrap/Button';
 
 const ClientList = () => {
     const [speeds, setSpeeds] = useState([])
@@ -73,7 +74,7 @@ const ClientList = () => {
                             onChange={(e) => setDeleteWhat(e.target.value)}
                         />
                     </FloatingLabel>}
-                    {deleteWhat != "" && deleteWhat == deleteClient && <button onClick={() => { handleDelete(deleteId) }}>Delete</button>}
+                    {deleteWhat != "" && deleteWhat == deleteClient && <Button variant="danger" onClick={() => { handleDelete(deleteId) }}>Delete</Button>}
                 </div>
             </div>
         </div>

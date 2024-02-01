@@ -32,13 +32,17 @@ export default function Navigation() {
                     </a>
                 </li>
 
-                <li className="nav-item">
-                    <button className="nav-tech solid-btn" href="./externalping">
-                        Sign In
-                    </button>
+                <li >
+                    <a href="login">
+
+                        <Button variant="primary" className="button" >
+                            Sign In
+                        </Button>
+                    </a>
+
                 </li>
 
-                
+
 
 
             </ul>
@@ -48,6 +52,6 @@ export default function Navigation() {
                 <div className="line2"></div>
                 <div className="line3"></div>
             </div>
-        </div>
+        </div >
     );
 }

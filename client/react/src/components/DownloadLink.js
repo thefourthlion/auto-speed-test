@@ -1,15 +1,18 @@
 import React from "react";
+import Button from 'react-bootstrap/Button';
+
 const DownloadLink = () => {
     return (
         <div className="DownloadLink">
             <div className="container">
                 <a href='../../public/speed-test.zip' download>
-                    <button className="download-btn">
+                    <Button className="download-btn">
                         Download Python Speed Test
-                    </button>
+                    </Button>
                 </a>
             </div>
         </div>
     );
 };
 export default DownloadLink;
+
