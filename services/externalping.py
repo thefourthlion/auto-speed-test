@@ -38,9 +38,9 @@ def externalping():
 
             get_data = {'link': website.get('name')}
             response = requests.get(get_url, params=get_data)
-            if response.status_code != 200:
-                raise ValueError(f"API request failed with status code: {
-                                response.status_code}")
+            # if response.status_code != 200:
+            #     raise ValueError(f"API request failed with status code: {
+            #                     response.status_code}")
 
             existing_data = response.json()
             if existing_data is None:
