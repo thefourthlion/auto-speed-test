@@ -6,86 +6,96 @@ import requests
 import pytz
 import platform
 
+
 def externalping():
     # Define your list of websites
-    websites = req.getData("http://localhost:3025/api/externalping/read")
-
+    try:
+        websites = req.getData("http://localhost:3025/api/externalping/read")
+    except Exception as e:
+        print(f"Failed to get website data: {e}")
+        return
 
     # Define the URL for the POST request to update another database
     api_url = "http://localhost:3025/api/externalpingdata/create"
-
     get_url = "http://localhost:3025/api/externalpingdata/read"
-    
 
     host_name = platform.node()
 
-    #---------- get date and time -----------------------
+    # Get date and time in PST
     pst = pytz.timezone('US/Pacific')
-
     utc_now = datetime.now(pytz.utc)
     pst_now = utc_now.astimezone(pst)
-    timestamp = pst_now.strftime('%m-%d-%Y %H:%M')
-    
+    timestamp = pst_now.strftime('%Y-%m-%d %H:%M:%S')
+
     for website in websites:
-        target = website['link']
-        packet_size_bytes = 32   # 32B
+        target = website.get('link')
+        packet_size_bytes = 32  # 32B
 
         try:
-            ping = pythonping.ping(target, packet_size_bytes).rtt_avg_ms
-            print(f"Name: {website['name']}, Ping time: {ping} ms")
-            
-                        # Check if data already exists for the website
-            get_data = {
-                'link': website['name']
-            }
-            
-            existing_data = requests.get(get_url, params=get_data).json()
-            name_in_data = any(entry for entry in existing_data if entry['link'] == website['name'])
+            response = pythonping.ping(target, count=4, size=packet_size_bytes)
+            ping_avg = response.rtt_avg_ms
+            print(f"Name: {website['name']}, Ping time: {ping_avg} ms")
 
-            # print(existing_data)
-            print(get_data)
-            if name_in_data:
-                print(f"Data already exists for {website['name']}")
-                matching_entry = next((entry for entry in existing_data if entry['link'] == website['name']), None)
+            get_data = {'link': website.get('name')}
+            response = requests.get(get_url, params=get_data)
+            if response.status_code != 200:
+                raise ValueError(f"API request failed with status code: {
+                                response.status_code}")
 
-                item_id = matching_entry['_id']
-                item_link = matching_entry['link']
-                item_ping = matching_entry['ping']
-                print("before ping ✅")
-                item_ping.append(f'{ping}')
-                print("ping ✅")
-                item_timestamp = matching_entry['timestamp']
-                item_timestamp.append(f'{timestamp}')
-                print("timestamp ✅")    
-                
-                data = {
-                    "_id":item_id,
-                    "hostname":host_name,
-                    "link":item_link,
-                    "ping":item_ping,
-                    "timestamp":item_timestamp
-                }
-                
-                requests.post(f"http://localhost:3025/api/externalpingdata/update/{item_id}", json=data)
-        
-        
+            existing_data = response.json()
+            if existing_data is None:
+                raise ValueError(f"No data returned from API for {target}")
+
+            # Check if data already exists for the website
+            website_in_data = any(
+                entry for entry in existing_data if entry['hostname'] == host_name and entry['link'] == website.get('name'))
+
+            if website_in_data:
+                website_and_hostname_matching_entry = next((entry for entry in existing_data if entry['link'] == website.get(
+                    'name') and entry['hostname'] == host_name), None)
+                if website_and_hostname_matching_entry:
+                    print(f"Data already exists for {website['name']}")
+
+                    item_id = website_and_hostname_matching_entry['_id']
+                    item_ping = website_and_hostname_matching_entry.get(
+                        'ping', [])
+                    item_timestamp = website_and_hostname_matching_entry.get(
+                        'timestamp', [])
+
+                    item_ping.append(str(ping_avg))
+                    item_timestamp.append(timestamp)
+
+                    data = {
+                        "_id": item_id,
+                        "hostname": host_name,
+                        "link": website.get('name'),
+                        "ping": item_ping,
+                        "timestamp": item_timestamp
+                    }
+
+                    update_response = requests.post(
+                        f"http://localhost:3025/api/externalpingdata/update/{item_id}", json=data)
+                    if update_response.status_code != 200:
+                        print(f"Failed to update data for {
+                            website.get('name')}")
             else:
-                print(f"Dont have data for {website['name']}")
-                # Create a data object to send in the POST request
+                print(f"Don't have data for {website['name']}")
                 data = {
-                    "hostname":host_name,
-                    'link': website['name'],
-                    'ping': ping,
-                    'timestamp': timestamp
+                    "hostname": host_name,
+                    'link': website.get('name'),
+                    'ping': [str(ping_avg)],
+                    'timestamp': [timestamp]
                 }
 
-                requests.post(api_url, json=data)
+                post_response = requests.post(api_url, json=data)
+                if post_response.status_code != 200:
+                    print(f"Failed to post new data for {website.get('name')}")
                 print(f"Data sent to update database for {website['name']}")
-            
 
         except Exception as e:
-            print(f"Failed to ping {website['name']}: {e}")
-            
-# while True:
-#     externalping()
-#     time.sleep(1800) 
+            print(f"Failed to process {website.get('name')}: {e}")
+
+while True:
+    externalping()
+    time.sleep(5)
+    print("Sleeping for next round...💤💤💤")
