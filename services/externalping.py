@@ -95,7 +95,7 @@ def externalping():
         except Exception as e:
             print(f"Failed to process {website.get('name')}: {e}")
 
-while True:
-    externalping()
-    time.sleep(5)
-    print("Sleeping for next round...💤💤💤")
+# while True:
+#     externalping()
+#     time.sleep(5)
+#     print("Sleeping for next round...💤💤💤")
