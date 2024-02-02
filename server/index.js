@@ -29,4 +29,7 @@ app.listen(PORT, () => {
   console.log("✅ Listening on port " + PORT);
 });
 
-app.use('/api/ExternalPingData', require('./routes/ExternalPingData'));app.use('/api/Packages', require('./routes/Packages'));app.use('/api/Packages', require('./routes/Packages'));app.use('/api/Groups', require('./routes/Groups'));
+app.use("/api/ExternalPingData", require("./routes/ExternalPingData"));
+app.use("/api/Packages", require("./routes/Packages"));
+app.use("/api/Packages", require("./routes/Packages"));
+app.use("/api/Groups", require("./routes/Groups"));

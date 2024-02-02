@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const { createExternalPingData, 
+const {
+    createExternalPingData,
     readExternalPingData,
-     readExternalPingDataFromID,
-      readExternalPingDataFromName,
-       updateExternalPingData,
-        deleteExternalPingData,
-     } = require("../controllers/ExternalPingData");
+    readExternalPingDataFromID,
+    readExternalPingDataFromName,
+    updateExternalPingData,
+    deleteExternalPingData,
+} = require("../controllers/ExternalPingData");
 router.route("/create").post(createExternalPingData);
 router.route("/read").get(readExternalPingData);
 router.route("/read/name/:hostname").get(readExternalPingDataFromName);

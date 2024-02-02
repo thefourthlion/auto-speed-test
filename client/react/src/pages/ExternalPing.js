@@ -9,13 +9,12 @@ import Button from 'react-bootstrap/Button';
 const ExternalPing = () => {
     const [name, setName] = useState("");
     const [link, setLink] = useState("");
-
     const [deleteData, setDeleteData] = useState(false);
     const [deleteWhat, setDeleteWhat] = useState("");
     const [deletePing, setDeletePing] = useState("")
     const [deleteId, setDeleteId] = useState("")
-
     const [externalPings, setExternalPings] = useState([])
+
     const postURL = 'http://localhost:3025/api/externalping/create';
     const getURL = "http://localhost:3025/api/externalping/read";
 

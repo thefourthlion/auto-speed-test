@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { createInternalPing, readInternalPing, readInternalPingFromID, updateInternalPing, deleteInternalPing, } = require("../controllers/InternalPing");
+const {
+    createInternalPing,
+    readInternalPing,
+    readInternalPingFromID,
+    updateInternalPing,
+    deleteInternalPing,
+} = require("../controllers/InternalPing");
 router.route("/create").post(createInternalPing);
 router.route("/read").get(readInternalPing);
 router.route("/read/:id").get(readInternalPingFromID);
