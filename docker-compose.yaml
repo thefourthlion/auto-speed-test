@@ -1,0 +1,20 @@
+version: "25.0.2"
+services:
+  api:
+    build: ./server
+    container_name: speedtest-server
+    ports:
+      - '3025:3025'
+    volumes:
+      - ./server:/speedtest-server
+      # - ./server/node_modules
+  client:
+    build: ./client/react
+    container_name: speedtest-client
+    ports:
+      - '3000:3000'
+    # wont work in windows
+    # volumes:
+    #   - ./client/react:/speedtest-client
+    stdin_open: true
+    tty: true
