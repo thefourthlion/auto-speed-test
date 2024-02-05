@@ -1,25 +1,18 @@
 import axios from "axios";
 
-const signup = (
-    firstName,
-    lastName,
-    username,
-    email,
-    phoneNumber,
-    password
-) => {
+const register = (username, email, password, phoneNumber, profilePic) => {
     return axios
-        .post("http://localhost:3025/api/auth/register", {
-            firstName,
-            lastName,
+        .post("http://localhost:3001/api/auth/register", {
             username,
             email,
             phoneNumber,
             password,
+            profilePic,
         })
         .then((response) => {
             if (response.data.accessToken) {
                 localStorage.setItem("user", JSON.stringify(response.data));
+                alert(response.data.username);
             }
 
             return response.data;
@@ -27,16 +20,15 @@ const signup = (
 };
 
 const login = (username, password) => {
-    console.log("hello")
     return axios
-        .post("http://localhost:3025/api/auth/register", {
+        .post("http://localhost:3001/api/auth/login", {
             username,
             password,
         })
         .then((response) => {
-
             if (response.data.accessToken) {
                 localStorage.setItem("user", JSON.stringify(response.data));
+                alert(response.data.username);
             }
 
             return response.data;
@@ -52,7 +44,7 @@ const getCurrentUser = () => {
 };
 
 const authService = {
-    signup,
+    register,
     login,
     logout,
     getCurrentUser,
