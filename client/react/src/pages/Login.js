@@ -1,62 +1,57 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
-import Button from 'react-bootstrap/Button';
+import "../styles/css/Login/Login.css";
+import AuthService from "../services/auth.service";
+import Button from "react-bootstrap/Button";
 
-const Login = ({ history }) => {
-    const [email, setEmail] = useState("");
+const Login = () => {
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    const [userValidation, setUserValidation] = useState("");
 
-    useEffect(() => {
-        if (localStorage.getItem("authToken")) {
-            history.push("/");
-        }
-    }, [history]);
-
-    const loginHandler = async (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-
-        const config = {
-            header: {
-                "Content-Type": "application/json",
-            },
-        };
-
-        try {
-            const { data } = await axios.post(
-                "http://localhost:3025/api/auth/login",
-                { email, password },
-                config
-            );
-
-            localStorage.setItem("authToken", data.token);
-
-            history.push("/");
-        } catch (error) {
-            setError(error.response.data.error);
-            setTimeout(() => {
-                setError("");
-            }, 5000);
+        if (username === "" && password === "") {
+            setUserValidation("Username and Password required");
+        } else if (password === "") {
+            setUserValidation("Password required");
+        } else if (username === "") {
+            setUserValidation("Username required");
+        } else {
+            try {
+                await AuthService.login(username, password).then(
+                    (response) => {
+                        console.log("Logged in successfully", response);
+                        // window.location.reload();
+                    },
+                    (error) => {
+                        console.log(error);
+                        setUserValidation(
+                            "Username and Password combination do not match."
+                        );
+                    }
+                );
+            } catch (err) {
+                console.log(err);
+                setUserValidation("Error - Try again later.");
+            }
         }
     };
 
     return (
-        <div className="Login page">
-            <form onSubmit={loginHandler}>
+        <div className="Login">
+            <form onSubmit={handleLogin}>
                 <h1>Login</h1>
-                {error && <span>{error}</span>}
-                <FloatingLabel className="form-label" label="Enter Email">
+                <FloatingLabel className="form-label" label="Enter Username">
                     <Form.Control
                         className="form-input"
                         type="text"
-                        placeholder="Enter Email"
-                        autoComplete="true"
-                        value={email}
+                        placeholder="Enter Username"
+                        value={username}
                         onChange={(e) => {
-                            setEmail(e.target.value);
+                            setUsername(e.target.value);
                         }}
                     />
                 </FloatingLabel>
@@ -75,14 +70,16 @@ const Login = ({ history }) => {
                 </FloatingLabel>
 
                 {/* <p>
-                    <Link to="/forgotpassword">Forgot Password?</Link>
-                </p> */}
+          <Link to="/forgotPassword">Forgot Password?</Link>
+        </p> */}
+                <h4>{userValidation}</h4>
+                <Button className="submit-btn" variant="primary" type="submit">
+                    Login
+                </Button>
 
-                <Button varient="primary" type="submit">Login</Button>
-
-                {/* <span>
+                <span>
                     Don't have an account? <Link to="/register">Register</Link>
-                </span> */}
+                </span>
             </form>
         </div>
     );
