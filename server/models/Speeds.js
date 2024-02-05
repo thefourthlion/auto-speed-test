@@ -7,7 +7,7 @@ const SpeedsSchema = new mongoose.Schema(
     upload: { type: [String], required: [true, "Please provide upload"] },
     ping: { type: [String], required: [true, "Please provide ping"] },
     group: { type: String },
-    package: { type: String },
+    package: { type: [String] },
     timestamp: { type: [String], required: [true, "Please provide timestamp"] },
   },
   { timestamps: true }

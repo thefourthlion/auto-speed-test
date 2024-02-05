@@ -46,6 +46,20 @@ exports.readSpeedsFromID = async (req, res) => {
     console.log(err);
   }
 };
+
+exports.readSpeedsFromGroup = async (req, res) => {
+  try {
+    await Speeds.find({ group: req.params.group }, {}, (err, result) => {
+      if (err) {
+        res.json({ app: err });
+      }
+      res.send(result);
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 exports.updateSpeeds = async (req, res) => {
   try {
     await Speeds.findByIdAndUpdate(
