@@ -1,7 +1,33 @@
 import React, { useState } from "react";
 import Button from 'react-bootstrap/Button';
+import AuthService from "../services/auth.service";
+
 export default function Navigation() {
     const [showLinks, setShowLinks] = useState(false);
+    const [currentUser, setCurrentUser] = useState(undefined);
+    useEffect(() => {
+        const user = AuthService.getCurrentUser();
+
+        if (user) {
+            setCurrentUser(user);
+        }
+    }, []);
+
+    const logOut = () => {
+        AuthService.logout();
+        window.location.reload();
+    };
+
+    const logoutBtn = currentUser ? (
+        <button className="nav-btn" onClick={logOut}>
+            Logout
+        </button>
+    ) : (
+        <a href="http://localhost:3000/login">
+            <button className="nav-btn">Sign In</button>
+        </a>
+    );
+
     return (
         <div className="Navbar" id="Navbar">
             <ul
@@ -39,6 +65,8 @@ export default function Navigation() {
                             Sign In
                         </Button>
                     </a>
+
+                    <li>{logoutBtn}</li>
 
                 </li>
 
