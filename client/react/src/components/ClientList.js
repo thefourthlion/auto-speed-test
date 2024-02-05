@@ -125,16 +125,19 @@ const ClientList = () => {
                     : 'none';
     };
 
-    const expectedPing = 20;
+    const expectedPing = 35;
 
     const comparePing = (ping) => {
-        return ping >= green * expectedPing
-            ? <Ping fill='green' stroke='green' width="25" height="25" />
-            : ping <= green * expectedPing && ping >= yellow * expectedPing
-                ? <Ping fill='yellow' stroke='yellow' width="25" height="25" />
-                : ping < yellow * expectedPing
-                    ? <Ping fill='red' stroke='red' width="25" height="25" />
-                    : 'none';
+        if (ping <= green * expectedPing) {
+            // Green: Ping is less than or equal to the green threshold times expectedPing
+            return <Ping fill='green' stroke='green' width="25" height="25" />;
+        } else if (ping > green * expectedPing && ping <= yellow * expectedPing) {
+            // Yellow: Ping is between the green and yellow thresholds times expectedPing
+            return <Ping fill='yellow' stroke='yellow' width="25" height="25" />;
+        } else {
+            // Red: Ping is above the yellow threshold times expectedPing
+            return <Ping fill='red' stroke='red' width="25" height="25" />;
+        }
     };
 
 
