@@ -4,6 +4,7 @@ import pytz
 import time
 from datetime import datetime
 
+
 # Generate a random whole number between 100 and 700
 random_download = random.randint(100, 700)
 random_upload = random.randint(15, 20)
@@ -17,6 +18,13 @@ random_ping = random.randint(10, 20)
 
 update_url = f"http://localhost:3025/api/speeds/update/{id}"
 get_url = f"http://localhost:3025/api/speeds/read"
+
+download_min = 900
+download_max = 1000
+upload_min = 500
+upload_max = 750
+ping_min = 3
+ping_max = 3
 
 host_name = "test-pc"
 
@@ -84,6 +92,7 @@ def postTestData(hour, download, upload, ping):
     date = "2024-02-02"
     timestamp = f"{date} {hour}:00"
     postData(Ip, name, download, upload, ping, timestamp)
+    
 
 hour = 1
 data_count = 0
@@ -96,9 +105,9 @@ while True:
     response = requests.get(get_url)
     existing_data = response.json()
     
-    random_download = random.randint(900, 1000)
-    random_upload = random.randint(15, 25)
-    random_ping = random.randint(15, 20)
+    random_download = random.randint(download_min, download_max)
+    random_upload = random.randint(upload_min, upload_max)
+    random_ping = random.randint(ping_min, ping_max)
     
     download = random_download
     upload = random_upload
@@ -111,6 +120,7 @@ while True:
     # print({"✅":hostname_in_data})
     if hostname_in_data: 
         updateTestData(hour, download, upload, ping)
+        
     else:
         postTestData(hour, download, upload, ping)
         

@@ -43,7 +43,7 @@ const ClientList = () => {
             .then((res) => res.json())
             .then((data) => {
                 setSpeeds(data);
-                console.log(data);
+                // console.log(data);
             })
             .catch((error) => {
                 console.error("Error fetching data: ", error);
@@ -75,7 +75,7 @@ const ClientList = () => {
     const updateClientpackage = async (id) => {
         try {
             const response = await axios.post(`http://localhost:3025/api/speeds/update/${id}`, { package: chosenSpeed });
-            console.log(response.data)
+            // console.log(response.data)
             refreshPage()
         } catch (error) {
             console.error('Error:', error);
@@ -85,7 +85,7 @@ const ClientList = () => {
     const updateClientGroup = async (id) => {
         try {
             const response = await axios.post(`http://localhost:3025/api/speeds/update/${id}`, { group: chosenGroup });
-            console.log(response.data)
+            // console.log(response.data)
             refreshPage()
         } catch (error) {
             console.error('Error:', error);
@@ -95,7 +95,7 @@ const ClientList = () => {
     const handleDelete = async (id) => {
         try {
             const response = await axios.delete(`http://localhost:3025/api/speeds/delete/${id}`);
-            console.log('Response:', response.data);
+            // console.log('Response:', response.data);
             refreshPage()
         } catch (error) {
             console.error('Error:', error);

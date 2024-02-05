@@ -51,7 +51,7 @@ const Login = ({ history }) => {
                 <FloatingLabel className="form-label" label="Enter Email">
                     <Form.Control
                         className="form-input"
-                        type="email"
+                        type="text"
                         placeholder="Enter Email"
                         autoComplete="true"
                         value={email}
