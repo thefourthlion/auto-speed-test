@@ -9,6 +9,14 @@ import axios from "axios"
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 
+// import Up from "../assets/up.svg"
+// import Down from "../assets/down.svg"
+
+import { ReactComponent as Up } from '../assets/up.svg';
+import { ReactComponent as Down } from '../assets/down.svg';
+import { ReactComponent as Ping } from '../assets/ping.svg';
+
+
 const ClientList = () => {
     const [speeds, setSpeeds] = useState([])
 
@@ -23,7 +31,7 @@ const ClientList = () => {
     const [chosenGroup, setChosenGroup] = useState("")
 
     const [packages, setpackages] = useState([])
-    const [chosenSpeed, setChosenSpeed] = useState("")
+    const [chosenSpeed, setChosenSpeed] = useState([])
     const [editId, setEditId] = useState("")
 
     const refreshPage = () => {
@@ -84,9 +92,6 @@ const ClientList = () => {
         }
     };
 
-
-
-
     const handleDelete = async (id) => {
         try {
             const response = await axios.delete(`http://localhost:3025/api/speeds/delete/${id}`);
@@ -97,11 +102,51 @@ const ClientList = () => {
         }
     };
 
+    const green = 0.75
+    const yellow = 0.25
+
+    const compareDownload = (pkg, download) => {
+        return pkg >= green * download
+            ? <Down fill='green' stroke='green' width="25" height="25" />
+            : pkg <= green * download && pkg >= yellow * download
+                ? <Down fill='yellow' stroke='yellow' width="25" height="25" />
+                : pkg < yellow * download
+                    ? <Down fill='red' stroke='red' width="25" height="25" />
+                    : 'none';
+    };
+
+    const compareUpload = (pkg, download) => {
+        return pkg >= green * download
+            ? <Up fill='green' stroke='green' width="25" height="25" />
+            : pkg <= green * download && pkg >= yellow * download
+                ? <Up fill='yellow' stroke='yellow' width="25" height="25" />
+                : pkg < yellow * download
+                    ? <Up fill='red' stroke='red' width="25" height="25" />
+                    : 'none';
+    };
+
+    const expectedPing = 20;
+
+    const comparePing = (ping) => {
+        return ping >= green * expectedPing
+            ? <Ping fill='green' stroke='green' width="25" height="25" />
+            : ping <= green * expectedPing && ping >= yellow * expectedPing
+                ? <Ping fill='yellow' stroke='yellow' width="25" height="25" />
+                : ping < yellow * expectedPing
+                    ? <Ping fill='red' stroke='red' width="25" height="25" />
+                    : 'none';
+    };
+
+
+
+
     useEffect(() => {
         getData();
         getpackageData()
         getGroupData()
     }, []);
+
+    let download;
 
     return (
         <div className="ClientList">
@@ -118,19 +163,52 @@ const ClientList = () => {
                             <img className="trash-logo" src={trash} alt="delete-icon" onClick={() => {
                                 setEditClientList(!editClientList)
                                 setDeleteId(item._id)
+                                setEditGroup(false);
+                                setEditPackage(false);
+                                setChosenSpeed([]);
+                                setChosenGroup("");
+                                setDeleteWhat("");
                                 setDeleteClient(item.Ip)
                             }} />
 
                             <img className="pkg-logo" src={pkg} alt="package-icon" onClick={() => {
                                 setEditPackage(!editPackage);
+                                setEditClientList(false);
+                                setEditGroup(false);
+                                setChosenSpeed([]);
+                                setChosenGroup("");
+                                setDeleteWhat("");
                                 setEditId(item._id);
                             }} />
 
                             <img className="group-logo" src={group} alt="group-icon" onClick={() => {
                                 setEditGroup(!editGroup);
+                                setEditPackage(false);
+                                setEditClientList(false);
+                                setChosenSpeed([]);
+                                setChosenGroup("");
+                                setDeleteWhat("");
                                 setEditId(item._id);
                             }} />
 
+                            <a className="compare-container" href={`client?id=${item._id}`}>
+                                {item.package &&
+                                    <p>{compareDownload(
+                                        parseInt(item.download[item.download.length - 1]),
+                                        parseInt(item.package[0])
+                                    )}</p>}
+
+                                {item.package &&
+                                    <p>{compareUpload(
+                                        parseInt(item.upload[item.upload.length - 1]),
+                                        parseInt(item.package[1])
+                                    )}</p>}
+
+                                {item.package &&
+                                    <p>{comparePing(
+                                        parseInt(item.ping[item.upload.length - 1])
+                                    )}</p>}
+                            </a>
                         </div>
                     ))}
 
@@ -141,8 +219,7 @@ const ClientList = () => {
                         <Dropdown.Menu>
                             {packages.map((item, index) => (
                                 <div>
-                                    <Dropdown.Item onClick={() => { setChosenSpeed(`${item.download} x ${item.upload}`); }}>{item.download}Mbps x {item.upload}Mbps</Dropdown.Item>
-
+                                    <Dropdown.Item onClick={() => { setChosenSpeed([item.download, item.upload]); }}>{item.download}Mbps x {item.upload}Mbps</Dropdown.Item>
                                 </div>
                             ))}
                         </Dropdown.Menu>
@@ -162,18 +239,18 @@ const ClientList = () => {
                         </Dropdown.Menu>
                     </Dropdown>}
 
-                    {chosenSpeed && <Button className="update-btn" onClick={() => { updateClientpackage(editId) }}>Submit</Button>}
+                    {chosenSpeed.length > 0 && <Button className="update-btn" onClick={() => { updateClientpackage(editId) }}>Submit</Button>}
 
                     {chosenGroup && <Button className="update-btn" onClick={() => { updateClientGroup(editId) }}>Submit</Button>}
 
 
 
-                    {editClientList && <FloatingLabel className="form-label" label="client name ">
+                    {editClientList && <FloatingLabel className="form-label client-name-delete-form" label="client name to delete">
                         <Form.Control
                             className="form-input"
                             type="text"
                             autoComplete="true"
-                            placeholder="client name"
+                            placeholder="client name to delete"
                             onChange={(e) => setDeleteWhat(e.target.value)}
                         />
                     </FloatingLabel>}
