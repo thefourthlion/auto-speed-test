@@ -12,7 +12,7 @@ router.route("/register").post(registerUser);
 
 router.route("/login").post(loginUser);
 
-router.route("/allUsers").get(logUsers);
+router.route("/read").get(logUsers);
 
 router.route("/delete/:id").delete(deleteUser);
 

@@ -1,8 +1,12 @@
 import axios from "axios";
 
+const refreshPage = () => {
+    window.location.reload();
+};
+
 const register = (username, email, password, phoneNumber, profilePic) => {
     return axios
-        .post("http://localhost:3001/api/auth/register", {
+        .post("http://localhost:3025/api/auth/register", {
             username,
             email,
             phoneNumber,
@@ -12,23 +16,26 @@ const register = (username, email, password, phoneNumber, profilePic) => {
         .then((response) => {
             if (response.data.accessToken) {
                 localStorage.setItem("user", JSON.stringify(response.data));
-                alert(response.data.username);
+                // alert(response.data.username);
+                refreshPage();
             }
 
             return response.data;
         });
 };
 
+
 const login = (username, password) => {
     return axios
-        .post("http://localhost:3001/api/auth/login", {
+        .post("http://localhost:3025/api/auth/login", {
             username,
             password,
         })
         .then((response) => {
             if (response.data.accessToken) {
                 localStorage.setItem("user", JSON.stringify(response.data));
-                alert(response.data.username);
+                // alert(response.data.username);
+                refreshPage();
             }
 
             return response.data;

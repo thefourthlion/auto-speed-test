@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
-import "../styles/css/Login/Login.css";
-import AuthService from "../services/auth.service";
+import AuthService from "../services/auth.services.js";
 import Button from "react-bootstrap/Button";
 
 const Login = () => {
@@ -77,9 +75,9 @@ const Login = () => {
                     Login
                 </Button>
 
-                <span>
+                {/* <span>
                     Don't have an account? <Link to="/register">Register</Link>
-                </span>
+                </span> */}
             </form>
         </div>
     );

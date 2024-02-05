@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
-import AuthService from "../services/auth.service";
+import AuthService from "../services/auth.services";
 
 export default function Navigation() {
     const [showLinks, setShowLinks] = useState(false);
@@ -18,15 +18,7 @@ export default function Navigation() {
         window.location.reload();
     };
 
-    const logoutBtn = currentUser ? (
-        <button className="nav-btn" onClick={logOut}>
-            Logout
-        </button>
-    ) : (
-        <a href="http://localhost:3000/login">
-            <button className="nav-btn">Sign In</button>
-        </a>
-    );
+
 
     return (
         <div className="Navbar" id="Navbar">
@@ -59,15 +51,21 @@ export default function Navigation() {
                 </li>
 
                 <li >
-                    <a href="login">
 
-                        <Button variant="primary" className="button" >
-                            Sign In
+                    {currentUser ? (
+                        <Button className="nav-btn button" onClick={logOut}>
+                            Logout
                         </Button>
-                    </a>
 
-                    <li>{logoutBtn}</li>
+                    ) : (
+                        <a href="login">
 
+                            <Button variant="primary" className="button" >
+                                Sign In
+                            </Button>
+                        </a>
+
+                    )}
                 </li>
 
 

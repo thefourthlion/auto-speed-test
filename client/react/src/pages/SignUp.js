@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
-import AuthService from "../services/auth.service";
+import AuthService from "../services/auth.services";
 import Button from "react-bootstrap/Button";
 const Register = () => {
   const [username, setUsername] = useState("");
@@ -130,9 +130,9 @@ const Register = () => {
         <Button className="submit-btn" variant="primary" type="submit">
           Register
         </Button>
-        <span>
+        {/* <span>
           Already have an account? <Link to="/login">Login</Link>
-        </span>
+        </span> */}
       </form>
     </div>
   );
