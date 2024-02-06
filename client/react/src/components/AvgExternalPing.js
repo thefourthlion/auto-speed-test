@@ -130,18 +130,18 @@ const AvgExternalPing = () => {
             <div className="container">
                 <h1 className="content-header">Avg External Pings for {chosenGroup}</h1>
 
-                <Dropdown>
+                <Dropdown className="dropdown" >
                     <Dropdown.Toggle id="dropdown-basic">
                         Chose A Different Group
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {groups.map((item, index) => (
                             <div>
-                                <Dropdown.Item onClick={() => { 
+                                <Dropdown.Item className="dropdown-item" onClick={() => {
                                     setChosenGroup(`${item.name}`);
                                     getSpeeds();
                                     getGroupData();
-                             }}>{item.name}</Dropdown.Item>
+                                }}>{item.name}</Dropdown.Item>
 
                             </div>
                         ))}
@@ -149,33 +149,33 @@ const AvgExternalPing = () => {
                 </Dropdown>
 
                 <div className="chart-container">
-                    
-                        <LineChart
-                            className="chart"
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformData(day)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
-                            <Tooltip content={customTooltip} />
-                            <Legend />
-                            {pingdata.map((speed, index) => (
-                                <Line
-                                    type="monotone"
-                                    dataKey={`${speed.link}`}
-                                    key={index}
-                                    stroke={lineColors[index % lineColors.length]} activeDot={{ r: 8 }}
-                                />
-                            ))}
-                        </LineChart>
+
+                    <LineChart
+                        className="chart"
+                        width={windowSize.current[0]}
+                        height={windowSize.current[1]}
+                        data={transformData(day)}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
+                        <YAxis stroke="rgb(226, 228, 235)" tickFormatter={formatTick} />
+                        <Tooltip content={customTooltip} />
+                        <Legend />
+                        {pingdata.map((speed, index) => (
+                            <Line
+                                type="monotone"
+                                dataKey={`${speed.link}`}
+                                key={index}
+                                stroke={lineColors[index % lineColors.length]} activeDot={{ r: 8 }}
+                            />
+                        ))}
+                    </LineChart>
                 </div>
             </div>
         </div>

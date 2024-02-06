@@ -178,38 +178,38 @@ const ClientList = () => {
                             </a>
 
                             {currentUser == "admin" || currentUser == "everett" &&
-                            <div>
-                            <img className="trash-logo" src={trash} alt="delete-icon" onClick={() => {
-                                setEditClientList(!editClientList)
-                                setDeleteId(item._id)
-                                setEditGroup(false);
-                                setEditPackage(false);
-                                setChosenSpeed([]);
-                                setChosenGroup("");
-                                setDeleteWhat("");
-                                setDeleteClient(item.Ip)
-                            }} />
+                                <div>
+                                    <img className="trash-logo" src={trash} alt="delete-icon" onClick={() => {
+                                        setEditClientList(!editClientList)
+                                        setDeleteId(item._id)
+                                        setEditGroup(false);
+                                        setEditPackage(false);
+                                        setChosenSpeed([]);
+                                        setChosenGroup("");
+                                        setDeleteWhat("");
+                                        setDeleteClient(item.Ip)
+                                    }} />
 
-                            <img className="pkg-logo" src={pkg} alt="package-icon" onClick={() => {
-                                setEditPackage(!editPackage);
-                                setEditClientList(false);
-                                setEditGroup(false);
-                                setChosenSpeed([]);
-                                setChosenGroup("");
-                                setDeleteWhat("");
-                                setEditId(item._id);
-                            }} />
+                                    <img className="pkg-logo" src={pkg} alt="package-icon" onClick={() => {
+                                        setEditPackage(!editPackage);
+                                        setEditClientList(false);
+                                        setEditGroup(false);
+                                        setChosenSpeed([]);
+                                        setChosenGroup("");
+                                        setDeleteWhat("");
+                                        setEditId(item._id);
+                                    }} />
 
-                            <img className="group-logo" src={group} alt="group-icon" onClick={() => {
-                                setEditGroup(!editGroup);
-                                setEditPackage(false);
-                                setEditClientList(false);
-                                setChosenSpeed([]);
-                                setChosenGroup("");
-                                setDeleteWhat("");
-                                setEditId(item._id);
-                            }} />
-                            </div>
+                                    <img className="group-logo" src={group} alt="group-icon" onClick={() => {
+                                        setEditGroup(!editGroup);
+                                        setEditPackage(false);
+                                        setEditClientList(false);
+                                        setChosenSpeed([]);
+                                        setChosenGroup("");
+                                        setDeleteWhat("");
+                                        setEditId(item._id);
+                                    }} />
+                                </div>
                             }
                             <a className="compare-container" href={`client?id=${item._id}`}>
                                 {item.package &&
@@ -239,7 +239,7 @@ const ClientList = () => {
                         <Dropdown.Menu>
                             {packages.map((item, index) => (
                                 <div>
-                                    <Dropdown.Item onClick={() => { setChosenSpeed([item.download, item.upload]); }}>{item.download}Mbps x {item.upload}Mbps</Dropdown.Item>
+                                    <Dropdown.Item className="dropdown-item" onClick={() => { setChosenSpeed([item.download, item.upload]); }}>{item.download}Mbps x {item.upload}Mbps</Dropdown.Item>
                                 </div>
                             ))}
                         </Dropdown.Menu>
@@ -252,7 +252,7 @@ const ClientList = () => {
                         <Dropdown.Menu>
                             {groups.map((item, index) => (
                                 <div>
-                                    <Dropdown.Item onClick={() => { setChosenGroup(`${item.name}`); }}>{item.name}</Dropdown.Item>
+                                    <Dropdown.Item className="dropdown-item" onClick={() => { setChosenGroup(`${item.name}`); }}>{item.name}</Dropdown.Item>
 
                                 </div>
                             ))}

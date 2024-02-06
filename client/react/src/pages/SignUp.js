@@ -172,8 +172,8 @@ const Register = () => {
               User Permissions
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item onClick={() => { setPermissions("Admin") }}>Admin</Dropdown.Item>
-              <Dropdown.Item onClick={() => { setPermissions("Not Admin") }}>Not Admin</Dropdown.Item>
+              <Dropdown.Item className="dropdown-item" onClick={() => { setPermissions("Admin") }}>Admin</Dropdown.Item>
+              <Dropdown.Item className="dropdown-item" onClick={() => { setPermissions("Not Admin") }}>Not Admin</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown> */}
 

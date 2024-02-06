@@ -33,6 +33,18 @@ body .button {
   height: 50px;
   font-size: 20px;
 }
+body .dropdown {
+  width: 300px !important;
+}
+body #dropdown-basic {
+  width: 300px !important;
+  background-color: rgb(97, 101, 110);
+  border: 1px solid black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+body .dropdown-item {
+  width: 300px;
+}
 body .card-container {
   min-width: 300px;
   background-color: rgb(97, 101, 110);
