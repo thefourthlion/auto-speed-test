@@ -54,6 +54,7 @@ const Groups = () => {
         <div className="Groups">
             <div className="container">
                 <div className="card-container">
+                    <h2>Add a Group</h2>
                     <Form  >
                         <Form.Group >
                             <FloatingLabel className="form-label" label="Group Name">

@@ -116,7 +116,7 @@ const Register = () => {
       <div className="card-container">
 
         <form onSubmit={handleSignup}>
-          <h2 className="main-header">Register</h2>
+          <h2 className="main-header">Register User</h2>
           <FloatingLabel className="form-label" label="Enter username">
             <Form.Control
               className="form-input"

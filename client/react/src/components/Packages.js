@@ -56,6 +56,7 @@ const Packages = () => {
         <div className="Packages">
             <div className="container">
                 <div className="card-container">
+                    <h2>Add a Package</h2>
                     <Form  >
                         <Form.Group >
                             <FloatingLabel className="form-label" label="Download Speed (Mbps)">
