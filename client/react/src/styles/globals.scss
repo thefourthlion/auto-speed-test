@@ -1,6 +1,9 @@
 @import "./Variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@700&display=swap');
+
 body {
   background-color: rgb(68, 72, 81) !important;
+  font-family: 'Ubuntu', sans-serif;
 
   .chart-container {
     display: flex;

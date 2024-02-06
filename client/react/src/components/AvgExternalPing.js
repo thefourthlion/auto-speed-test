@@ -98,9 +98,6 @@ const AvgExternalPing = () => {
     };
 
 
-
-
-
     const customTooltip = ({ active, payload, label }) => {
         if (active && payload && payload.length) {
             return (

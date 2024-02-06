@@ -9,6 +9,7 @@ import axios from "axios"
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import AuthService from "../services/auth.services";
+import ListGroup from 'react-bootstrap/ListGroup';
 
 
 // import Up from "../assets/up.svg"
@@ -174,11 +175,11 @@ const ClientList = () => {
                     {speeds.map((item, index) => (
                         <div className="clientList" key={index}>
                             <a href={`client?id=${item._id}`}>
-                                <h4>{item.Ip}</h4>
+                                <h3>{item.Ip}</h3>
                             </a>
 
                             {currentUser == "admin" || currentUser == "everett" &&
-                                <div>
+                                <div className="edit-container">
                                     <img className="trash-logo" src={trash} alt="delete-icon" onClick={() => {
                                         setEditClientList(!editClientList)
                                         setDeleteId(item._id)

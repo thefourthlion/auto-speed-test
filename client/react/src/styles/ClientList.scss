@@ -8,9 +8,9 @@
     gap: 10px;
   }
 
-  h4{
+  h3{
     position: relative;
-    bottom: 4px;
+    bottom: 7px;
   }
 
   button {
@@ -31,6 +31,20 @@
     hr {
       border-color: white;
     }
+  }
+
+  .list-item{
+    width: 300px;
+  }
+
+  .edit-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    position: relative;
+    bottom: 8px;
   }
 
   .compare-container{

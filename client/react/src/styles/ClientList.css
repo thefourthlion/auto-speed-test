@@ -5,9 +5,9 @@
   display: flex;
   gap: 10px;
 }
-.ClientList h4 {
+.ClientList h3 {
   position: relative;
-  bottom: 4px;
+  bottom: 7px;
 }
 .ClientList button {
   width: 250px;
@@ -24,6 +24,18 @@
 }
 .ClientList .clientListContainer hr {
   border-color: white;
+}
+.ClientList .list-item {
+  width: 300px;
+}
+.ClientList .edit-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  position: relative;
+  bottom: 8px;
 }
 .ClientList .compare-container {
   display: flex;
