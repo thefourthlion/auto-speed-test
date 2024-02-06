@@ -19,27 +19,64 @@ const Admin = () => {
             <div className="container">
 
                 <div className="form-container">
-                    <h1 className="form-header pings-header" onClick={()=>{setShowExternalPings(!showExternalPings)}}>External Pings</h1>
+                    <h1 className="form-header pings-header" 
+                    onClick={()=>{
+                        setShowExternalPings(!showExternalPings)
+                        setShowClients(false)
+                        setShowPackages(false)
+                        setShowGroups(false)
+                        setShowSignUp(false)
+                        }}>External Pings</h1>
                     {showExternalPings && <ExternalPing />}
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header clients-header" onClick={()=>{setShowClients(!showClients)}}>Edit Clients</h1>
+                    <h1 className="form-header clients-header" 
+                    onClick={()=>{
+                        setShowClients(!showClients)
+                        setShowExternalPings(false)
+                        setShowPackages(false)
+                        setShowGroups(false)
+                        setShowSignUp(false)
+                        }}>Edit Clients</h1>
                     {showClients && <ClientList />}
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header packages-header" onClick={()=>{setShowPackages(!showPackages)}}>Edit Packages</h1>
+                    <h1 className="form-header packages-header" 
+                    onClick={()=>{
+                        setShowPackages(!showPackages)
+                        setShowClients(false)
+                        setShowExternalPings(false)
+                        setShowGroups(false)
+                        setShowSignUp(false)
+
+                        }}>Edit Packages</h1>
                     {showPackages && <Packages />}
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header groups-header" onClick={()=>{setShowGroups(!showGroups)}}>Edit Groups</h1>
+                    <h1 className="form-header groups-header" 
+                    onClick={()=>{
+                        setShowGroups(!showGroups)
+                        setShowPackages(false)
+                        setShowSignUp(false)
+                        setShowClients(false)
+                        setShowExternalPings(false)
+                        }}>Edit Groups</h1>
                     {showGroups && <Groups />}
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header user-header" onClick={()=>{setShowSignUp(!showSignUp)}}>Edit Users</h1>
+                    <h1 className="form-header user-header" 
+                    onClick={()=>{
+                        setShowSignUp(!showSignUp)
+                        setShowGroups(false)
+                        setShowPackages(false)
+                        setShowClients(false)
+                        setShowExternalPings(false)
+
+                        }}>Edit Users</h1>
                     {showSignUp && <SignUp />}
                 </div>
 
