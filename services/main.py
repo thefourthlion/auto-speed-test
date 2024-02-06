@@ -31,7 +31,7 @@ def speedTest():
 
     print("Running Speed test...⏲️")
     # ---------- speed test --------------------------------
-    speedTest = speedtest.Speedtest()
+    speedTest = speedtest.Speedtest(secure=True)
 
     downloadSpeed = speedTest.download()
     downloadMbps = round(downloadSpeed / 1000000, 2)
