@@ -25,4 +25,12 @@
 }
 .SignUp .form-label {
   width: 250px;
+}
+.SignUp .users-container {
+  display: flex;
+  gap: 10px;
+}
+.SignUp .trash-logo {
+  position: relative;
+  top: 5px;
 }/*# sourceMappingURL=SignUp.css.map */

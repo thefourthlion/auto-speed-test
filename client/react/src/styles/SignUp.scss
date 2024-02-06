@@ -26,4 +26,14 @@
     .form-label{
         width: 250px;
     }
+
+    .users-container{
+        display: flex;
+        gap: 10px;
+    }
+
+    .trash-logo{
+        position: relative;
+        top: 5px;
+    }
 }

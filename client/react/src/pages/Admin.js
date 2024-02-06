@@ -7,6 +7,13 @@ import Packages from "../components/Packages";
 import Groups from "../components/Groups";
 import SignUp from "./SignUp";
 
+import AuthService from "../services/auth.services";
+
+
+
+
+
+
 const Admin = () => {
     const [showExternalPings, setShowExternalPings] = useState(false);
     const [showClients, setShowClients] = useState(false);
@@ -14,105 +21,89 @@ const Admin = () => {
     const [showSignUp, setShowSignUp] = useState(false);
     const [showEmails, setShowEmails] = useState(false);
     const [showGroups, setShowGroups] = useState(false);
+    const [currentUser, setCurrentUser] = useState("")
+
+    useEffect(() => {
+        const user = AuthService.getCurrentUser()
+
+        if (user) {
+            setCurrentUser(user.username)
+        }
+    }, [])
+
     return (
+
         <div className="Admin page">
+
+            <h1>Signed in as : {currentUser}</h1>
+
+
             <div className="container">
 
                 <div className="form-container">
-                    <h1 className="form-header pings-header" 
-                    onClick={()=>{
-                        setShowExternalPings(!showExternalPings)
-                        setShowClients(false)
-                        setShowPackages(false)
-                        setShowGroups(false)
-                        setShowSignUp(false)
+                    <h1 className="form-header pings-header"
+                        onClick={() => {
+                            setShowExternalPings(!showExternalPings)
+                            setShowClients(false)
+                            setShowPackages(false)
+                            setShowGroups(false)
+                            setShowSignUp(false)
                         }}>External Pings</h1>
                     {showExternalPings && <ExternalPing />}
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header clients-header" 
-                    onClick={()=>{
-                        setShowClients(!showClients)
-                        setShowExternalPings(false)
-                        setShowPackages(false)
-                        setShowGroups(false)
-                        setShowSignUp(false)
+                    <h1 className="form-header clients-header"
+                        onClick={() => {
+                            setShowClients(!showClients)
+                            setShowExternalPings(false)
+                            setShowPackages(false)
+                            setShowGroups(false)
+                            setShowSignUp(false)
                         }}>Edit Clients</h1>
                     {showClients && <div className="card-container"><ClientList /></div>}
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header packages-header" 
-                    onClick={()=>{
-                        setShowPackages(!showPackages)
-                        setShowClients(false)
-                        setShowExternalPings(false)
-                        setShowGroups(false)
-                        setShowSignUp(false)
+                    <h1 className="form-header packages-header"
+                        onClick={() => {
+                            setShowPackages(!showPackages)
+                            setShowClients(false)
+                            setShowExternalPings(false)
+                            setShowGroups(false)
+                            setShowSignUp(false)
 
                         }}>Edit Packages</h1>
                     {showPackages && <Packages />}
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header groups-header" 
-                    onClick={()=>{
-                        setShowGroups(!showGroups)
-                        setShowPackages(false)
-                        setShowSignUp(false)
-                        setShowClients(false)
-                        setShowExternalPings(false)
+                    <h1 className="form-header groups-header"
+                        onClick={() => {
+                            setShowGroups(!showGroups)
+                            setShowPackages(false)
+                            setShowSignUp(false)
+                            setShowClients(false)
+                            setShowExternalPings(false)
                         }}>Edit Groups</h1>
                     {showGroups && <Groups />}
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header user-header" 
-                    onClick={()=>{
-                        setShowSignUp(!showSignUp)
-                        setShowGroups(false)
-                        setShowPackages(false)
-                        setShowClients(false)
-                        setShowExternalPings(false)
+                    <h1 className="form-header user-header"
+                        onClick={() => {
+                            setShowSignUp(!showSignUp)
+                            setShowGroups(false)
+                            setShowPackages(false)
+                            setShowClients(false)
+                            setShowExternalPings(false)
 
                         }}>Edit Users</h1>
                     {showSignUp && <SignUp />}
                 </div>
 
-
-
-                
-
-                {/* <Form  >
-                    <Form.Group >
-                        <FloatingLabel className="form-label" label="Website Name ">
-                            <Form.Control
-                                className="form-input"
-                                type="text"
-                                autoComplete="true"
-                                placeholder="Website Name "
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                        </FloatingLabel>
-                    </Form.Group>
-
-
-                    <FloatingLabel className="form-label" label="Website Link ">
-                        <Form.Control
-                            className="form-input"
-                            type="text"
-                            autoComplete="true"
-                            placeholder="Website Link "
-                            onChange={(e) => setLink(e.target.value)}
-                        />
-                    </FloatingLabel>
-
-                    <Button onClick={() => { handleSubmit() }} className="sub-btn">Submit</Button>
-                </Form> */}
-
-
             </div>
+
         </div>
     );
 };

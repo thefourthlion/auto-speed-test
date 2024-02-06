@@ -1,18 +1,10 @@
-import { Link, Route } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import authService from "../../services/auth.services";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        localStorage.getItem("authToken") ? (
-          <Component {...props} />
-        ) : (
-          <Link to="/login" />
-        )
-      }
-    />
-  );
+  const auth = authService.getCurrentUser();
+  {auth && console.log({ "user": auth.username })}
+  return auth ? <Outlet /> : <Navigate to="/login" />
 };
 
 export default PrivateRoute;

@@ -5,6 +5,9 @@ import Form from "react-bootstrap/Form";
 import AuthService from "../services/auth.services";
 import Button from "react-bootstrap/Button";
 import axios from "axios"
+import trash from "../assets/trash.png"
+
+
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -14,12 +17,27 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userValidation, setUserValidation] = useState("");
 
+
   const [users, setUser] = useState([]);
+
+  const [deleteUser, setDeleteUser] = useState(false);
+  const [deleteWho, setDeleteWho] = useState("");
+  const [userToDelete, setUserToDelete] = useState("");
+  const [userId, setUserId] = useState("");
 
   const getUsers = async () => {
     try {
       const response = await axios.get('http://localhost:3025/api/auth/read');
       setUser(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching data: ', error);
+    }
+  }
+
+  const deleteUsers = async (id) => {
+    try {
+      const response = await axios.delete(`http://localhost:3025/api/auth/delete/${id}`);
       console.log(response.data)
     } catch (error) {
       console.error('Error fetching data: ', error);
@@ -153,15 +171,44 @@ const Register = () => {
         </form>
       </div>
 
-      <div className="card-container">
-        <h2>Current Users</h2>
-        <hr className="hr" />
-        {users.map((user, index) => (
-          <div>
-            <h3 key={index}>{user.username}</h3>
-          </div>
-        ))}
-      </div>
+      {users.length > 0 &&
+        <div className="card-container">
+          <h2>Current Users</h2>
+          <hr className="hr" />
+          {users.map((user, index) => (
+            <div className="users-container">
+              <h3 key={index}>{user.username}</h3>
+              <img src={trash} alt="delete-icon " className="trash-logo"
+                onClick={() => {
+                  setDeleteUser(!deleteUser);
+                  setUserToDelete(user.username);
+                  setUserId(user._id);
+                }}
+              />
+            </div>
+          ))}
+
+          {deleteUser &&
+            <FloatingLabel className="form-label" label="Enter username to delete">
+              <Form.Control
+                className="form-input"
+                type="text"
+                placeholder="Enter username to delete"
+                onChange={(e) => setDeleteWho(e.target.value)}
+              />
+            </FloatingLabel>
+
+          }
+
+          {deleteWho != "" && deleteWho === userToDelete &&
+            <Button variant="danger button submit-btn"
+              onClick={() => { deleteUsers(userId) }}
+            >Delete</Button>
+          }
+        </div>
+      }
+
+
 
     </div >
   );

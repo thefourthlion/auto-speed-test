@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+
 import "./styles/OverallHealth.css";
 import "./styles/AvgExternalPing.css";
 import "./styles/Groups.css";
@@ -25,7 +27,6 @@ import "./styles/Speeds.css";
 import "./styles/globals.css";
 import "./styles/Home.css"
 
-import React from "react";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
@@ -40,6 +41,7 @@ import Navigation from "./components/Navigation";
 import Clients from "./pages/Clients"
 import Admin from "./pages/Admin";
 
+import PrivateRoute from "./components/routes/PrivateRoute";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -50,11 +52,9 @@ const App = () => {
       <BrowserRouter>
         <Navigation />
         <Routes>
-
-          <Route path="/">
+          <Route exact path="/" element={<PrivateRoute />} >
             <Route index element={<Home />} />
             <Route path="Home" element={<Home />} />
-            <Route path="Login" element={<Login />} />
             <Route path="register" element={<SignUp />} />
             <Route path="Speeds" element={<Speeds />} />
             <Route path="pings" element={<Ping />} />
@@ -65,8 +65,8 @@ const App = () => {
             <Route path="AllExternalPingData" element={<AllExternalPingData />} />
             <Route path="Clients" element={<Clients />} />
             <Route path="Admin" element={<Admin />} />
-
           </Route>
+          <Route path="Login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>
