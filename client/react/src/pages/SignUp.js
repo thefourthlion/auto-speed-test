@@ -167,7 +167,7 @@ const Register = () => {
             />
           </FloatingLabel>
 
-          <Dropdown>
+          {/* <Dropdown>
             <Dropdown.Toggle variant="danger" id="dropdown-basic">
               User Permissions
             </Dropdown.Toggle>
@@ -175,8 +175,9 @@ const Register = () => {
               <Dropdown.Item onClick={() => { setPermissions("Admin") }}>Admin</Dropdown.Item>
               <Dropdown.Item onClick={() => { setPermissions("Not Admin") }}>Not Admin</Dropdown.Item>
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> */}
 
+          <h4>{permissions}</h4>
 
           <h4>{userValidation}</h4>
           <Button className="submit-btn button" variant="primary" type="submit">
@@ -191,7 +192,6 @@ const Register = () => {
       {users.length > 0 &&
         <div className="card-container">
           <h2>Current Users</h2>
-          <hr className="hr" />
           {users.map((user, index) => (
             <div className="users-container">
               <h3 key={index}>{user.username}</h3>

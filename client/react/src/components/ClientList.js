@@ -8,6 +8,8 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import axios from "axios"
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
+import AuthService from "../services/auth.services";
+
 
 // import Up from "../assets/up.svg"
 // import Down from "../assets/down.svg"
@@ -19,6 +21,7 @@ import { ReactComponent as Ping } from '../assets/ping.svg';
 
 const ClientList = () => {
     const [speeds, setSpeeds] = useState([])
+    const [currentUser, setCurrentUser] = useState("");
 
     const [editClientList, setEditClientList] = useState(false);
     const [deleteWhat, setDeleteWhat] = useState("");
@@ -37,6 +40,9 @@ const ClientList = () => {
     const refreshPage = () => {
         window.location.reload();
     };
+
+
+
 
     const getData = () => {
         fetch("https://api.speeds.everettdeleon.com/api/speeds/read")
@@ -147,6 +153,13 @@ const ClientList = () => {
         getData();
         getpackageData()
         getGroupData()
+
+        const user = AuthService.getCurrentUser()
+
+        if (user) {
+            console.log(user)
+            setCurrentUser(user.username)
+        }
     }, []);
 
     let download;
@@ -155,7 +168,7 @@ const ClientList = () => {
         <div className="ClientList">
             <div className="container">
                 <div className="clientListContainer">
-                    
+
                     <h2 >Client List</h2>
 
                     {speeds.map((item, index) => (
@@ -164,6 +177,8 @@ const ClientList = () => {
                                 <h4>{item.Ip}</h4>
                             </a>
 
+                            {currentUser == "admin" || currentUser == "everett" &&
+                            <div>
                             <img className="trash-logo" src={trash} alt="delete-icon" onClick={() => {
                                 setEditClientList(!editClientList)
                                 setDeleteId(item._id)
@@ -194,7 +209,8 @@ const ClientList = () => {
                                 setDeleteWhat("");
                                 setEditId(item._id);
                             }} />
-
+                            </div>
+                            }
                             <a className="compare-container" href={`client?id=${item._id}`}>
                                 {item.package &&
                                     <p>{compareDownload(
