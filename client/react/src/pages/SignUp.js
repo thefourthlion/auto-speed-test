@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import AuthService from "../services/auth.services";
 import Button from "react-bootstrap/Button";
+import axios from "axios"
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -12,6 +13,20 @@ const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userValidation, setUserValidation] = useState("");
+
+  const [users, setUser] = useState([]);
+
+  const getUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:3025/api/auth/read');
+      setUser(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching data: ', error);
+    }
+  }
+
+  useEffect(() => { getUsers() }, [])
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -74,67 +89,81 @@ const Register = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSignup}>
-        <h1>Register</h1>
-        <FloatingLabel className="form-label" label="Enter username">
-          <Form.Control
-            className="form-input"
-            type="text"
-            placeholder="Enter username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </FloatingLabel>
+    <div className="SignUp">
+      <div className="card-container">
 
-        <FloatingLabel className="form-label" label="Enter Email">
-          <Form.Control
-            className="form-input"
-            type="email"
-            placeholder="Enter Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </FloatingLabel>
+        <form onSubmit={handleSignup}>
+          <h2 className="main-header">Register</h2>
+          <FloatingLabel className="form-label" label="Enter username">
+            <Form.Control
+              className="form-input"
+              type="text"
+              placeholder="Enter username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </FloatingLabel>
 
-        <FloatingLabel className="form-label" label="Enter Password">
-          <Form.Control
-            className="form-input"
-            type="password"
-            placeholder="Enter Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </FloatingLabel>
+          <FloatingLabel className="form-label" label="Enter Email">
+            <Form.Control
+              className="form-input"
+              type="email"
+              placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </FloatingLabel>
 
-        <FloatingLabel className="form-label" label="Confirm password">
-          <Form.Control
-            className="form-input"
-            type="password"
-            placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-        </FloatingLabel>
+          <FloatingLabel className="form-label" label="Enter Password">
+            <Form.Control
+              className="form-input"
+              type="password"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </FloatingLabel>
 
-        <FloatingLabel className="form-label" label="Phone Number (optional)">
-          <Form.Control
-            className="form-input"
-            type="text"
-            placeholder="Phone Number (optional)"
-            value={phoneNumber}
-            onChange={(e) => setPhoneNumber(e.target.value)}
-          />
-        </FloatingLabel>
-        <h4>{userValidation}</h4>
-        <Button className="submit-btn" variant="primary" type="submit">
-          Register
-        </Button>
-        {/* <span>
+          <FloatingLabel className="form-label" label="Confirm password">
+            <Form.Control
+              className="form-input"
+              type="password"
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            />
+          </FloatingLabel>
+
+          <FloatingLabel className="form-label" label="Phone Number (optional)">
+            <Form.Control
+              className="form-input"
+              type="text"
+              placeholder="Phone Number (optional)"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </FloatingLabel>
+          <h4>{userValidation}</h4>
+          <Button className="submit-btn button" variant="primary" type="submit">
+            Register
+          </Button>
+          {/* <span>
           Already have an account? <Link to="/login">Login</Link>
         </span> */}
-      </form>
-    </div>
+        </form>
+      </div>
+
+      <div className="card-container">
+        <h2>Current Users</h2>
+        <hr className="hr" />
+        {users.map((user, index) => (
+          <div>
+            <h3 key={index}>{user.username}</h3>
+          </div>
+        ))}
+      </div>
+
+    </div >
   );
 };
 

@@ -30,6 +30,19 @@ body .button {
   height: 50px;
   font-size: 20px;
 }
+body .card-container {
+  min-width: 300px;
+  background-color: rgb(97, 101, 110);
+  padding: 25px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+body .hr {
+  border: 0;
+  height: 2px;
+  background-color: black;
+}
 body .green-outline-btn {
   border: 2px solid rgb(0, 55, 218);
   border-radius: 5px;

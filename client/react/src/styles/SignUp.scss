@@ -2,10 +2,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     // padding: 150px;
     text-align: center;
     h2, p{
         color: white;
+    }
+    .main-header{
+        margin-bottom: 15px;
     }
     .container{
         display: flex;
@@ -13,7 +17,7 @@
         align-items: center;
         flex-direction: column;
     }
-    button{
+    .submit-btn{
     text-align: center;
     width: 250px;
     height: 50px;

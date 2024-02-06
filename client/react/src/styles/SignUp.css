@@ -2,10 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   text-align: center;
 }
 .SignUp h2, .SignUp p {
   color: white;
+}
+.SignUp .main-header {
+  margin-bottom: 15px;
 }
 .SignUp .container {
   display: flex;
@@ -13,7 +17,7 @@
   align-items: center;
   flex-direction: column;
 }
-.SignUp button {
+.SignUp .submit-btn {
   text-align: center;
   width: 250px;
   height: 50px;

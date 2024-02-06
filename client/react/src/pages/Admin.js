@@ -39,7 +39,7 @@ const Admin = () => {
                 </div>
 
                 <div className="form-container">
-                    <h1 className="form-header user-header" onClick={()=>{setShowSignUp(!showSignUp)}}>Add User</h1>
+                    <h1 className="form-header user-header" onClick={()=>{setShowSignUp(!showSignUp)}}>Edit Users</h1>
                     {showSignUp && <SignUp />}
                 </div>
 
