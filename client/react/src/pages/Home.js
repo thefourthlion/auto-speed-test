@@ -5,9 +5,10 @@ import OverallHealth from "../components/OverallHealth"
 const Home = () => {
   return (
     <div className="Home page">
-        <ClientList/>
+      <OverallHealth/>
+        {/* <ClientList/> */}
         <AvgExternalPing />
-        <OverallHealth/>
+        
 
     </div>
   )
