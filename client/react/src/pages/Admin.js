@@ -39,7 +39,7 @@ const Admin = () => {
                         setShowGroups(false)
                         setShowSignUp(false)
                         }}>Edit Clients</h1>
-                    {showClients && <ClientList />}
+                    {showClients && <div className="card-container"><ClientList /></div>}
                 </div>
 
                 <div className="form-container">

@@ -69,62 +69,65 @@ const ExternalPing = () => {
             <div className="container">
                 {/* <ExternalPingData /> */}
 
-                <h2>Add a site to ping list</h2>
-                <Form  >
-                    <Form.Group >
-                        <FloatingLabel className="form-label" label="Website Name ">
+                <div className="card-container">
+                    <h2>Add a site to ping list</h2>
+                    <Form  >
+                        <Form.Group >
+                            <FloatingLabel className="form-label" label="Website Name ">
+                                <Form.Control
+                                    className="form-input"
+                                    type="text"
+                                    autoComplete="true"
+                                    placeholder="Website Name "
+                                    onChange={(e) => setName(e.target.value)}
+                                />
+                            </FloatingLabel>
+                        </Form.Group>
+
+
+                        <FloatingLabel className="form-label" label="Website Link ">
                             <Form.Control
                                 className="form-input"
                                 type="text"
                                 autoComplete="true"
-                                placeholder="Website Name "
-                                onChange={(e) => setName(e.target.value)}
+                                placeholder="Website Link "
+                                onChange={(e) => setLink(e.target.value)}
                             />
                         </FloatingLabel>
-                    </Form.Group>
+
+                        <Button onClick={() => { handleSubmit() }} className="sub-btn">Submit</Button>
+                    </Form>
+                </div>
+
+                <div className="card-container">
+                    <h2>List of sites to ping</h2>
+                    {externalPings.map((item, index) => (
+                        <div className="clientList" key={index}>
+                            <a href={`${item.link}`}><p >{item.name}</p></a>
+                            <p className="delete-btn" onClick={() => {
+                                setDeleteData(!deleteData)
+                                setDeletePing(item.name)
+                                setDeleteId(item._id)
+                            }}>
+                                <img className="trash-logo" src={trash} alt="trash can" />
+                            </p>
 
 
-                    <FloatingLabel className="form-label" label="Website Link ">
+
+
+                        </div>
+                    ))}
+                    {deleteData && <FloatingLabel className="form-label" label="ping name ">
                         <Form.Control
                             className="form-input"
                             type="text"
                             autoComplete="true"
-                            placeholder="Website Link "
-                            onChange={(e) => setLink(e.target.value)}
+                            placeholder="ping name"
+                            onChange={(e) => setDeleteWhat(e.target.value)}
                         />
-                    </FloatingLabel>
-
-                    <Button onClick={() => { handleSubmit() }} className="sub-btn">Submit</Button>
-                </Form>
-
-                <h2>List of sites to ping</h2>
-                {externalPings.map((item, index) => (
-                    <div className="clientList" key={index}>
-                        <a href={`${item.link}`}><p >{item.name}</p></a>
-                        <p className="delete-btn" onClick={() => {
-                            setDeleteData(!deleteData)
-                            setDeletePing(item.name)
-                            setDeleteId(item._id)
-                        }}>
-                            <img className="trash-logo" src={trash} alt="trash can" />
-                        </p>
-
-
-
-
-                    </div>
-                ))}
-                {deleteData && <FloatingLabel className="form-label" label="ping name ">
-                    <Form.Control
-                        className="form-input"
-                        type="text"
-                        autoComplete="true"
-                        placeholder="ping name"
-                        onChange={(e) => setDeleteWhat(e.target.value)}
-                    />
-                </FloatingLabel>}
-                {deleteWhat != "" && deleteWhat == deletePing && <Button variant="danger" onClick={() => { handleDelete(deleteId) }}>Delete</Button>}
-
+                    </FloatingLabel>}
+                    {deleteWhat != "" && deleteWhat == deletePing && <Button variant="danger" onClick={() => { handleDelete(deleteId) }}>Delete</Button>}
+                </div>
             </div>
         </div>
     );
