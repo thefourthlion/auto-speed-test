@@ -18,6 +18,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    permissions: {
+      type: String,
+      default: "",
+    },
     profilePic: {
       type: String,
       default: "",

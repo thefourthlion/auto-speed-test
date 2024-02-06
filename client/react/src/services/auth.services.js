@@ -4,12 +4,14 @@ const refreshPage = () => {
     window.location.reload();
 };
 
-const register = (username, email, password, phoneNumber, profilePic) => {
+const register = (username, email, password, permissions,
+    phoneNumber, profilePic) => {
     return axios
         .post("http://localhost:3025/api/auth/register", {
             username,
             email,
             phoneNumber,
+            permissions,
             password,
             profilePic,
         })

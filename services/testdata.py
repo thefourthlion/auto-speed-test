@@ -19,12 +19,12 @@ random_ping = random.randint(10, 20)
 update_url = f"http://localhost:3025/api/speeds/update/{id}"
 get_url = f"http://localhost:3025/api/speeds/read"
 
-download_min = 900
-download_max = 1000
-upload_min = 500
-upload_max = 750
-ping_min = 3
-ping_max = 3
+download_min = 100
+download_max = 200
+upload_min = 100
+upload_max = 250
+ping_min = 35
+ping_max = 40
 
 host_name = "test-pc"
 

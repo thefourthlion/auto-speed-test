@@ -6,6 +6,8 @@ import AuthService from "../services/auth.services";
 import Button from "react-bootstrap/Button";
 import axios from "axios"
 import trash from "../assets/trash.png"
+import Dropdown from 'react-bootstrap/Dropdown';
+
 
 
 const Register = () => {
@@ -16,6 +18,8 @@ const Register = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userValidation, setUserValidation] = useState("");
+
+  const [permissions, setPermissions] = useState("")
 
 
   const [users, setUser] = useState([]);
@@ -83,6 +87,7 @@ const Register = () => {
           username,
           email,
           password,
+          permissions,
           phoneNumber,
           profilePic
         ).then(
@@ -161,6 +166,18 @@ const Register = () => {
               onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </FloatingLabel>
+
+          <Dropdown>
+            <Dropdown.Toggle variant="danger" id="dropdown-basic">
+              User Permissions
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={() => { setPermissions("Admin") }}>Admin</Dropdown.Item>
+              <Dropdown.Item onClick={() => { setPermissions("Not Admin") }}>Not Admin</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+
+
           <h4>{userValidation}</h4>
           <Button className="submit-btn button" variant="primary" type="submit">
             Register
