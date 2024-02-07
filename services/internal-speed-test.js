@@ -2,7 +2,7 @@
 // npx @puppeteer/browsers install chrome@stable
 const puppeteer = require('puppeteer');
 const axios = require("axios");
-const os = require("os");  
+const os = require("os");
 
 const getData = (callback) => {
     axios.get('http://localhost:3025/api/internalspeeds/read')
@@ -37,22 +37,33 @@ const updateData = (id, data) => {
         })
 }
 
+function delay(time) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, time)
+    });
+}
+
 
 (async () => {
     // { headless: false }
-    const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions']});
+
+    // linux
+    // const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'] });
+    
+    // windows
+    const browser = await puppeteer.launch();
 
     const page = await browser.newPage();
 
     await page.goto('http://10.49.48.151/');
 
     console.log(`Waiting for page to load 📃`)
-    await page.waitForTimeout(2000);
+    await delay(2000);
 
     await page.click('#startStopBtn');
 
     console.log(`Waiting for speed test to run ⌚`)
-    await page.waitForTimeout(24000);
+    await delay(24000);
 
     const download = await page.$eval('#dlText', el => el.textContent);
     const upload = await page.$eval('#ulText', el => el.textContent);
@@ -63,7 +74,7 @@ const updateData = (id, data) => {
     const name = os.hostname();
     let ip = os.hostname();
 
-    
+
 
     console.log(`Timestamp: ${timestamp}`);
     console.log(`Hostname: ${name}`);
@@ -77,8 +88,8 @@ const updateData = (id, data) => {
         "upload": upload,
         "download": download,
         "ping": ping,
-        "Ip":ip, 
-        "name":name
+        "Ip": ip,
+        "name": name
     };
 
     getData((err, data) => {
@@ -86,7 +97,7 @@ const updateData = (id, data) => {
             console.error('Failed to get data:', err);
             return;
         }
-    
+
         const existingEntry = data.find(entry => entry.Ip === ip);
         if (existingEntry) {
             // If an existing entry is found, update it
@@ -102,7 +113,7 @@ const updateData = (id, data) => {
             postData(data);
         }
     });
-    
+
 
 
     await browser.close();
