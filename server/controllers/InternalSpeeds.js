@@ -46,6 +46,20 @@ exports.readInternalSpeedsFromID = async (req, res) => {
         console.log(err);
     }
 };
+
+exports.readInternalSpeedsFromName = async (req, res) => {
+    try {
+      await InternalSpeeds.find({ name: req.params.name }, {}, (err, result) => {
+        if (err) {
+          res.json({ app: err });
+        }
+        res.send(result);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
 exports.updateInternalSpeeds = async (req, res) => {
     try {
         await InternalSpeeds.findByIdAndUpdate(
