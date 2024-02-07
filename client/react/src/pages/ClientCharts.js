@@ -13,16 +13,31 @@ const ClientCharts = () => {
     const [hostName, setHostName] = useState("")
     const [pingdata, setpingdata] = useState([])
 
-    const url = `https://api.speeds.everettdeleon.com/api/speeds/read/${id}`
+    const [internalSpeed, setInternalSpeed] = useState([])
+    const url = `http://localhost:3025/api/speeds/read/${id}`
+
+
+
 
     const getSpeeds = () => {
         fetch(url)
             .then((res) => res.json())
             .then((data) => {
                 setSpeedsData([data]);
+
                 setHostName(data.Ip)
                 const hostname = data.Ip
                 getpings(hostname);
+
+                fetch(`http://localhost:3025/api/internalspeeds/read/name/${hostname}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        setInternalSpeed(data);
+                        console.log(data)
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching data: ", error);
+                    });
 
             })
             .catch((error) => {
@@ -35,7 +50,6 @@ const ClientCharts = () => {
         axios.get(`http://localhost:3025/api/externalpingdata/read/name/${hostname}`)
             .then((response) => {
                 setpingdata(response.data);
-                console.log({ data: response.data });
             })
             .catch((error) => {
                 console.error("Error fetching data: ", error);
@@ -44,8 +58,6 @@ const ClientCharts = () => {
 
     useEffect(() => {
         getSpeeds();
-        console.log(hostName)
-        console.log(`http://localhost:3025/api/externalpingdata/read/name/${hostName}`)
     }, []);
 
     const mbTick = (tick) => {
@@ -157,10 +169,11 @@ const ClientCharts = () => {
         <div className="ClientCharts page">
             <div className="container">
                 <div className="speedContainer">
+
                     {speedsData.map((speed, index) => (
                         <div className="chart-container" key={index}>
                             <h1 className="chart-title" >{speed.name || speed.Ip}</h1>
-                            <h2></h2>
+                            <h2>External Speeds </h2>
                             <a href={`/speeds?id=${speed._id}`}>
                                 <LineChart
                                     className="chart"
@@ -212,13 +225,14 @@ const ClientCharts = () => {
                             </a>
                         </div>
                     ))}
-
                 </div>
 
                 {pingdata.length != 0 &&
                     // <p>something</p>
                     <div className="externalpingContainer">
                         <div className="chart-container">
+                            <h2>External Pings</h2>
+
                             <a href={`/AllExternalPingData?hostname=${hostName}`}>
                                 <LineChart
                                     className="chart"
@@ -251,9 +265,69 @@ const ClientCharts = () => {
                     </div>
                 }
 
+                {internalSpeed != [] ?
+                    <div>
+                        <div>
+                            {internalSpeed.map((item, index) => (
+                                <div className="chart-container" key={index}>
+                                    <h2>Internal Speeds </h2>
+                                    <a href={`/InternalSpeeds?id=${item._id}`}>
+                                        <LineChart
+                                            className="chart"
+                                            width={windowSize.current[0]}
+                                            height={windowSize.current[1]}
+                                            data={transformSpeedData(item, twelveHours)}
+                                            margin={{
+                                                top: 5,
+                                                right: 30,
+                                                left: 20,
+                                                bottom: 5,
+                                            }}
+                                        >
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
+                                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={mbTick} />
+                                            <Tooltip content={<SpeedsToolTip />}  // Customizes the background and text color of the tooltip container
+                                            />
+                                            <Legend ></Legend>
+                                            <Line type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                            <Line type="monotone" dataKey="Upload" stroke="#82ca9d" />
+                                        </LineChart></a>
+                                </div>
+                            ))}
+                        </div>
+                        <div className="pingContainer">
+                            {internalSpeed.map((item, index) => (
+                                <div className="chart-container" key={index}>
+                                    <a href={`/InternalPings?id=${item._id}`}>
+                                        <LineChart
+                                            className="chart"
+                                            width={windowSize.current[0]}
+                                            height={windowSize.current[1]}
+                                            data={transformPingData(item, twelveHours)}
+                                            margin={{
+                                                top: 5,
+                                                right: 30,
+                                                left: 20,
+                                                bottom: 5,
+                                            }}
+                                        >
+                                            <CartesianGrid strokeDasharray="3 3" />
+                                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                                            <Tooltip content={<PingToolTip />} />
+                                            <Legend />
+                                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
+                                        </LineChart>
+                                    </a>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    : ""}
 
             </div>
-        </div>
+        </div >
     );
 };
 

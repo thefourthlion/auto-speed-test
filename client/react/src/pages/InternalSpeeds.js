@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 
-const Speeds = () => {
+const InternalSpeeds = () => {
     const [searchParams] = useSearchParams();
     const id = (searchParams.get('id'));
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
@@ -15,7 +15,7 @@ const Speeds = () => {
         return `${tick}Mbps`;
     };
 
-    const url = `http://localhost:3025/api/speeds/read/${id}`
+    const url = `http://localhost:3025/api/internalspeeds/read/${id}`
 
     const getSpeeds = () => {
         if (id == null) {
@@ -70,7 +70,7 @@ const Speeds = () => {
     const oneYear = 8760;
 
     return (
-        <div className="Speeds page">
+        <div className="InternalSpeeds page">
             <div className="container">
                 <h1 className="content-header">Speed Tests</h1>
                 {speedsData.map((speed, index) => (
@@ -199,28 +199,28 @@ const Speeds = () => {
 
                         {speed.download.length > sixMonth && <div>
                             <AreaChart
-                                width={windowSize.current[0]}
-                                height={windowSize.current[1]}
-                                data={transformSpeedData(speed, oneYear)}
-                                margin={{
-                                    top: 5,
-                                    right: 30,
-                                    left: 20,
-                                    bottom: 5,
-                                }}
-                            >
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
-                                <Tooltip content={<CustomTooltip />} />
-                                <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
-                                <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
-                            </AreaChart>
-                            <p>1 Year</p>
+                            width={windowSize.current[0]}
+                            height={windowSize.current[1]}
+                            data={transformSpeedData(speed, oneYear)}
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                left: 20,
+                                bottom: 5,
+                            }}
+                        >
+                            <CartesianGrid strokeDasharray="3 3" />
+                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
+                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
+                        </AreaChart>
+                        <p>1 Year</p>
                         </div>}
 
 
-
+                        
                     </div>
                 ))}
             </div>
@@ -228,4 +228,4 @@ const Speeds = () => {
     );
 };
 
-export default Speeds;
+export default InternalSpeeds;

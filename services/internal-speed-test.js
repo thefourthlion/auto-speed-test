@@ -1,4 +1,9 @@
-// important
+// important linux install 
+// sudo apt-get install chromium-browser
+
+
+
+// important windows install 
 // npx @puppeteer/browsers install chrome@stable
 const puppeteer = require('puppeteer');
 const axios = require("axios");
@@ -46,8 +51,8 @@ function delay(time) {
 
 (async () => {
     // { headless: false }
-    // const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions']});
-    const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'] });
+    const browser = await puppeteer.launch();
+    // const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'] });
 
     const page = await browser.newPage();
 

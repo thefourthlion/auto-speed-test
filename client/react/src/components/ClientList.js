@@ -46,7 +46,7 @@ const ClientList = () => {
 
 
     const getData = () => {
-        fetch("https://api.speeds.everettdeleon.com/api/speeds/read")
+        fetch("http://localhost:3025/api/speeds/read")
             .then((res) => res.json())
             .then((data) => {
                 setSpeeds(data);
@@ -177,8 +177,8 @@ const ClientList = () => {
                             <a href={`client?id=${item._id}`}>
                                 <h3>{item.Ip}</h3>
                             </a>
-
-                            {currentUser == "admin" || currentUser == "everett" &&
+                            {/* {currentUser} */}
+                            {currentUser == "admin" || currentUser == "Admin" || currentUser == "Jacob" || currentUser == "jacob" || currentUser == "everett" || currentUser == "Everett" ?
                                 <div className="edit-container">
                                     <img className="trash-logo" src={trash} alt="delete-icon" onClick={() => {
                                         setEditClientList(!editClientList)
@@ -211,7 +211,7 @@ const ClientList = () => {
                                         setEditId(item._id);
                                     }} />
                                 </div>
-                            }
+                                : ""}
                             <a className="compare-container" href={`client?id=${item._id}`}>
                                 {item.package &&
                                     <p>{compareDownload(

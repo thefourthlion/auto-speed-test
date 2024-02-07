@@ -1,3 +1,5 @@
+import "./styles/InternalSpeeds.css";
+import "./styles/InternalPings.css";
 import React, { useEffect, useState } from "react";
 
 import "./styles/ReportsList.css";
@@ -41,6 +43,8 @@ import SingleExternalPingData from "./pages/SingleExternalPingData";
 import Navigation from "./components/Navigation";
 import Clients from "./pages/Clients"
 import Admin from "./pages/Admin";
+import InternalPings from "./pages/InternalPings";
+import InternalSpeeds from "./pages/InternalSpeeds";
 
 import PrivateRoute from "./components/routes/PrivateRoute";
 
@@ -63,6 +67,8 @@ const App = () => {
             <Route path="ExternalPing" element={<ExternalPing />} />
             <Route path="SingleExternalPingData" element={<SingleExternalPingData />} />
             <Route path="ExternalPingData" element={<ExternalPingData />} />
+            <Route path="InternalSpeeds" element={<InternalSpeeds />} />
+            <Route path="InternalPings" element={<InternalPings />} />
             <Route path="AllExternalPingData" element={<AllExternalPingData />} />
             <Route path="Clients" element={<Clients />} />
             <Route path="Admin" element={<Admin />} />

@@ -14,7 +14,7 @@ const SpeedCharts = () => {
 
 
     const getSpeeds = () => {
-        fetch("https://api.speeds.everettdeleon.com/api/speeds/read")
+        fetch("http://localhost:3025/api/speeds/read")
             .then((res) => res.json())
             .then((data) => {
                 setSpeeds(data);
@@ -64,7 +64,7 @@ const SpeedCharts = () => {
                 <h1 className="content-header">Speed Test Charts</h1>
                 {speeds.map((speed, index) => (
                     <div className="chart-container" key={index}>
-                        
+
                         <a href={`/client?id=${speed._id}`}><h2 className="chart-title" >{speed.name || speed.Ip}</h2></a>
 
                         <h2></h2>
