@@ -1,7 +1,8 @@
+// important
+// npx @puppeteer/browsers install chrome@stable
 const puppeteer = require('puppeteer');
 const axios = require("axios");
-const os = require("os"); // Node.js os module for hostname
-
+const os = require("os");  
 
 const getData = (callback) => {
     axios.get('http://localhost:3025/api/internalspeeds/read')
@@ -39,7 +40,7 @@ const updateData = (id, data) => {
 
 (async () => {
     // { headless: false }
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions']});
 
     const page = await browser.newPage();
 
