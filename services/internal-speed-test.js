@@ -1,10 +1,9 @@
 // important linux install 
 // sudo apt-get install chromium-browser
 
-
-
 // important windows install 
 // npx @puppeteer/browsers install chrome@stable
+const moment = require('moment-timezone');
 const puppeteer = require('puppeteer');
 const axios = require("axios");
 const os = require("os");
@@ -44,12 +43,13 @@ const updateData = (id, data) => {
 
 
 function delay(time) {
-    return new Promise(function(resolve) { 
+    return new Promise(function (resolve) {
         setTimeout(resolve, time)
     });
- }
+}
 
-(async () => {
+async function runSpeedTest() {
+
     // { headless: false }
     const browser = await puppeteer.launch();
     // const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'] });
@@ -59,25 +59,21 @@ function delay(time) {
     await page.goto('http://10.49.48.151/');
 
     console.log(`Waiting for page to load 📃`)
-    // await page.waitForTimeout(2000);
     await delay(2000);
 
     await page.click('#startStopBtn');
 
     console.log(`Waiting for speed test to run ⌚`)
-    // await page.waitForTimeout(24000);
     await delay(24000);
 
     const download = await page.$eval('#dlText', el => el.textContent);
     const upload = await page.$eval('#ulText', el => el.textContent);
     const ping = await page.$eval('#pingText', el => el.textContent);
 
-    const timestamp = new Date().toISOString();
+    const timestamp = moment().tz("America/Los_Angeles").format("MM-DD-YYYY HH:mm");
 
     const name = os.hostname();
     let ip = os.hostname();
-
-
 
     console.log(`Timestamp: ${timestamp}`);
     console.log(`Hostname: ${name}`);
@@ -95,15 +91,15 @@ function delay(time) {
         "name": name
     };
 
-    getData((err, data) => {
+    // Process data
+    getData((err, responseData) => {
         if (err) {
             console.error('Failed to get data:', err);
             return;
         }
 
-        const existingEntry = data.find(entry => entry.Ip === ip);
+        const existingEntry = responseData.find(entry => entry.Ip === ip);
         if (existingEntry) {
-            // If an existing entry is found, update it
             const updatedData = {
                 download: [...existingEntry.download, download],
                 upload: [...existingEntry.upload, upload],
@@ -112,12 +108,20 @@ function delay(time) {
             };
             updateData(existingEntry._id, updatedData);
         } else {
-            // If no existing entry is found, post new data
             postData(data);
         }
     });
 
-
-
     await browser.close();
-})();
+}
+
+function delay(time) {
+    return new Promise(function (resolve) {
+        setTimeout(resolve, time);
+    });
+}
+
+setInterval(runSpeedTest, 30000);
+// one hour - 3600000
+
+runSpeedTest();

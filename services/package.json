@@ -4,6 +4,7 @@
     "express": "^4.18.2",
     "fast-api-speedtest": "^0.0.6",
     "fast-speedtest-api": "^0.3.2",
+    "moment-timezone": "^0.5.45",
     "network-speed": "^2.1.1"
   },
   "name": "services",
