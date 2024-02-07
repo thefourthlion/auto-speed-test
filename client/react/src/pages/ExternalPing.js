@@ -95,7 +95,7 @@ const ExternalPing = () => {
                             />
                         </FloatingLabel>
 
-                        <Button onClick={() => { handleSubmit() }} className="sub-btn">Submit</Button>
+                        <Button variant="success" onClick={() => { handleSubmit() }} className="sub-btn">Submit</Button>
                     </Form>
                 </div>
 

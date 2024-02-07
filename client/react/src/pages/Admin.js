@@ -8,6 +8,7 @@ import Groups from "../components/Groups";
 import SignUp from "./SignUp";
 import axios from "axios"
 import AuthService from "../services/auth.services";
+import ReportsList from "../components/ReportsList";
 
 const Admin = () => {
     const [showExternalPings, setShowExternalPings] = useState(false);
@@ -15,7 +16,10 @@ const Admin = () => {
     const [showPackages, setShowPackages] = useState(false);
     const [showSignUp, setShowSignUp] = useState(false);
     const [showGroups, setShowGroups] = useState(false);
+    const [showReportsList, setShowReportsList] = useState(false);
+
     const [currentUser, setCurrentUser] = useState("");
+
     const [userPermissions, setUserPermissions] = useState("");
 
     const getUserPermissions = async () => {
@@ -40,11 +44,24 @@ const Admin = () => {
 
         <div className="Admin page">
 
-            <h1>Signed in as : {currentUser}</h1>
+            <h1>Signed in as : <span className="green">{currentUser}</span></h1>
 
-            {currentUser == "admin" || currentUser == "everett" ?
+            {currentUser == "admin" || currentUser == "Admin" || currentUser == "Jacob" || currentUser == "jacob" || currentUser == "everett" || currentUser == "Everett" ?
 
                 <div className="container">
+                    <div className="form-container">
+                        <h1 className="form-header user-header"
+                            onClick={() => {
+                                setShowReportsList(!showReportsList)
+                                setShowGroups(false)
+                                setShowPackages(false)
+                                setShowClients(false)
+                                setShowExternalPings(false)
+                                setShowSignUp(false)
+                            }}>Add User to Reports</h1>
+                        {showReportsList && <ReportsList />}
+                    </div>
+
 
                     <div className="form-container">
                         <h1 className="form-header pings-header"
@@ -54,6 +71,7 @@ const Admin = () => {
                                 setShowPackages(false)
                                 setShowGroups(false)
                                 setShowSignUp(false)
+                                setShowReportsList(false)
                             }}>External Pings</h1>
                         {showExternalPings && <ExternalPing />}
                     </div>
@@ -66,6 +84,7 @@ const Admin = () => {
                                 setShowPackages(false)
                                 setShowGroups(false)
                                 setShowSignUp(false)
+                                setShowReportsList(false)
                             }}>Edit Clients</h1>
                         {showClients && <div className="card-container"><ClientList /></div>}
                     </div>
@@ -78,7 +97,7 @@ const Admin = () => {
                                 setShowExternalPings(false)
                                 setShowGroups(false)
                                 setShowSignUp(false)
-
+                                setShowReportsList(false)
                             }}>Edit Packages</h1>
                         {showPackages && <Packages />}
                     </div>
@@ -91,6 +110,7 @@ const Admin = () => {
                                 setShowSignUp(false)
                                 setShowClients(false)
                                 setShowExternalPings(false)
+                                setShowReportsList(false)
                             }}>Edit Groups</h1>
                         {showGroups && <Groups />}
                     </div>
@@ -103,13 +123,15 @@ const Admin = () => {
                                 setShowPackages(false)
                                 setShowClients(false)
                                 setShowExternalPings(false)
-
+                                setShowReportsList(false)
                             }}>Edit Users</h1>
                         {showSignUp && <SignUp />}
                     </div>
 
+
+
                 </div>
-            : <h1 className="red">Please sign in as admin to view page.</h1>}
+                : <h1 className="red">Please sign in as admin to view page.</h1>}
         </div>
     );
 };

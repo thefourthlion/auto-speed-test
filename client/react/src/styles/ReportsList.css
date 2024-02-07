@@ -1,0 +1,21 @@
+.ReportsList {
+  text-align: center;
+}
+.ReportsList .container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.ReportsList .clientList {
+  display: flex;
+  gap: 10px;
+}
+.ReportsList button {
+  width: 250px;
+  height: 50px;
+  margin-bottom: 25px;
+}
+.ReportsList .delete-btn {
+  cursor: pointer;
+}/*# sourceMappingURL=ReportsList.css.map */

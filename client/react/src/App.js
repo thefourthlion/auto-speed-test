@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+import "./styles/ReportsList.css";
 import "./styles/OverallHealth.css";
 import "./styles/AvgExternalPing.css";
 import "./styles/Groups.css";

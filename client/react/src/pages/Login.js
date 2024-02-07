@@ -71,7 +71,7 @@ const Login = () => {
           <Link to="/forgotPassword">Forgot Password?</Link>
         </p> */}
                 <h4>{userValidation}</h4>
-                <Button className="submit-btn" variant="primary" type="submit">
+                <Button className="submit-btn" variant="success" type="submit">
                     Login
                 </Button>
 

@@ -180,7 +180,7 @@ const Register = () => {
           <h4>{permissions}</h4>
 
           <h4>{userValidation}</h4>
-          <Button className="submit-btn button" variant="primary" type="submit">
+          <Button className="submit-btn button" variant="success" type="submit">
             Register
           </Button>
           {/* <span>

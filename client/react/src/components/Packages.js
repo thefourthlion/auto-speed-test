@@ -82,7 +82,7 @@ const Packages = () => {
                             </FloatingLabel>
                         </Form.Group>
 
-                        <Button onClick={() => { handleSubmit() }} className="sub-btn button">Submit</Button>
+                        <Button variant="success" onClick={() => { handleSubmit() }} className="sub-btn button">Submit</Button>
                     </Form>
                 </div>
                 <div className="card-container">

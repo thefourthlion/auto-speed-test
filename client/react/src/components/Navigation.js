@@ -53,14 +53,14 @@ export default function Navigation() {
                 <li >
 
                     {currentUser ? (
-                        <Button className="nav-btn button" onClick={logOut}>
+                        <Button variant="success" className="nav-btn button" onClick={logOut}>
                             Logout
                         </Button>
 
                     ) : (
                         <a href="login">
 
-                            <Button variant="primary" className="button" >
+                            <Button variant="success" className="button" >
                                 Sign In
                             </Button>
                         </a>

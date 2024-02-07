@@ -37,6 +37,10 @@ body {
     color: red;
   }
 
+  .green{
+    color: $teal;
+  }
+
   .button {
     width: 150px;
     height: 50px;
@@ -44,22 +48,22 @@ body {
   }
 
   .dropdown {
-    width: 300px !important;
+    width: 250px !important;
   }
 
   #dropdown-basic {
-    width: 300px !important;
+    width: 250px !important;
     background-color: rgb(97, 101, 110);
     border: 1px solid black;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
   .dropdown-item{
-    width: 300px;
+    width: 250px;
   }
 
   .card-container {
-    min-width: 300px;
+    min-width: 250px;
     background-color: rgb(97, 101, 110);
     padding: 20px;
     border: 1px solid black;
@@ -79,7 +83,7 @@ body {
   }
 
   .green-outline-btn {
-    border: 2px solid $terminal-blue;
+    border: 2px solid $teal;
     border-radius: 5px;
     background-color: rgba(255, 255, 255, 0);
   }
@@ -106,7 +110,7 @@ body {
   }
 
   .form-input:focus {
-    border-color: $terminal-blue;
+    border-color: $teal;
     box-shadow: none;
     outline: 0 none;
   }
@@ -145,7 +149,7 @@ body {
   }
 
   textarea:focus {
-    border-color: $terminal-blue;
+    border-color: $teal;
   }
 
   textarea::placeholder {

@@ -11,7 +11,7 @@
   width: 100vw;
 }
 .Navbar a {
-  color: #0B5ED7;
+  color: #198754;
 }
 .Navbar .burger {
   display: none;
@@ -47,7 +47,7 @@
   text-decoration: none;
 }
 .Navbar .nav-item a:hover {
-  color: #0B5ED7;
+  color: #198754;
 }
 .Navbar .nav-item a::before {
   content: "";
@@ -56,7 +56,7 @@
   width: 100%;
   height: 3px;
   top: 40px;
-  background-color: #0B5ED7;
+  background-color: #198754;
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }

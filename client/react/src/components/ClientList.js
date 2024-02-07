@@ -260,9 +260,9 @@ const ClientList = () => {
                         </Dropdown.Menu>
                     </Dropdown>}
 
-                    {chosenSpeed.length > 0 && <Button className="update-btn" onClick={() => { updateClientpackage(editId) }}>Submit</Button>}
+                    {chosenSpeed.length > 0 && <Button variant="success" className="update-btn" onClick={() => { updateClientpackage(editId) }}>Submit</Button>}
 
-                    {chosenGroup && <Button className="update-btn" onClick={() => { updateClientGroup(editId) }}>Submit</Button>}
+                    {chosenGroup && <Button variant="success" className="update-btn" onClick={() => { updateClientGroup(editId) }}>Submit</Button>}
 
 
 
