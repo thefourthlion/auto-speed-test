@@ -64,4 +64,4 @@ app.listen(PORT, () => {
   console.log("✅ Listening on port " + PORT);
 });
 
-app.use('/api/ReportsList', require('./routes/ReportsList'));
+app.use('/api/ReportsList', require('./routes/ReportsList'));app.use('/api/InternalSpeeds', require('./routes/InternalSpeeds'));
