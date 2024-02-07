@@ -1,0 +1,1 @@
+const mongoose = require("mongoose"); const ReportsListSchema = new mongoose.Schema( {name: { type: String, required: [true, "Please provide name"],  },email: { type: String, required: [true, "Please provide email"],  }, }, { timestamps: true } ); const ReportsList = mongoose.model("ReportsList", ReportsListSchema); module.exports = ReportsList;
