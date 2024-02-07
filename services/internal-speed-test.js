@@ -37,33 +37,25 @@ const updateData = (id, data) => {
         })
 }
 
-function delay(time) {
-    return new Promise(function (resolve) {
-        setTimeout(resolve, time)
-    });
-}
+
 
 
 (async () => {
     // { headless: false }
-
-    // linux
-    // const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'] });
-    
-    // windows
-    const browser = await puppeteer.launch();
+    // const browser = await puppeteer.launch({ignoreDefaultArgs: ['--disable-extensions']});
+    const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'] });
 
     const page = await browser.newPage();
 
     await page.goto('http://10.49.48.151/');
 
     console.log(`Waiting for page to load 📃`)
-    await delay(2000);
+    await page.waitForTimeout(2000);
 
     await page.click('#startStopBtn');
 
     console.log(`Waiting for speed test to run ⌚`)
-    await delay(24000);
+    await page.waitForTimeout(24000);
 
     const download = await page.$eval('#dlText', el => el.textContent);
     const upload = await page.$eval('#ulText', el => el.textContent);
