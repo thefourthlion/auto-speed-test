@@ -38,7 +38,11 @@ const updateData = (id, data) => {
 }
 
 
-
+function delay(time) {
+    return new Promise(function(resolve) { 
+        setTimeout(resolve, time)
+    });
+ }
 
 (async () => {
     // { headless: false }
@@ -50,12 +54,14 @@ const updateData = (id, data) => {
     await page.goto('http://10.49.48.151/');
 
     console.log(`Waiting for page to load 📃`)
-    await page.waitForTimeout(2000);
+    // await page.waitForTimeout(2000);
+    await delay(2000);
 
     await page.click('#startStopBtn');
 
     console.log(`Waiting for speed test to run ⌚`)
-    await page.waitForTimeout(24000);
+    // await page.waitForTimeout(24000);
+    await delay(24000);
 
     const download = await page.$eval('#dlText', el => el.textContent);
     const upload = await page.$eval('#ulText', el => el.textContent);
