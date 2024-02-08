@@ -38,12 +38,6 @@ export default function Navigation() {
                     </a>
                 </li>
 
-                {/* <li className="nav-item">
-                    <a className="nav-tech" href="./externalping">
-                        Ext pings
-                    </a>
-                </li> */}
-
                 <li className="nav-item">
                     <a className="nav-tech" href="/Admin">
                         Admin

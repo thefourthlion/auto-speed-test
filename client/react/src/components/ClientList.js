@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import ExternalPingData from "../pages/ExternalPingData";
 import trash from "../assets/trash.png"
 import pkg from "../assets/pkg.png"
 import group from "../assets/group.png"
@@ -9,8 +8,6 @@ import axios from "axios"
 import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import AuthService from "../services/auth.services";
-import ListGroup from 'react-bootstrap/ListGroup';
-
 
 // import Up from "../assets/up.svg"
 // import Down from "../assets/down.svg"

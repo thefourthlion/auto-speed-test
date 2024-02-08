@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Form, Alert, Button } from "react-bootstrap";
-import FloatingLabel from "react-bootstrap/FloatingLabel";
 import ExternalPing from "./ExternalPing";
 import ClientList from "../components/ClientList";
 import Packages from "../components/Packages";
@@ -19,17 +17,6 @@ const Admin = () => {
     const [showReportsList, setShowReportsList] = useState(false);
 
     const [currentUser, setCurrentUser] = useState("");
-
-    const [userPermissions, setUserPermissions] = useState("");
-
-    const getUserPermissions = async () => {
-        try {
-            const response = await axios.get('http://127.0.0.1:3025/api/permissions/read');
-            setUserPermissions(response.data);
-        } catch (error) {
-            console.error('Error fetching data: ', error);
-        }
-    }
 
     useEffect(() => {
         const user = AuthService.getCurrentUser()

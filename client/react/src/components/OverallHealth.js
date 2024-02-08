@@ -3,11 +3,9 @@ import axios from 'axios';
 import { Card, ListGroup, Badge } from 'react-bootstrap';
 
 const OverallHealth = () => {
-    const [speeds, setSpeeds] = useState([]);
     const [redStatusClients, setRedStatusClients] = useState([]);
 
     // Constants for threshold
-    const greenThreshold = 0.75;
     const yellowThreshold = 0.25;
     const expectedPing = 35;
 
@@ -15,7 +13,6 @@ const OverallHealth = () => {
     const getData = async () => {
         try {
             const response = await axios.get('http://127.0.0.1:3025/api/speeds/read');
-            setSpeeds(response.data);
             trackRedStatusClients(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);

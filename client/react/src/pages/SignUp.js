@@ -177,7 +177,7 @@ const Register = () => {
             </Dropdown.Menu>
           </Dropdown> */}
 
-          <h4>{permissions}</h4>
+          {/* <h4>{permissions}</h4> */}
 
           <h4>{userValidation}</h4>
           <Button className="submit-btn button" variant="success" type="submit">

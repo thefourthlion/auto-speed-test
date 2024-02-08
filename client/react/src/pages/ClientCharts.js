@@ -16,9 +16,6 @@ const ClientCharts = () => {
     const [internalSpeed, setInternalSpeed] = useState([])
     const url = `http://127.0.0.1:3025/api/speeds/read/${id}`
 
-
-
-
     const getSpeeds = () => {
         fetch(url)
             .then((res) => res.json())
@@ -228,7 +225,6 @@ const ClientCharts = () => {
                 </div>
 
                 {pingdata.length != 0 &&
-                    // <p>something</p>
                     <div className="externalpingContainer">
                         <div className="chart-container">
                             <h2>External Pings</h2>

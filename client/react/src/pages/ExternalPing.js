@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Form, Alert } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import axios from "axios"
-import ExternalPingData from "./ExternalPingData";
 import trash from "../assets/trash.png"
 import Button from 'react-bootstrap/Button';
 
@@ -67,8 +66,6 @@ const ExternalPing = () => {
     return (
         <div className="ExternalPing">
             <div className="container">
-                {/* <ExternalPingData /> */}
-
                 <div className="card-container">
                     <h2>Add a site to ping list</h2>
                     <Form  >

@@ -1,7 +1,5 @@
 import "./styles/InternalSpeeds.css";
 import "./styles/InternalPings.css";
-import React, { useEffect, useState } from "react";
-
 import "./styles/ReportsList.css";
 import "./styles/OverallHealth.css";
 import "./styles/AvgExternalPing.css";
@@ -24,11 +22,12 @@ import "./styles/SignUp.css";
 import "./styles/PingCharts.css";
 import "./styles/SpeedCharts.css";
 import "./styles/SpeedChart.css";
-import "./styles/Chart.css";
 import "./styles/SpeedCard.css";
 import "./styles/Speeds.css";
 import "./styles/globals.css";
 import "./styles/Home.css"
+
+import React from "react";
 
 import Home from "./pages/Home";
 import Login from "./pages/Login";
