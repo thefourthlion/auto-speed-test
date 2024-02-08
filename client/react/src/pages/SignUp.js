@@ -1,26 +1,22 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import AuthService from "../services/auth.services";
 import Button from "react-bootstrap/Button";
 import axios from "axios"
 import trash from "../assets/trash.png"
-import Dropdown from 'react-bootstrap/Dropdown';
-
 
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profilePic, setProfilePic] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [userValidation, setUserValidation] = useState("");
 
-  const [permissions, setPermissions] = useState("")
-
+  const permissions = "";
+  const profilePic = "";
 
   const [users, setUser] = useState([]);
 
@@ -69,9 +65,9 @@ const Register = () => {
       );
     } else if (confirmPassword === "") {
       setUserValidation("Retype Password required");
-    } else if (password != confirmPassword) {
+    } else if (password !== confirmPassword) {
       setUserValidation("Passwords required to match");
-    } else if (phoneNumber != "") {
+    } else if (phoneNumber !== "") {
       if (!isNumeric(phoneNumber)) {
         setUserValidation("Phone number not valid");
       } else if (phoneNumber.length < 10 || phoneNumber.length > 11) {
@@ -217,7 +213,7 @@ const Register = () => {
 
           }
 
-          {deleteWho != "" && deleteWho === userToDelete &&
+          {deleteWho !== "" && deleteWho === userToDelete &&
             <Button variant="danger button submit-btn"
               onClick={() => { deleteUsers(userId) }}
             >Delete</Button>

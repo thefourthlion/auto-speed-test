@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 const ExternalPingData = () => {
     const windowSize = useRef([window.innerWidth * 0.6, window.innerHeight * 0.35]);
 
-    const [pingdata, setpingdata] = useState([]);
+    const [pingData, setPingData] = useState([]);
     const [searchParams] = useSearchParams();
     const id = (searchParams.get('id'));
 
@@ -16,7 +16,7 @@ const ExternalPingData = () => {
         fetch(`http://127.0.0.1:3025/api/externalpingdata/read/${id}`)
             .then((res) => res.json())
             .then((data) => {
-                setpingdata([data]);
+                setPingData([data]);
                 console.log(data);
             })
             .catch((error) => {
@@ -71,7 +71,7 @@ const ExternalPingData = () => {
         <div className="ExternalPingData page">
             <div className="container">
                 <h1 className="content-header">Speed Test Charts</h1>
-                {pingdata.map((speed, index) => (
+                {pingData.map((speed, index) => (
                     <div className="chart-container" key={index}>
                         <h2 className="chart-title">{speed.link}</h2>
                         <LineChart
