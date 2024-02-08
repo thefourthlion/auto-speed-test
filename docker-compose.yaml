@@ -4,7 +4,7 @@ services:
     build: ./server
     container_name: speedtest-server
     ports:
-      - '3025:3025'
+      - "3025:3025"
     volumes:
       - ./server:/speedtest-server
       - /server/node_modules
@@ -18,21 +18,21 @@ services:
   #   #   - ./client/react:/speedtest-client
   #   stdin_open: true
   #   tty: true
-  # jsservices:
-  #   build: ./services/javascript
-  #   container_name: speedtest-services-intspeeds
-  #   ports:
-  #     - "3001:3001"
-  #   volumes:
-  #     - ./services/javascript:/speedtest-services-intspeeds
-  #     - /services/javascript/node_modules
-  pyservices:
-    build: ./services/python
-    container_name: speedtest-services-extspeeds
+  jsservices:
+    build: ./services/javascript
+    container_name: speedtest-services-intspeeds
     ports:
-      - "3002:3002"
+      - "3001:3001"
     volumes:
-      - ./services/python:/speedtest-services-extspeeds
-      - /services/python/__pycache__
-    depends_on:
-          - api
+      - ./services/javascript:/speedtest-services-intspeeds
+      - /services/javascript/node_modules
+  # pyservices:
+  #   build: ./services/python
+  #   container_name: speedtest-services-externalspeeds
+  #   ports:
+  #     - "3002:3002"
+  #   volumes:
+  #     - ./services/python:/speedtest-services-externalspeeds
+  #     - /services/python/__pycache__
+  #   depends_on:
+  #     - api

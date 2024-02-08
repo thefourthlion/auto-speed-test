@@ -1,0 +1,10 @@
+version: "25.0.2"
+services:
+  api:
+    build: /
+    container_name: speedtest-server
+    ports:
+      - "3025:3025"
+    volumes:
+      - ./:/speedtest-server
+      - /node_modules
