@@ -1,0 +1,20 @@
+# show crontab for root user
+sudo crontab -u root -l
+
+# edit crontab for root user
+sudo crontab -u root -e
+
+# crontab info - day of month - month - day of week
+# m h dom mon dow command
+* * * * * python main.py
+
+# cron for python service
+@reboot cd /home/snc/programming/auto-speed-test/services/python && watchmedo auto-restart --patterns="*.py" --recursive -- python3 main.py
+
+# shop pc ubuntu
+1 * * * * python3 /home/snc/programming/auto-speed-test/services/python/main.py &
+
+# cron for javascript service
+@reboot nodemon internal-speed-test.js
+# cronjob for 
+@reboot cd /home/snc/programming/auto-speed-test/services/javascript && npm run dev

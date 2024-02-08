@@ -121,7 +121,7 @@ function delay(time) {
     });
 }
 
-setInterval(runSpeedTest, 30000);
+setInterval(runSpeedTest, 3600000);
 // one hour - 3600000
 
 runSpeedTest();
