@@ -26,11 +26,13 @@ services:
   #   volumes:
   #     - ./services/javascript:/speedtest-services-intspeeds
   #     - /services/javascript/node_modules
-  # pyservices:
-  #   build: ./services/python
-  #   container_name: speedtest-services-extspeeds
-  #   ports:
-  #     - "3002:3002"
-  #   volumes:
-  #     - ./services/python:/speedtest-services-extspeeds
-  #     - /services/python/__pycache__
+  pyservices:
+    build: ./services/python
+    container_name: speedtest-services-extspeeds
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./services/python:/speedtest-services-extspeeds
+      - /services/python/__pycache__
+    depends_on:
+          - api

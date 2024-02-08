@@ -15,7 +15,7 @@ const InternalSpeeds = () => {
         return `${tick}Mbps`;
     };
 
-    const url = `http://localhost:3025/api/internalspeeds/read/${id}`
+    const url = `http://127.0.0.1:3025/api/internalspeeds/read/${id}`
 
     const getSpeeds = () => {
         if (id == null) {
@@ -199,28 +199,28 @@ const InternalSpeeds = () => {
 
                         {speed.download.length > sixMonth && <div>
                             <AreaChart
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformSpeedData(speed, oneYear)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
-                            <Tooltip content={<CustomTooltip />} />
-                            <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
-                            <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
-                        </AreaChart>
-                        <p>1 Year</p>
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformSpeedData(speed, oneYear)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="name" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={speedTick} />
+                                <Tooltip content={<CustomTooltip />} />
+                                <Area stackId="1" fill="#8884d8" type="monotone" dataKey="Download" stroke="#8884d8" activeDot={{ r: 8 }} />
+                                <Area stackId="2" fill="#82ca9d" type="monotone" dataKey="Upload" stroke="#82ca9d" />
+                            </AreaChart>
+                            <p>1 Year</p>
                         </div>}
 
 
-                        
+
                     </div>
                 ))}
             </div>

@@ -46,7 +46,7 @@ def speedTest():
     print(f"Ping: {pingTime} ms")
 
     # ---------- data entry --------------------------------
-    data = req.getData("http://localhost:3025/api/speeds/read")
+    data = req.getData("http://127.0.0.1:3025/api/speeds/read")
 
     # Check if the public IP is in the data
     ip_in_data = any(entry for entry in data if entry['Ip'] == publicIp)

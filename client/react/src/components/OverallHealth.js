@@ -14,7 +14,7 @@ const OverallHealth = () => {
     // Function to fetch data
     const getData = async () => {
         try {
-            const response = await axios.get('http://localhost:3025/api/speeds/read');
+            const response = await axios.get('http://127.0.0.1:3025/api/speeds/read');
             setSpeeds(response.data);
             trackRedStatusClients(response.data);
         } catch (error) {

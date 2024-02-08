@@ -14,7 +14,7 @@ const InternalPings = () => {
     const id = (searchParams.get('id'));
     const navigate = useNavigate();
 
-    const url = `http://localhost:3025/api/internalspeeds/read/${id}`
+    const url = `http://127.0.0.1:3025/api/internalspeeds/read/${id}`
 
     const getSpeeds = () => {
         if (id == null) {
@@ -104,116 +104,116 @@ const InternalPings = () => {
 
                         {speed.download.length > twelveHours && <div>
                             <LineChart
-                            className="chart"
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformPingData(speed, oneDay)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />} />
-                            <Legend />
-                            <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
-                        </LineChart>
-                        <p>1 Day</p>
-                            </div>}
+                                className="chart"
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformPingData(speed, oneDay)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                                <Tooltip content={<PingToolTip />} />
+                                <Legend />
+                                <Line type="monotone" dataKey="Ping" stroke="#FA4D8A" activeDot={{ r: 8 }} />
+                            </LineChart>
+                            <p>1 Day</p>
+                        </div>}
 
-                        
+
 
                         {speed.download.length > oneDay && <div>
                             <AreaChart
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformPingData(speed, oneWeek)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />} />
-                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
-                        </AreaChart>
-                        <p>1 Week</p>  
-                            </div>}
-                        
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformPingData(speed, oneWeek)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                                <Tooltip content={<PingToolTip />} />
+                                <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                            </AreaChart>
+                            <p>1 Week</p>
+                        </div>}
+
 
                         {speed.download.length > oneWeek && <div>
                             <AreaChart
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformPingData(speed, oneMonth)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />} />
-                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
-                        </AreaChart>
-                        <p>1 Month</p>
-                            </div>}
-                        
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformPingData(speed, oneMonth)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                                <Tooltip content={<PingToolTip />} />
+                                <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                            </AreaChart>
+                            <p>1 Month</p>
+                        </div>}
+
 
                         {speed.download.length > oneMonth && <div>
                             <AreaChart
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformPingData(speed, sixMonth)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />} />
-                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
-                        </AreaChart>
-                        <p>6 Month</p>
-                            </div>}
-                        
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformPingData(speed, sixMonth)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                                <Tooltip content={<PingToolTip />} />
+                                <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                            </AreaChart>
+                            <p>6 Month</p>
+                        </div>}
+
 
                         {speed.download.length > sixMonth && <div>
                             <AreaChart
-                            width={windowSize.current[0]}
-                            height={windowSize.current[1]}
-                            data={transformPingData(speed, oneYear)}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
-                        >
-                            <CartesianGrid strokeDasharray="3 3" />
-                            <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
-                            <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
-                            <Tooltip content={<PingToolTip />} />
-                            <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
-                        </AreaChart>
-                        <p>1 Year</p>
-                            </div>}
-                       
+                                width={windowSize.current[0]}
+                                height={windowSize.current[1]}
+                                data={transformPingData(speed, oneYear)}
+                                margin={{
+                                    top: 5,
+                                    right: 30,
+                                    left: 20,
+                                    bottom: 5,
+                                }}
+                            >
+                                <CartesianGrid strokeDasharray="3 3" />
+                                <XAxis dataKey="time" stroke="rgb(226, 228, 235)" />
+                                <YAxis stroke="rgb(226, 228, 235)" tickFormatter={msTick} />
+                                <Tooltip content={<PingToolTip />} />
+                                <Area type="monotone" dataKey="Ping" stroke="#FA4D8A" fill="#FA4D8A" />
+                            </AreaChart>
+                            <p>1 Year</p>
+                        </div>}
+
                     </div>
                 ))}
             </div>

@@ -7,7 +7,7 @@ const PingCharts = () => {
     const [speeds, setSpeeds] = useState([]);
 
     const getSpeeds = () => {
-        fetch("http://localhost:3025/api/speeds/read")
+        fetch("http://127.0.0.1:3025/api/speeds/read")
             .then((res) => res.json())
             .then((data) => {
                 setSpeeds(data);

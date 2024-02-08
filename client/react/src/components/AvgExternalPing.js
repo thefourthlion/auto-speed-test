@@ -20,7 +20,7 @@ const AvgExternalPing = () => {
     };
 
     const getSpeeds = () => {
-        fetch(`http://localhost:3025/api/speeds/read/group/${chosenGroup}`)
+        fetch(`http://127.0.0.1:3025/api/speeds/read/group/${chosenGroup}`)
             .then((res) => res.json())
             .then((data) => {
                 // setpingdata(data);
@@ -39,7 +39,7 @@ const AvgExternalPing = () => {
     };
 
     const getExternalPingData = (name) => {
-        fetch(`http://localhost:3025/api/externalpingdata/read/name/${name}`)
+        fetch(`http://127.0.0.1:3025/api/externalpingdata/read/name/${name}`)
             .then((res) => res.json())
             .then((data) => {
                 // console.log(data)
@@ -52,7 +52,7 @@ const AvgExternalPing = () => {
     };
 
     const getGroupData = () => {
-        fetch("http://localhost:3025/api/groups/read")
+        fetch("http://127.0.0.1:3025/api/groups/read")
             .then((res) => res.json())
             .then((data) => {
                 setGroups(data);

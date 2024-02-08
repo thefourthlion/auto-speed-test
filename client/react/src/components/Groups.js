@@ -16,7 +16,7 @@ const Groups = () => {
 
     const getData = async () => {
         try {
-            const response = await axios.get('http://localhost:3025/api/Groups/read');
+            const response = await axios.get('http://127.0.0.1:3025/api/Groups/read');
             setGroups(response.data);
         } catch (error) {
             console.error('Error:', error);
@@ -25,7 +25,7 @@ const Groups = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post('http://localhost:3025/api/Groups/create', data);
+            const response = await axios.post('http://127.0.0.1:3025/api/Groups/create', data);
             console.log(response.data)
             refreshPage()
         } catch (error) {
@@ -35,7 +35,7 @@ const Groups = () => {
 
     const deleteItem = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:3025/api/Groups/delete/${id}`);
+            const response = await axios.delete(`http://127.0.0.1:3025/api/Groups/delete/${id}`);
             console.log(response.data)
             refreshPage()
         } catch (error) {
@@ -71,18 +71,18 @@ const Groups = () => {
                         <Button variant="success" onClick={() => { handleSubmit() }} className="sub-btn button">Submit</Button>
                     </Form>
                 </div>
-                <div className="card-container"> 
+                <div className="card-container">
 
-                {groups.length > 0 &&
-                    <div>
-                        <h2>Current Groups</h2>
-                        {groups.map((item, index) => (
-                            <p >{item.name} <img className="trash-logo" src={trash} onClick={() => { deleteItem(item._id) }} /></p>
-                        ))}
-                    </div>
-                }
+                    {groups.length > 0 &&
+                        <div>
+                            <h2>Current Groups</h2>
+                            {groups.map((item, index) => (
+                                <p >{item.name} <img className="trash-logo" src={trash} onClick={() => { deleteItem(item._id) }} /></p>
+                            ))}
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
         </div >
     );
 };

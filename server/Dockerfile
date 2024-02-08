@@ -20,9 +20,3 @@ EXPOSE 3025
 
 # what commands to run when container is up
 CMD ["npm", "run", "dev"]
-
-# build img
-# docker build -t expressapp .
-
-# build CT run IMG
-# docker run --name speedtest -p 3025:3025 -d speedtest
