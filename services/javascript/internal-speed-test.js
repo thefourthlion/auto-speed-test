@@ -51,8 +51,8 @@ function delay(time) {
 async function runSpeedTest() {
 
     // { headless: false }
-    const browser = await puppeteer.launch();
-    // const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'] });
+    // const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'] });
 
     const page = await browser.newPage();
 
