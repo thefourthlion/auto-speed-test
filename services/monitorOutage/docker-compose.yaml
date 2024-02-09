@@ -8,8 +8,8 @@ services:
     volumes:
       - ./:/speedtest-services-monitor
       # - /node_modules
-    networks:
-      - docker-network
-networks:
-  docker-network:
-    external: true
+#     networks:
+#       - docker-network
+# networks:
+#   docker-network:
+#     external: true

@@ -8,3 +8,8 @@ services:
     volumes:
       - ./:/speedtest-services-externalspeeds
       - /__pycache__
+#     networks:
+#       - docker-network
+# networks:
+#   docker-network:
+#     external: true

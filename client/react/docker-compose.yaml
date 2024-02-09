@@ -10,4 +10,8 @@ services:
     #   - ./client/react:/speedtest-client
     stdin_open: true
     tty: true
-
+#     networks:
+#       - docker-network
+# networks:
+#   docker-network:
+#     external: true

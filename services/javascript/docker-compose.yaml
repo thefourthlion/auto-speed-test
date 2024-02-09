@@ -8,3 +8,8 @@ services:
     volumes:
       - /:/speedtest-services-intspeeds
       - /node_modules
+#     networks:
+#       - docker-network
+# networks:
+#   docker-network:
+#     external: true
