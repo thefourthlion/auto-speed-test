@@ -2,6 +2,7 @@ const moment = require('moment-timezone');
 const axios = require("axios");
 const cron = require('node-cron');
 
+console.log("🟢🟢🟢🟢🟢")
 
 const getData = () => {
     axios.get('http://localhost:3025/api/speeds/read')
