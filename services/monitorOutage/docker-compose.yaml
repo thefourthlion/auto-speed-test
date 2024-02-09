@@ -1,0 +1,15 @@
+version: "25.0.2"
+services:
+  jsservicesmonitor:
+    build: /
+    container_name: speedtest-services-monitor
+    ports:
+      - "3003:3003"
+    volumes:
+      - ./:/speedtest-services-monitor
+      # - /node_modules
+    networks:
+      - docker-network
+networks:
+  docker-network:
+    external: true
