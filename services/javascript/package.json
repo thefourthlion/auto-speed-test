@@ -6,6 +6,7 @@
     "fast-speedtest-api": "^0.3.2",
     "moment-timezone": "^0.5.45",
     "network-speed": "^2.1.1",
+    "node-cron": "^3.0.3",
     "nodemon": "^3.0.3"
   },
   "name": "services",
