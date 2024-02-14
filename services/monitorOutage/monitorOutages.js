@@ -26,7 +26,7 @@ const getData = () => {
                         const updatedData = {
                             download: [...item.download, "0"], // Replace "0" with actual new data
                             upload: [...item.upload, "0"], // Replace "0" with actual new data
-                            ping: [...item.ping, "0"], // Replace "0" with actual new data
+                            ping: [...item.ping, "100"], // Replace "0" with actual new data
                             timestamp: [...item.timestamp, currentTimestamp], // Append the new timestamp
                         };
 
@@ -57,7 +57,7 @@ const updateData = (id, data) => {
         });
 };
 
-getData();
+// getData();
 
 // Schedule getData to run at the 59th minute of every hour
 cron.schedule('59 * * * *', () => {
