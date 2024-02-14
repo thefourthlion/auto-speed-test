@@ -3,12 +3,14 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 import AuthService from "../services/auth.services.js";
 import Button from "react-bootstrap/Button";
+import { Navigate } from "react-router-dom";
+import authService from "../services/auth.services";
 
 const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [userValidation, setUserValidation] = useState("");
-
+    const auth = authService.getCurrentUser();
     const handleLogin = async (e) => {
         e.preventDefault();
         if (username === "" && password === "") {
@@ -23,6 +25,7 @@ const Login = () => {
                     (response) => {
                         console.log("Logged in successfully", response);
                         // window.location.reload();
+
                     },
                     (error) => {
                         console.log(error);
@@ -71,6 +74,12 @@ const Login = () => {
           <Link to="/forgotPassword">Forgot Password?</Link>
         </p> */}
                 <h4>{userValidation}</h4>
+
+                {auth && (
+                    <Navigate to="/" />
+                )}
+
+
                 <Button className="submit-btn" variant="success" type="submit">
                     Login
                 </Button>
