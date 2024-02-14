@@ -64,9 +64,12 @@ const AvgExternalPing = () => {
 
 
     useEffect(() => {
-        getSpeeds();
         getGroupData();
     }, []);
+
+    useEffect(() => {
+        getSpeeds();
+    }, [chosenGroup]);
 
 
     const transformData = (maxDataPoints) => {
