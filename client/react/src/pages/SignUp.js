@@ -39,10 +39,15 @@ const Register = () => {
     try {
       const response = await axios.delete(`http://127.0.0.1:3025/api/auth/delete/${id}`);
       console.log(response.data)
+      refreshPage()
     } catch (error) {
       console.error('Error fetching data: ', error);
     }
   }
+
+  const refreshPage = () => {
+    window.location.reload();
+};
 
   useEffect(() => { getUsers() }, [])
 
