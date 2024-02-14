@@ -25,7 +25,7 @@ def externalping():
     pst = pytz.timezone('US/Pacific')
     utc_now = datetime.now(pytz.utc)
     pst_now = utc_now.astimezone(pst)
-    timestamp = pst_now.strftime('%Y-%m-%d %H:%M:%S')
+    timestamp = pst_now.strftime('%m-%d-%Y %H:%M')
 
     for website in websites:
         target = website.get('link')
