@@ -20,7 +20,7 @@ const getData = () => {
                 // Determine if the client needs an update
                 if (!(parseInt(currentHour) == parseInt(lastHour))) {
 
-                    if (!(ip == "test-pc" || ip == "grv-raboul-psu")) {
+                    if (!(ip == "test-pc")) {
                         console.log(`Client ${ip} needs an update.`);
                         // Prepare the data to be appended
                         const updatedData = {
