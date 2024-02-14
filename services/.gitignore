@@ -1,8 +1,13 @@
 /javascript/node_modules
 /javascript/chrome
+
 /fastScrapper/node_modules
 /fastScrapper/chrome
+
+/nodeMailer/node_modules
+/nodeMailer/.env
+
 /monitorOutage/node_modules
+
 /node_modules
 package-lock.json
-/javascript/chromej4 hjj3o2
