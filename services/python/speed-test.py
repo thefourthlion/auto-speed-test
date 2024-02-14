@@ -39,6 +39,8 @@ def testSpeed():
     utc_now = datetime.now(pytz.utc)
     pst_now = utc_now.astimezone(pst)
     date_and_time = pst_now.strftime('%m-%d-%Y %H:%M')
+    current_hour = pst_now.strftime('%H')  
+
 
     # ---------- ip addr --------------------------------
     ipAddr = socket.gethostbyname(socket.gethostname())
@@ -71,7 +73,16 @@ def testSpeed():
     if ip_in_data:
         matching_entry = next(
             (entry for entry in data if entry['Ip'] == publicIp), None)
+        
+        last_timestamp = matching_entry['timestamp'][-1]  # Get the last timestamp
+        last_hour = datetime.strptime(last_timestamp, '%m-%d-%Y %H:%M').strftime('%H')
+        
+        if current_hour == last_hour:
+            print("Current hour matches the last entry's hour. Skipping update.")
+            return
+
         print("Editing existing data for IP:", publicIp)
+        
         item_id = matching_entry['_id']
         item_name = matching_entry['name']
         item_download = matching_entry['download']
@@ -82,14 +93,12 @@ def testSpeed():
         item_time.append(f'{date_and_time}')
         item_ping = matching_entry['ping']
         item_ping.append(f'{pingTime}')
-        updateData(publicIp, item_name, item_download,
-                   item_upload, item_ping, item_time, item_id)
+        updateData(publicIp, item_name, item_download, item_upload, item_ping, item_time, item_id)
 
     else:
         print("Creating new data for IP:", publicIp)
         name = ""
-        postData(publicIp, name, downloadMbps,
-                 uploadMbps, pingTime, date_and_time)
+        postData(publicIp, name, downloadMbps, uploadMbps, pingTime, date_and_time)
 
 
 # ---------- code timer --------------------------------
