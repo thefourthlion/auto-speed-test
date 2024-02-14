@@ -1,0 +1,10 @@
+version: "25.0.2"
+services:
+  jsservices:
+    build: /
+    container_name: speedtest-services-fast
+    ports:
+      - "3001:3001"
+    volumes:
+      - /:/speedtest-services-fast
+      - /node_modules

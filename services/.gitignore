@@ -1,5 +1,7 @@
 /javascript/node_modules
 /javascript/chrome
+/fastScrapper/node_modules
+/fastScrapper/chrome
 /monitorOutage/node_modules
 /node_modules
 package-lock.json
