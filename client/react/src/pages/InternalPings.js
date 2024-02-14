@@ -54,9 +54,21 @@ const InternalPings = () => {
 
     const transformPingData = (data, maxDataPoints) => {
         const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
-
         return data.timestamp.slice(startIndex).map((timestamp, index) => {
             const time = timestamp.split(' ')[1];
+            return {
+                time,
+                Ping: parseFloat(data.ping[startIndex + index]),
+                Download: parseFloat(data.download[startIndex + index]),
+                Upload: parseFloat(data.upload[startIndex + index])
+            };
+        });
+    };
+
+    const transformPingDataAfterDay = (data, maxDataPoints) => {
+        const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
+        return data.timestamp.slice(startIndex).map((timestamp, index) => {
+            const time = timestamp.split(' ')[0];
             return {
                 time,
                 Ping: parseFloat(data.ping[startIndex + index]),
@@ -131,7 +143,7 @@ const InternalPings = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformPingData(speed, oneWeek)}
+                                data={transformPingDataAfterDay(speed, oneWeek)}
                                 margin={{
                                     top: 5,
                                     right: 30,
@@ -153,7 +165,7 @@ const InternalPings = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformPingData(speed, oneMonth)}
+                                data={transformPingDataAfterDay(speed, oneMonth)}
                                 margin={{
                                     top: 5,
                                     right: 30,
@@ -175,7 +187,7 @@ const InternalPings = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformPingData(speed, sixMonth)}
+                                data={transformPingDataAfterDay(speed, sixMonth)}
                                 margin={{
                                     top: 5,
                                     right: 30,
@@ -197,7 +209,7 @@ const InternalPings = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformPingData(speed, oneYear)}
+                                data={transformPingDataAfterDay(speed, oneYear)}
                                 margin={{
                                     top: 5,
                                     right: 30,

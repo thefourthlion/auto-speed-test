@@ -59,6 +59,18 @@ const ExternalPingData = () => {
         });
     };
 
+    const transformExternalPingDataAfterDay = (data, maxDataPoints) => {
+        const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
+
+        return data.timestamp.slice(startIndex).map((timestamp, index) => {
+            const time = timestamp.split(' ')[0];
+            return {
+                time,
+                Ping: parseFloat(data.ping[startIndex + index])
+            };
+        });
+    };
+
 
     const twelveHours = 12;
     const oneDay = 24;
@@ -123,7 +135,7 @@ const ExternalPingData = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformExternalPingData(speed, oneWeek)}
+                                data={transformExternalPingDataAfterDay(speed, oneWeek)}
                                 margin={{
                                     top: 5,
                                     right: 30,
@@ -145,7 +157,7 @@ const ExternalPingData = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformExternalPingData(speed, oneMonth)}
+                                data={transformExternalPingDataAfterDay(speed, oneMonth)}
                                 margin={{
                                     top: 5,
                                     right: 30,
@@ -167,7 +179,7 @@ const ExternalPingData = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformExternalPingData(speed, sixMonth)}
+                                data={transformExternalPingDataAfterDay(speed, sixMonth)}
                                 margin={{
                                     top: 5,
                                     right: 30,
@@ -189,7 +201,7 @@ const ExternalPingData = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformExternalPingData(speed, oneYear)}
+                                data={transformExternalPingDataAfterDay(speed, oneYear)}
                                 margin={{
                                     top: 5,
                                     right: 30,

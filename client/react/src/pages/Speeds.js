@@ -62,6 +62,18 @@ const Speeds = () => {
         });
     };
 
+    const transformSpeedDataAfterDay = (data, maxDataPoints) => {
+        const startIndex = Math.max(data.timestamp.length - maxDataPoints, 0);
+        return data.timestamp.slice(startIndex).map((timestamp, index) => {
+            const time = timestamp.split(' ')[0];
+            return {
+                name: time,
+                Download: parseFloat(data.download[startIndex + index]),
+                Upload: parseFloat(data.upload[startIndex + index])
+            };
+        });
+    };
+
     const twelveHours = 12;
     const oneDay = 24;
     const oneWeek = 168;
@@ -129,7 +141,7 @@ const Speeds = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformSpeedData(speed, oneWeek)}
+                                data={transformSpeedDataAfterDay(speed, oneWeek)}
                                 margin={{
                                     top: 5,
                                     right: 30,
@@ -153,7 +165,7 @@ const Speeds = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformSpeedData(speed, oneMonth)}
+                                data={transformSpeedDataAfterDay(speed, oneMonth)}
                                 margin={{
                                     top: 5,
                                     right: 30,
@@ -177,7 +189,7 @@ const Speeds = () => {
                             <AreaChart
                                 width={windowSize.current[0]}
                                 height={windowSize.current[1]}
-                                data={transformSpeedData(speed, sixMonth)}
+                                data={transformSpeedDataAfterDay(speed, sixMonth)}
                                 margin={{
                                     top: 5,
                                     right: 30,
@@ -194,8 +206,6 @@ const Speeds = () => {
                             </AreaChart>
                             <p>6 Month</p>
                         </div>}
-
-
 
                         {speed.download.length > sixMonth && <div>
                             <AreaChart
