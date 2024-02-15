@@ -9,7 +9,45 @@
 
 <body>
 
-    
+    <div>
+        <a style="color:black" href="http://10.49.48.150:3000/client?id=${client._id}">
+            <h2>${avgData.name}</h2>
+        </a>
+
+        <p>Weekly avg download
+            <span style="font-weight:bold ;">
+                <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">
+                    ${avgData.avgDownload} mbps
+                </a>
+                / Last week
+                <a style="color:black"
+                    href=" http://10.49.48.150:3000/speeds?id=${client._id}">${avgOldData.avgDownload} </a>
+                mbps
+            </span>
+        </p>
+        <p>Weekly avg upload
+            <span style="font-weight:bold;">
+                <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">
+                    ${avgData.avgUpload} mbps
+                </a>
+                / Last week
+                <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">${avgOldData.avgUpload}
+                </a>
+                mbps
+            </span>
+        </p>
+        <p>Weekly avg ping
+            <span style="font-weight:bold;">
+                <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">
+                    ${avgData.avgPing} ms
+                </a>
+                / Last Week
+                <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">${avgOldData.avgPing}
+                </a>
+                ms
+            </span>
+        </p>
+    </div>
 </body>
 
 </html>

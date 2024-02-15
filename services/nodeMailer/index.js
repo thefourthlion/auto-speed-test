@@ -3,7 +3,6 @@ const schedule = require('node-schedule');
 const axios = require("axios");
 require('dotenv').config();
 
-
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -12,28 +11,17 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const htmlEmail = `
-    <div>
-        <h2>Hey admin,</h2>
-        <p>This is a weekly report on speed tests.</p>
-    </div>
-`;
-
 const clientListURL = `http://10.49.48.150:3025/api/reportslist/read`;
 const speedsURL = `http://10.49.48.150:3025/api/speeds/read`;
 
-const twelveHours = 12;
-const oneDay = 24;
 const oneWeek = 168;
 const oneMonth = 672;
-const sixMonth = 4032;
-const oneYear = 8760;
 
 let avgDataHTML;
 let clientCount;
 let downClientCount;
 
-const getSpeedsAvg = async (numPoints) => {
+const getSpeedsAvg = async (numPoints, skipPoints, timescale) => {
     try {
         const response = await axios.get(speedsURL);
         const clients = response.data;
@@ -52,32 +40,53 @@ const getSpeedsAvg = async (numPoints) => {
                 avgPing: calcAvg(client.ping),
             };
 
+            const calcOldAvg = (data, skipPoints) => {
+                // Adjust the starting point based on skipPoints
+                const startPoint = data.length - skipPoints - numPoints;
+                const validData = data.slice(startPoint, startPoint + numPoints).filter(value => parseFloat(value) > 0);
+                const sum = validData.reduce((acc, value) => acc + parseFloat(value), 0);
+                return validData.length > 0 ? (sum / validData.length).toFixed(2) : "0";
+            };
+
+            const avgOldData = {
+                name: client.Ip,
+                avgUpload: calcOldAvg(client.upload, skipPoints),
+                avgDownload: calcOldAvg(client.download, skipPoints),
+                avgPing: calcOldAvg(client.ping, skipPoints),
+            };
 
             avgDataHTML = `
-            <div>
+        <div>
             <a style="color:black" href="http://10.49.48.150:3000/client?id=${client._id}">
                 <h2>${avgData.name}</h2>
             </a>
     
-            <p>This is the weekly avg download
+            <p>${timescale}ly avg download
                 <span style="font-weight:bold ;">
                     <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">
                         ${avgData.avgDownload} mbps
                     </a>
+                    / Last ${timescale}
+                    <a style="color:black"
+                        href=" http://10.49.48.150:3000/speeds?id=${client._id}">${avgOldData.avgDownload} mbps</a>
                 </span>
             </p>
-            <p>This is the weekly avg upload
+            <p>${timescale}ly avg upload
                 <span style="font-weight:bold;">
                     <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">
                         ${avgData.avgUpload} mbps
                     </a>
+                    / Last ${timescale}
+                    <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">${avgOldData.avgUpload} mbps</a>
                 </span>
             </p>
-            <p>This is the weekly avg ping
+            <p>${timescale}ly avg ping
                 <span style="font-weight:bold;">
                     <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">
                         ${avgData.avgPing} ms
                     </a>
+                    / Last ${timescale}
+                    <a style="color:black" href=" http://10.49.48.150:3000/speeds?id=${client._id}">${avgOldData.avgPing} ms</a>
                 </span>
             </p>
         </div>
@@ -91,7 +100,6 @@ const getSpeedsAvg = async (numPoints) => {
         return [];
     }
 };
-
 
 const checkForOfflineClients = async (numPoints) => {
     try {
@@ -118,13 +126,7 @@ const checkForOfflineClients = async (numPoints) => {
             } else {
                 return
             }
-            // console.log(clientStatusHTML)
-
-
             downClientCount = clientStatusHTML.length
-
-
-
             return clientStatusHTML;
         });
     } catch (error) {
@@ -132,11 +134,6 @@ const checkForOfflineClients = async (numPoints) => {
         return [];
     }
 };
-
-// console.log(checkForOfflineClients(twelveHours))
-
-// console.log(getSpeedsAvg(twelveHours))
-
 
 const getReportsList = async () => {
     try {
@@ -149,44 +146,26 @@ const getReportsList = async () => {
     }
 };
 
-getReportsList()
-
-
-const sendEmails = async () => {
-
-
-
-    const avgDataHTMLArray = await getSpeedsAvg(twelveHours);
-
-    const avgDataHTML = avgDataHTMLArray.join('');
-
-    const outageArray = await checkForOfflineClients(twelveHours);
-    const outageHTML = outageArray.join('');
-
+const sendWeeklyEmail = async () => {
     outageHeader = "<h1>Outages</h1><hr/>";
-    overageHeader = "<h1>Clients Weekly Averages</h1><hr/>";
+    averageWeeklyHeader = "<h1>Clients Weekly Averages</h1><hr/>";
 
+    // this weeks avg
+    const avgWeeklyHTMLArray = await getSpeedsAvg(oneWeek, oneWeek, "Week");
+    const avgWeeklyDataHTML = avgWeeklyHTMLArray.join('');
+
+    // this weeks outages
+    const weeklyOutageArray = await checkForOfflineClients(oneWeek);
+    const weeklyOutageHTML = weeklyOutageArray.join('');
+
+    // calc percentage of outage
     let upCount = clientCount - downClientCount;
     let percentage = (upCount / clientCount) * 100;
     percentage = parseFloat(percentage.toFixed(2));
 
-    console.log(`${typeof percentage}% of the network stayed up this week`)
-
-    if (percentage > 60) {
-        let percent = `<h2><span style="color:green;">${percentage}%</span> of the network stayed up this week.</h2>`
-        const combinedHTML = percent + outageHeader + outageHTML + overageHeader + avgDataHTML;
-
-    } else {
-        let percent = `<h2><span style="color:red;">${percentage}%</span> of the network stayed up this week.</h2>`
-        const combinedHTML = percent + outageHeader + outageHTML + overageHeader + avgDataHTML;
-    }
-
-    let b1 = `<body style="background:white; color:black; ">`
-    let b2 = `</body>`
-
-    let percent = `<h2><span style="color:green;">${percentage}%</span> of the network stayed up this week.</h2>`
-    const combinedHTML = b1 + percent + outageHeader + outageHTML + overageHeader + avgDataHTML + b2;
-
+    // weekly
+    let weeklyPercent = `<h2><span style="color:green;">${percentage}%</span> of the network stayed up this week.</h2>`
+    const weeklyCombinedHTML = weeklyPercent + outageHeader + weeklyOutageHTML + averageWeeklyHeader + avgWeeklyDataHTML;
 
     const clients = await getReportsList();
     clients.forEach(client => {
@@ -194,14 +173,7 @@ const sendEmails = async () => {
             from: process.env.HOST_EMAIL,
             to: client.email,
             subject: '🚀 SPEED TEST | Weekly Update',
-            html: combinedHTML
-        };
-
-        const monthlyMailOptions = {
-            from: process.env.HOST_EMAIL,
-            to: client.email,
-            subject: '🚀 SPEED TEST | Monthly Update',
-            html: combinedHTML
+            html: weeklyCombinedHTML
         };
 
         transporter.sendMail(weeklyMailOptions, function (error, info) {
@@ -214,7 +186,55 @@ const sendEmails = async () => {
     });
 };
 
-// schedule.scheduleJob({hour: 9, minute: 0, dayOfWeek: 1}, function(){
-console.log('Running weekly email job...');
-sendEmails();
-// });
+const sendMonthlyEmail = async () => {
+    outageHeader = "<h1>Outages</h1><hr/>";
+    averageMonthlyHeader = "<h1>Clients Monthly Averages</h1><hr/>";
+
+    // this months avg
+    const avgMonthlyHTMLArray = await getSpeedsAvg(oneMonth, oneMonth, "Month");
+    const avgMonthlyDataHTML = avgMonthlyHTMLArray.join('');
+
+    // this months outages
+    const monthlyOutageArray = await checkForOfflineClients(oneMonth);
+    const monthlyOutageHTML = monthlyOutageArray.join('');
+
+    // calc percentage of outage
+    let upCount = clientCount - downClientCount;
+    let percentage = (upCount / clientCount) * 100;
+    percentage = parseFloat(percentage.toFixed(2));
+
+    // monthly
+    let monthlyPercent = `<h2><span style="color:green;">${percentage}%</span> of the network stayed up this month.</h2>`
+    const monthlyCombinedHTML = monthlyPercent + outageHeader + monthlyOutageHTML + averageMonthlyHeader + avgMonthlyDataHTML;
+
+    const clients = await getReportsList();
+    clients.forEach(client => {
+        const monthlyMailOptions = {
+            from: process.env.HOST_EMAIL,
+            to: client.email,
+            subject: '🚀 SPEED TEST | Monthly Update',
+            html: monthlyCombinedHTML
+        };
+
+        transporter.sendMail(monthlyMailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+    });
+};
+
+schedule.scheduleJob({ hour: 9, minute: 0, dayOfWeek: 1 }, function () {
+    console.log('Running weekly email job...');
+    sendWeeklyEmail();
+});
+
+schedule.scheduleJob({ hour: 9, minute: 0, dayOfMonth: 1 }, function () {
+    console.log('Running monthly email job...');
+    sendMonthlyEmail();
+});
+
+// testing
+// sendWeeklyEmail();
