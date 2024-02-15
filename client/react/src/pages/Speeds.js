@@ -15,7 +15,7 @@ const Speeds = () => {
         return `${tick}Mbps`;
     };
 
-    const url = `http://127.0.0.1:3025/api/speeds/read/${id}`
+    const url = `http://10.49.48.150:3025/api/speeds/read/${id}`
 
     const getSpeeds = () => {
         if (id == null) {

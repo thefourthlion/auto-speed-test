@@ -8,18 +8,18 @@ import pytz
 import time
 import requests
 
-api_url = "http://127.0.0.1:3025/api/speeds/read"
+api_url = "http://10.49.48.150:3025/api/speeds/read"
 
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://127.0.0.1:3025/api/speeds/create"
+    api_url = "http://10.49.48.150:3025/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
 
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://127.0.0.1:3025/api/speeds/update/{id}"
+    api_url = f"http://10.49.48.150:3025/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
@@ -65,7 +65,7 @@ def testSpeed():
     print(f"Ping: {pingTime} ms")
 
     # ---------- data entry --------------------------------
-    data = getData("http://127.0.0.1:3025/api/speeds/read")
+    data = getData("http://10.49.48.150:3025/api/speeds/read")
 
     # Check if the public IP is in the data
     ip_in_data = any(entry for entry in data if entry['Ip'] == publicIp)

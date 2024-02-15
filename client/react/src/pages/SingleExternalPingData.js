@@ -13,7 +13,7 @@ const ExternalPingData = () => {
     const id = (searchParams.get('id'));
 
     const getSpeeds = () => {
-        fetch(`http://127.0.0.1:3025/api/externalpingdata/read/${id}`)
+        fetch(`http://10.49.48.150:3025/api/externalpingdata/read/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setPingData([data]);

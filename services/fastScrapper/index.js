@@ -9,7 +9,7 @@ const axios = require("axios");
 const os = require("os");
 
 const getData = (callback) => {
-    axios.get('http://127.0.0.1:3025/api/speeds/read')
+    axios.get('http://10.49.48.150:3025/api/speeds/read')
         .then(function (response) {
             callback(null, response.data);
         })
@@ -20,7 +20,7 @@ const getData = (callback) => {
 
 
 const postData = (data) => {
-    axios.post('http://127.0.0.1:3025/api/speeds/create', data)
+    axios.post('http://10.49.48.150:3025/api/speeds/create', data)
         .then(function (response) {
             // console.log(response.data);
             console.log("Created data")
@@ -31,7 +31,7 @@ const postData = (data) => {
 }
 
 const updateData = (id, data) => {
-    axios.post(`http://127.0.0.1:3025/api/speeds/update/${id}`, data)
+    axios.post(`http://10.49.48.150:3025/api/speeds/update/${id}`, data)
         .then(function (response) {
             // console.log(response.data);
             console.log("Updated data")
@@ -45,7 +45,7 @@ const startCountdown = (seconds) => {
     let counter = seconds;
     console.clear();
     const intervalId = setInterval(() => {
-        console.clear(); 
+        console.clear();
         console.log(`⏳: ${counter}sec...`);
 
         counter -= 1;
@@ -53,7 +53,7 @@ const startCountdown = (seconds) => {
             clearInterval(intervalId);
             console.log('Countdown finished!');
         }
-    }, 1000); 
+    }, 1000);
 }
 
 function delay(time) {
@@ -65,7 +65,7 @@ function delay(time) {
 async function runSpeedTest() {
 
     // { headless: false }
-    const browser = await puppeteer.launch( /* { headless: false } */ );
+    const browser = await puppeteer.launch( /* { headless: false } */);
     // const browser = await puppeteer.launch({ executablePath: '/usr/bin/chromium-browser', args: ['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'] });
 
     const page = await browser.newPage();
@@ -78,7 +78,7 @@ async function runSpeedTest() {
     const downloadTime = 30000;
     // startCountdown(downloadTime / 1000);
     await delay(downloadTime);
-    
+
     await page.click('#show-more-details-link');
 
     console.log(`Waiting for upload to run ⌚`)
@@ -139,7 +139,7 @@ async function runSpeedTest() {
                 };
                 updateData(existingEntry._id, updatedData);
             }
-            
+
         } else {
             postData(data);
         }

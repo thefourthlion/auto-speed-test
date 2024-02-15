@@ -19,8 +19,8 @@ const htmlEmail = `
     </div>
 `;
 
-const clientListURL = `http://127.0.0.1:3025/api/reportslist/read`;
-const speedsURL = `http://127.0.0.1:3025/api/speeds/read`;
+const clientListURL = `http://10.49.48.150:3025/api/reportslist/read`;
+const speedsURL = `http://10.49.48.150:3025/api/speeds/read`;
 
 const twelveHours = 12;
 const oneDay = 24;

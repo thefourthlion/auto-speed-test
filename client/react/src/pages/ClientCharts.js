@@ -14,7 +14,7 @@ const ClientCharts = () => {
     const [pingdata, setpingdata] = useState([])
 
     const [internalSpeed, setInternalSpeed] = useState([])
-    const url = `http://127.0.0.1:3025/api/speeds/read/${id}`
+    const url = `http://10.49.48.150:3025/api/speeds/read/${id}`
 
     const getSpeeds = () => {
         fetch(url)
@@ -26,7 +26,7 @@ const ClientCharts = () => {
                 const hostname = data.Ip
                 getpings(hostname);
 
-                fetch(`http://127.0.0.1:3025/api/internalspeeds/read/name/${hostname}`)
+                fetch(`http://10.49.48.150:3025/api/internalspeeds/read/name/${hostname}`)
                     .then((res) => res.json())
                     .then((data) => {
                         setInternalSpeed(data);
@@ -44,7 +44,7 @@ const ClientCharts = () => {
 
 
     const getpings = (hostname) => {
-        axios.get(`http://127.0.0.1:3025/api/externalpingdata/read/name/${hostname}`)
+        axios.get(`http://10.49.48.150:3025/api/externalpingdata/read/name/${hostname}`)
             .then((response) => {
                 setpingdata(response.data);
             })

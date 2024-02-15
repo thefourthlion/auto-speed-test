@@ -1,10 +1,10 @@
 import requests
 
-api_url = "http://127.0.0.1:3025/api/speeds/read"
+api_url = "http://10.49.48.150:3025/api/speeds/read"
 
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://127.0.0.1:3025/api/speeds/create"
+    api_url = "http://10.49.48.150:3025/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     # print(data)
@@ -12,7 +12,7 @@ def postData(Ip, name, download, upload, ping, timestamp):
 
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://127.0.0.1:3025/api/speeds/update/{id}"
+    api_url = f"http://10.49.48.150:3025/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     # print(data)

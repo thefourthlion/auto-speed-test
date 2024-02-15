@@ -7,7 +7,7 @@ const Speeds = (Ip, download, upload, ping) => {
   const [speeds, setSpeeds] = useState([]);
 
   const getSpeeds = () => {
-    fetch("http://127.0.0.1:3025/api/speeds/read")
+    fetch("http://10.49.48.150:3025/api/speeds/read")
       .then((res) => res.json())
       .then((data) => {
         setSpeeds(data);

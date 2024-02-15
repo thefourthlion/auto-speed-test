@@ -14,7 +14,7 @@ const InternalPings = () => {
     const id = (searchParams.get('id'));
     const navigate = useNavigate();
 
-    const url = `http://127.0.0.1:3025/api/internalspeeds/read/${id}`
+    const url = `http://10.49.48.150:3025/api/internalspeeds/read/${id}`
 
     const getSpeeds = () => {
         if (id == null) {

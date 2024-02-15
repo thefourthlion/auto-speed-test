@@ -14,8 +14,8 @@ const ExternalPing = () => {
     const [deleteId, setDeleteId] = useState("")
     const [externalPings, setExternalPings] = useState([])
 
-    const postURL = 'http://127.0.0.1:3025/api/externalping/create';
-    const getURL = "http://127.0.0.1:3025/api/externalping/read";
+    const postURL = 'http://10.49.48.150:3025/api/externalping/create';
+    const getURL = "http://10.49.48.150:3025/api/externalping/read";
 
     let timestamp = "123"
 
@@ -36,7 +36,7 @@ const ExternalPing = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://127.0.0.1:3025/api/externalping/delete/${id}`);
+            const response = await axios.delete(`http://10.49.48.150:3025/api/externalping/delete/${id}`);
             console.log('Response:', response.data);
             refreshPage()
         } catch (error) {
