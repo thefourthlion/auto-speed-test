@@ -2,7 +2,7 @@ const moment = require('moment-timezone');
 const axios = require("axios");
 const cron = require('node-cron');
 
-console.log("🟢🟢🟢🟢🟢")
+console.log("🖥 Monitoring service is running")
 
 const getData = () => {
     axios.get('http://10.49.48.150:3025/api/speeds/read')
@@ -21,7 +21,7 @@ const getData = () => {
                 if (!(parseInt(currentHour) == parseInt(lastHour))) {
 
                     if (!(ip == "test-pc")) {
-                        console.log(`Client ${ip} needs an update.`);
+                        // console.log(`Client ${ip} needs an update.`);
                         // Prepare the data to be appended
                         const updatedData = {
                             download: [...item.download, "0"], // Replace "0" with actual new data
@@ -31,14 +31,14 @@ const getData = () => {
                         };
 
                         // Call updateData to update the client with appended data
-                        console.log(
-                            {
-                                "id": id,
-                                "UpdatedData": updatedData
-                            })
+                        // console.log(
+                        //     {
+                        //         "id": id,
+                        //         "UpdatedData": updatedData
+                        //     })
                         updateData(id, updatedData);
                     }
-                    console.log(`Client ${ip} is up to date.`);
+                    // console.log(`Client ${ip} is up to date.`);
                 }
             });
         })
@@ -50,7 +50,7 @@ const getData = () => {
 const updateData = (id, data) => {
     axios.post(`http://10.49.48.150:3025/api/speeds/update/${id}`, data)
         .then(function (response) {
-            console.log(`Updated data for ID: ${id}`);
+            // console.log(`Updated data for ID: ${id}`);
         })
         .catch(function (error) {
             console.log(error);
@@ -61,6 +61,5 @@ const updateData = (id, data) => {
 
 // Schedule getData to run at the 59th minute of every hour
 cron.schedule('59 * * * *', () => {
-    console.log('Running getData at the 59th minute of the hour');
     getData();
 });
