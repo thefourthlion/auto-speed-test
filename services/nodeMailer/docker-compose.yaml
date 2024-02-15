@@ -1,12 +1,12 @@
 version: "25.0.2"
 services:
-  jsservices:
+  email:
     build: /
     container_name: speedtest-services-email
     ports:
-      - "3001:3001"
+      - "3004:3004"
     volumes:
-      - /:/speedtest-services-email
+      - ./:/speedtest-services-email
       - /node_modules
 #     networks:
 #       - docker-network

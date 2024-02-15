@@ -1,5 +1,5 @@
 # what img to do you want to pull
-FROM node:20-alpine
+FROM node:17-alpine
 
 RUN npm install -g nodemon
 
@@ -16,7 +16,11 @@ RUN npm install
 COPY . .
 
 # which port to use and which port to map it to
-EXPOSE 3001
+EXPOSE 3004
 
 # what commands to run when container is up
 CMD ["npm", "run", "dev"]
+
+
+// docker build -t speedtest-services-email .
+// docker run -dp --name ed-speedtest-services-email 3004:3004 speedtest-services-email 
