@@ -237,4 +237,4 @@ schedule.scheduleJob({ hour: 9, minute: 0, dayOfMonth: 1 }, function () {
 });
 
 // testing
-// sendWeeklyEmail();
+sendWeeklyEmail();
