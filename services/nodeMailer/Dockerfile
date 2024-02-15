@@ -20,7 +20,3 @@ EXPOSE 3004
 
 # what commands to run when container is up
 CMD ["npm", "run", "dev"]
-
-
-// docker build -t speedtest-services-email .
-// docker run -dp --name ed-speedtest-services-email 3004:3004 speedtest-services-email 
