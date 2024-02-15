@@ -226,6 +226,8 @@ const sendMonthlyEmail = async () => {
     });
 };
 
+console.log("✉ Email service is running")
+
 schedule.scheduleJob({ hour: 9, minute: 0, dayOfWeek: 1 }, function () {
     console.log('Running weekly email job...');
     sendWeeklyEmail();
@@ -237,4 +239,4 @@ schedule.scheduleJob({ hour: 9, minute: 0, dayOfMonth: 1 }, function () {
 });
 
 // testing
-sendWeeklyEmail();
+// sendWeeklyEmail();
