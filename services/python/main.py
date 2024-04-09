@@ -11,11 +11,11 @@ import pythonping
 # using the platform.node()python
 print("The hostname of this device is = ", platform.node())
 
-api_url = "http://10.49.48.150:3025/api/speeds/read"
+api_url = "http://localhost:3025/api/speeds/read"
 
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://10.49.48.150:3025/api/speeds/create"
+    api_url = "http://localhost:3025/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     # print(data)
@@ -23,7 +23,7 @@ def postData(Ip, name, download, upload, ping, timestamp):
 
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://10.49.48.150:3025/api/speeds/update/{id}"
+    api_url = f"http://localhost:3025/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     # print(data)
@@ -41,14 +41,14 @@ def getData(api_url):
 def externalping():
     # Define your list of websites
     try:
-        websites = getData("http://10.49.48.150:3025/api/externalping/read")
+        websites = getData("http://localhost:3025/api/externalping/read")
     except Exception as e:
         print(f"Failed to get website data: {e}")
         return
 
     # Define the URL for the POST request to update another database
-    api_url = "http://10.49.48.150:3025/api/externalpingdata/create"
-    get_url = "http://10.49.48.150:3025/api/externalpingdata/read"
+    api_url = "http://localhost:3025/api/externalpingdata/create"
+    get_url = "http://localhost:3025/api/externalpingdata/read"
 
     host_name = platform.node()
 
@@ -105,7 +105,7 @@ def externalping():
                     }
 
                     update_response = requests.post(
-                        f"http://10.49.48.150:3025/api/externalpingdata/update/{item_id}", json=data)
+                        f"http://localhost:3025/api/externalpingdata/update/{item_id}", json=data)
                     if update_response.status_code != 200:
                         print(
                             f"Failed to update data for {website.get('name')}")
@@ -159,7 +159,7 @@ def speedTest():
     print(f"Ping: {pingTime} ms")
 
     # ---------- data entry --------------------------------
-    data = getData("http://10.49.48.150:3025/api/speeds/read")
+    data = getData("http://localhost:3025/api/speeds/read")
 
     # Check if the public IP is in the data
     ip_in_data = any(entry for entry in data if entry['Ip'] == publicIp)

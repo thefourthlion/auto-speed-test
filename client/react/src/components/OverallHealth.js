@@ -12,7 +12,7 @@ const OverallHealth = () => {
     // Function to fetch data
     const getData = async () => {
         try {
-            const response = await axios.get('http://10.49.48.150:3025/api/speeds/read');
+            const response = await axios.get('http://localhost:3025/api/speeds/read');
             trackRedStatusClients(response.data);
         } catch (error) {
             console.error('Error fetching data:', error);

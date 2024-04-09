@@ -18,7 +18,7 @@ const Packages = () => {
 
     const getData = async () => {
         try {
-            const response = await axios.get('http://10.49.48.150:3025/api/packages/read');
+            const response = await axios.get('http://localhost:3025/api/packages/read');
             setPackages(response.data);
         } catch (error) {
             console.error('Error:', error);
@@ -27,7 +27,7 @@ const Packages = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post('http://10.49.48.150:3025/api/packages/create', data);
+            const response = await axios.post('http://localhost:3025/api/packages/create', data);
             console.log(response.data)
             refreshPage()
         } catch (error) {
@@ -37,7 +37,7 @@ const Packages = () => {
 
     const deleteItem = async (id) => {
         try {
-            const response = await axios.delete(`http://10.49.48.150:3025/api/packages/delete/${id}`);
+            const response = await axios.delete(`http://localhost:3025/api/packages/delete/${id}`);
             console.log(response.data)
             refreshPage()
         } catch (error) {

@@ -16,8 +16,8 @@ random_ping = random.randint(10, 20)
 # pst_now = utc_now.astimezone(pst)
 # timestamp = pst_now.strftime('%Y-%m-%d %H:%M:%S')
 
-update_url = f"http://10.49.48.150:3025/api/speeds/update/{id}"
-get_url = f"http://10.49.48.150:3025/api/speeds/read"
+update_url = f"http://localhost:3025/api/speeds/update/{id}"
+get_url = f"http://localhost:3025/api/speeds/read"
 
 download_min = 1000
 download_max = 1200
@@ -30,7 +30,7 @@ host_name = "test-pc"
 
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://10.49.48.150:3025/api/speeds/create"
+    api_url = "http://localhost:3025/api/speeds/create"
     data = {
         "Ip": Ip,
         "name": name,
@@ -44,7 +44,7 @@ def postData(Ip, name, download, upload, ping, timestamp):
 
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://10.49.48.150:3025/api/speeds/update/{id}"
+    api_url = f"http://localhost:3025/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     # print(data)

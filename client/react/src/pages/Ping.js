@@ -14,7 +14,7 @@ const Ping = () => {
     const id = (searchParams.get('id'));
     const navigate = useNavigate();
 
-    const url = `http://10.49.48.150:3025/api/speeds/read/${id}`
+    const url = `http://localhost:3025/api/speeds/read/${id}`
 
     const getSpeeds = () => {
         if (id == null) {
