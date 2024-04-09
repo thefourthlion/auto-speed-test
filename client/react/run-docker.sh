@@ -10,4 +10,4 @@ docker image rm speedtest-client
 # pull latest image and run as container
 docker build -t speedtest-client .
 
-docker run -dp 3000:3000 --name ed-speedtest-client speedtest-client 
+docker run -dp 4000:4000 --name ed-speedtest-client speedtest-client 
