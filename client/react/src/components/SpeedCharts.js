@@ -14,7 +14,7 @@ const SpeedCharts = () => {
 
 
     const getSpeeds = () => {
-        fetch("http://localhost:3025/api/speeds/read")
+        fetch("http://localhost:4001/api/speeds/read")
             .then((res) => res.json())
             .then((data) => {
                 setSpeeds(data);

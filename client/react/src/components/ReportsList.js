@@ -10,8 +10,8 @@ const ReportsList = () => {
     const [email, setEmail] = useState("")
 
     const [emailList, setEmailList] = useState([])
-    const postURL = 'http://localhost:3025/api/reportslist/create';
-    const getURL = "http://localhost:3025/api/reportslist/read";
+    const postURL = 'http://localhost:4001/api/reportslist/create';
+    const getURL = "http://localhost:4001/api/reportslist/read";
 
 
     const [deleteData, setDeleteData] = useState(false);
@@ -36,7 +36,7 @@ const ReportsList = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:3025/api/reportslist/delete/${id}`);
+            const response = await axios.delete(`http://localhost:4001/api/reportslist/delete/${id}`);
             console.log('Response:', response.data);
             refreshPage()
         } catch (error) {

@@ -15,7 +15,7 @@ const InternalSpeeds = () => {
         return `${tick}Mbps`;
     };
 
-    const url = `http://localhost:3025/api/internalspeeds/read/${id}`
+    const url = `http://localhost:4001/api/internalspeeds/read/${id}`
 
     const getSpeeds = () => {
         if (id == null) {

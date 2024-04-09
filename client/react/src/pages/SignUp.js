@@ -27,7 +27,7 @@ const Register = () => {
 
   const getUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:3025/api/auth/read');
+      const response = await axios.get('http://localhost:4001/api/auth/read');
       setUser(response.data);
       console.log(response.data)
     } catch (error) {
@@ -37,7 +37,7 @@ const Register = () => {
 
   const deleteUsers = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:3025/api/auth/delete/${id}`);
+      const response = await axios.delete(`http://localhost:4001/api/auth/delete/${id}`);
       console.log(response.data)
       refreshPage()
     } catch (error) {
