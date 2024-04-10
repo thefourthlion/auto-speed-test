@@ -16,7 +16,7 @@ const AllExternalPingData = () => {
     };
 
     const getSpeeds = () => {
-        fetch(`http://localhost:4001/api/externalpingdata/read/name/${hostname}`)
+        fetch(`http://192.168.0.66:4001/api/externalpingdata/read/name/${hostname}`)
             .then((res) => res.json())
             .then((data) => {
                 setSpeeds(data);

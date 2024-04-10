@@ -5,7 +5,7 @@ const cron = require('node-cron');
 console.log("🖥 Monitoring service is running")
 
 const getData = () => {
-    axios.get('http://localhost:4001/api/speeds/read')
+    axios.get('http://192.168.0.66:4001/api/speeds/read')
         .then(function (response) {
             const speedsData = response.data;
             const currentTimestamp = moment().tz("America/Los_Angeles").format("MM-DD-YYYY HH:mm");
@@ -48,7 +48,7 @@ const getData = () => {
 };
 
 const updateData = (id, data) => {
-    axios.post(`http://localhost:4001/api/speeds/update/${id}`, data)
+    axios.post(`http://192.168.0.66:4001/api/speeds/update/${id}`, data)
         .then(function (response) {
             // console.log(`Updated data for ID: ${id}`);
         })
