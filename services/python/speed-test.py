@@ -7,19 +7,21 @@ from datetime import datetime
 import pytz
 import time
 import requests
+import json
+import os
 
-api_url = "http://192.168.0.66:4001/api/speeds/read"
 
+api_url = "http://localhost:4001/api/speeds/read"
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://192.168.0.66:4001/api/speeds/create"
+    api_url = "http://localhost:4001/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
 
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://192.168.0.66:4001/api/speeds/update/{id}"
+    api_url = f"http://localhost:4001/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
@@ -65,7 +67,7 @@ def testSpeed():
     print(f"Ping: {pingTime} ms")
 
     # ---------- data entry --------------------------------
-    data = getData("http://192.168.0.66:4001/api/speeds/read")
+    data = getData("http://localhost:4001/api/speeds/read")
 
     # Check if the public IP is in the data
     ip_in_data = any(entry for entry in data if entry['Ip'] == publicIp)
@@ -99,12 +101,43 @@ def testSpeed():
         print("Creating new data for IP:", publicIp)
         name = ""
         postData(publicIp, name, downloadMbps, uploadMbps, pingTime, date_and_time)
+        
+def reset_if_outage():
+    url = 'http://localhost:4001/api/speeds/read'
+
+    # Make the GET request
+    response = requests.get(url)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse the JSON response
+        data = response.json()
+        
+        # Check if the "download" key exists and has at least 4 values
+        if "download" in data[0] and len(data[0]["download"]) >= 4:
+            # Get the last 4 download speeds
+            last_four_downloads = data[0]["download"][-4:]
+            
+            # Check if all last four download speeds are "0"
+            if all(speed == "0" for speed in last_four_downloads):
+                # os.system('sudo reboot')
+
+                print("💣 All last four download speeds are 0. Performing the desired action.")
+            else:
+                print("The last four download speeds are not all 0.")
+        else:
+            print("Not enough download speeds available in the data.")
+    else:
+        print(f"Failed to get data from {url}. Status code: {response.status_code}")
+
+    
 
 
 # ---------- code timer --------------------------------
 while True:
     start_time = time.time()
     testSpeed()
+    reset_if_outage()
     end_time = time.time()
     execution_time = end_time - start_time
     time.sleep(max(5 - execution_time, 0))
