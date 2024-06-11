@@ -11,17 +11,17 @@ import json
 import os
 
 
-api_url = "http://localhost:4001/api/speeds/read"
+api_url = "http://127.0.0.1:3025/api/speeds/read"
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://localhost:4001/api/speeds/create"
+    api_url = "http://127.0.0.1:3025/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
 
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://localhost:4001/api/speeds/update/{id}"
+    api_url = f"http://127.0.0.1:3025/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
@@ -67,7 +67,7 @@ def testSpeed():
     print(f"Ping: {pingTime} ms")
 
     # ---------- data entry --------------------------------
-    data = getData("http://localhost:4001/api/speeds/read")
+    data = getData("http://127.0.0.1:3025/api/speeds/read")
 
     # Check if the public IP is in the data
     ip_in_data = any(entry for entry in data if entry['Ip'] == publicIp)
@@ -103,7 +103,7 @@ def testSpeed():
         postData(publicIp, name, downloadMbps, uploadMbps, pingTime, date_and_time)
         
 def reset_if_outage():
-    url = 'http://localhost:4001/api/speeds/read'
+    url = 'http://127.0.0.1:3025/api/speeds/read'
 
     # Make the GET request
     response = requests.get(url)
