@@ -6,6 +6,7 @@ import pytz
 import time
 import platform
 import pythonping
+import os
 
 # displaying the hostname of the device
 # using the platform.node()python
@@ -126,8 +127,6 @@ def externalping():
         except Exception as e:
             print(f"Failed to process {website.get('name')}: {e}")
 
-
-
 def speedTest():
     # ---------- get date and time -----------------------
     pst = pytz.timezone('US/Pacific')
@@ -185,12 +184,43 @@ def speedTest():
         name = ""
         postData(publicIp, name, downloadMbps, uploadMbps, pingTime, date_and_time)
 
+def reset_if_outage():
+    url = f'http://127.0.0.1:3025/api/externalpingdata/read/name/{hostname}'
+    
+
+    # Make the GET request
+    response = requests.get(url)
+
+    # Check if the request was successful
+    if response.status_code == 200:
+        # Parse the JSON response
+        data = response.json()
+        
+        # Check if the "download" key exists and has at least 4 values
+        if "download" in data[0] and len(data[0]["download"]) >= 4:
+            # Get the last 4 download speeds
+            last_four_downloads = data[0]["download"][-4:]
+            
+            # Check if all last four download speeds are "0"
+            if all(speed == "0" for speed in last_four_downloads):
+                os.system('sudo reboot')
+
+                print("💣 All last four download speeds are 0. Performing the desired action.")
+            else:
+                print("The last four download speeds are not all 0.")
+        else:
+            print("Not enough download speeds available in the data.")
+    else:
+        print(f"Failed to get data from {url}. Status code: {response.status_code}")
+
+    
 
 # ---------- code timer --------------------------------
 while True:
     externalping()
     start_time = time.time()
     speedTest()
+    reset_if_outage()
     end_time = time.time()
     execution_time = end_time - start_time
     time.sleep(max(3600 - execution_time, 0))
