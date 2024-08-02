@@ -8,50 +8,43 @@ import platform
 import pythonping
 import os
 
-# displaying the hostname of the device
-# using the platform.node()python
-print("The hostname of this device is = ", platform.node())
+# Define hostname at the top of the script
+hostname = platform.node()
+
+# Display the hostname of the device
+print("The hostname of this device is =", hostname)
 
 api_url = "http://127.0.0.1:3025/api/speeds/read"
-
 
 def postData(Ip, name, download, upload, ping, timestamp):
     api_url = "http://127.0.0.1:3025/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
-    # print(data)
     response = requests.post(api_url, json=data)
-
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
     api_url = f"http://127.0.0.1:3025/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
-    # print(data)
     response = requests.post(api_url, json=data)
-
-# postData("192.168.1.1", "everett_pc", "850", "20", "22", formatted_date_and_time)
-
 
 def getData(api_url):
     response = requests.get(api_url)
     data = response.json()
-    # app = data["app"]
     return data
 
 def externalping():
-    # Define your list of websites
+    print("⌛⌛⌛⌛⌛⌛⌛⌛⌛⌛")  # Loading message for external ping check
+
     try:
         websites = getData("http://127.0.0.1:3025/api/externalping/read")
     except Exception as e:
         print(f"Failed to get website data: {e}")
         return
 
-    # Define the URL for the POST request to update another database
+    # URL for posting ping data to another database
     api_url = "http://127.0.0.1:3025/api/externalpingdata/create"
     get_url = "http://127.0.0.1:3025/api/externalpingdata/read"
-
-    host_name = platform.node()
 
     # Get date and time in PST
     pst = pytz.timezone('US/Pacific')
@@ -80,11 +73,11 @@ def externalping():
 
             # Check if data already exists for the website
             website_in_data = any(
-                entry for entry in existing_data if entry['hostname'] == host_name and entry['link'] == website.get('name'))
+                entry for entry in existing_data if entry['hostname'] == hostname and entry['link'] == website.get('name'))
 
             if website_in_data:
                 website_and_hostname_matching_entry = next((entry for entry in existing_data if entry['link'] == website.get(
-                    'name') and entry['hostname'] == host_name), None)
+                    'name') and entry['hostname'] == hostname), None)
                 if website_and_hostname_matching_entry:
                     print(f"Data already exists for {website['name']}")
 
@@ -99,7 +92,7 @@ def externalping():
 
                     data = {
                         "_id": item_id,
-                        "hostname": host_name,
+                        "hostname": hostname,
                         "link": website.get('name'),
                         "ping": item_ping,
                         "timestamp": item_timestamp
@@ -113,7 +106,7 @@ def externalping():
             else:
                 print(f"Don't have data for {website['name']}")
                 data = {
-                    "hostname": host_name,
+                    "hostname": hostname,
                     'link': website.get('name'),
                     'ping': [str(ping_avg)],
                     'timestamp': [timestamp]
@@ -137,7 +130,7 @@ def speedTest():
 
     # ---------- ip addr --------------------------------
     ipAddr = socket.gethostbyname(socket.gethostname())
-    publicIp = platform.node()
+    publicIp = hostname
     print(f"IP Address: {ipAddr}")
     print(f"Public IP: {publicIp}")
 
@@ -186,7 +179,6 @@ def speedTest():
 
 def reset_if_outage():
     url = f'http://127.0.0.1:3025/api/externalpingdata/read/name/{hostname}'
-    
 
     # Make the GET request
     response = requests.get(url)
@@ -204,7 +196,6 @@ def reset_if_outage():
             # Check if all last four download speeds are "0"
             if all(speed == "0" for speed in last_four_downloads):
                 os.system('sudo reboot')
-
                 print("💣 All last four download speeds are 0. Performing the desired action.")
             else:
                 print("The last four download speeds are not all 0.")
@@ -213,12 +204,10 @@ def reset_if_outage():
     else:
         print(f"Failed to get data from {url}. Status code: {response.status_code}")
 
-    
-
 # ---------- code timer --------------------------------
 while True:
-    externalping()
     start_time = time.time()
+    externalping()
     speedTest()
     reset_if_outage()
     end_time = time.time()
