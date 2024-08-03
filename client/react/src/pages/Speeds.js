@@ -15,7 +15,7 @@ const Speeds = () => {
         return `${tick}Mbps`;
     };
 
-    const url = `http://192.168.0.66:4001/api/speeds/read/${id}`
+    const url = `http://localhost:4001/api/speeds/read/${id}`
 
     const getSpeeds = () => {
         if (id == null) {

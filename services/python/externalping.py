@@ -10,14 +10,14 @@ import platform
 def externalping():
     # Define your list of websites
     try:
-        websites = req.getData("http://127.0.0.1:3025/api/externalping/read")
+        websites = req.getData("http://localhost:4001/api/externalping/read")
     except Exception as e:
         print(f"Failed to get website data: {e}")
         return
 
     # Define the URL for the POST request to update another database
-    api_url = "http://127.0.0.1:3025/api/externalpingdata/create"
-    get_url = "http://127.0.0.1:3025/api/externalpingdata/read"
+    api_url = "http://localhost:4001/api/externalpingdata/create"
+    get_url = "http://localhost:4001/api/externalpingdata/read"
 
     host_name = platform.node()
 
@@ -74,7 +74,7 @@ def externalping():
                     }
 
                     update_response = requests.post(
-                        f"http://127.0.0.1:3025/api/externalpingdata/update/{item_id}", json=data)
+                        f"http://localhost:4001/api/externalpingdata/update/{item_id}", json=data)
                     if update_response.status_code != 200:
                         print(
                             f"Failed to update data for {website.get('name')}")

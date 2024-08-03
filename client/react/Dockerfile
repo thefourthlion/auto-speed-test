@@ -18,3 +18,6 @@ EXPOSE 4000
 
 # what commands to run when container is up
 CMD ["npm", "start"]
+
+# sudo docker build -t speedtest-client .
+# sudo docker run -d --network host --restart unless-stopped -it --name speedtest-client speedtest-client

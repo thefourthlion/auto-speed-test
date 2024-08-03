@@ -2,11 +2,11 @@ version: "25.0.2"
 services:
   pyservices:
     build: /
-    container_name: speedtest-services-externalspeeds
+    container_name: speedtest-service
     ports:
       - "3002:3002"
     volumes:
-      - ./:/speedtest-services-externalspeeds
+      - ./:/speedtest-service
       - /__pycache__
 #     networks:
 #       - docker-network

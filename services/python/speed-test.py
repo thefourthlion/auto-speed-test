@@ -11,17 +11,17 @@ import json
 import os
 
 
-api_url = "http://127.0.0.1:3025/api/speeds/read"
+api_url = "http://localhost:4001/api/speeds/read"
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://127.0.0.1:3025/api/speeds/create"
+    api_url = "http://localhost:4001/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
 
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://127.0.0.1:3025/api/speeds/update/{id}"
+    api_url = f"http://localhost:4001/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
@@ -67,7 +67,7 @@ def testSpeed():
     print(f"Ping: {pingTime} ms")
 
     # ---------- data entry --------------------------------
-    data = getData("http://127.0.0.1:3025/api/speeds/read")
+    data = getData("http://localhost:4001/api/speeds/read")
 
     # Check if the public IP is in the data
     ip_in_data = any(entry for entry in data if entry['Ip'] == publicIp)
@@ -79,9 +79,9 @@ def testSpeed():
         last_timestamp = matching_entry['timestamp'][-1]  # Get the last timestamp
         last_hour = datetime.strptime(last_timestamp, '%m-%d-%Y %H:%M').strftime('%H')
         
-        if current_hour == last_hour:
-            print("Current hour matches the last entry's hour. Skipping update.")
-            return
+        # if current_hour == last_hour:
+        #     print("Current hour matches the last entry's hour. Skipping update.")
+        #     return
 
         print("Editing existing data for IP:", publicIp)
         
@@ -103,7 +103,7 @@ def testSpeed():
         postData(publicIp, name, downloadMbps, uploadMbps, pingTime, date_and_time)
         
 def reset_if_outage():
-    url = 'http://127.0.0.1:3025/api/speeds/read'
+    url = 'http://localhost:4001/api/speeds/read'
 
     # Make the GET request
     response = requests.get(url)
@@ -114,19 +114,19 @@ def reset_if_outage():
         data = response.json()
         
         # Check if the "download" key exists and has at least 4 values
-        if "download" in data[0] and len(data[0]["download"]) >= 4:
-            # Get the last 4 download speeds
-            last_four_downloads = data[0]["download"][-4:]
+        # if "download" in data[0] and len(data[0]["download"]) >= 4:
+        #     # Get the last 4 download speeds
+        #     last_four_downloads = data[0]["download"][-4:]
             
-            # Check if all last four download speeds are "0"
-            if all(speed == "0" for speed in last_four_downloads):
-                # os.system('sudo reboot')
+        #     # Check if all last four download speeds are "0"
+        #     if all(speed == "0" for speed in last_four_downloads):
+        #         # os.system('sudo reboot')
 
-                print("💣 All last four download speeds are 0. Performing the desired action.")
-            else:
-                print("The last four download speeds are not all 0.")
-        else:
-            print("Not enough download speeds available in the data.")
+        #         print("💣 All last four download speeds are 0. Performing the desired action.")
+        #     else:
+        #         print("The last four download speeds are not all 0.")
+        # else:
+        #     print("Not enough download speeds available in the data.")
     else:
         print(f"Failed to get data from {url}. Status code: {response.status_code}")
 

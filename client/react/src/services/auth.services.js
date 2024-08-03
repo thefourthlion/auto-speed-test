@@ -7,7 +7,7 @@ const refreshPage = () => {
 const register = (username, email, password, permissions,
     phoneNumber, profilePic) => {
     return axios
-        .post("http://192.168.0.66:4001/api/auth/register", {
+        .post("http://localhost:4001/api/auth/register", {
             username,
             email,
             phoneNumber,
@@ -29,7 +29,7 @@ const register = (username, email, password, permissions,
 
 const login = (username, password) => {
     return axios
-        .post("http://192.168.0.66:4001/api/auth/login", {
+        .post("http://localhost:4001/api/auth/login", {
             username,
             password,
         })

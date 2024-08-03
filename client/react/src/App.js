@@ -56,7 +56,7 @@ const App = () => {
       <BrowserRouter>
         <Navigation />
         <Routes>
-          <Route exact path="/" element={<PrivateRoute />} >
+          {/* <Route exact path="/" element={<PrivateRoute />} > */}
             <Route index element={<Home />} />
             <Route path="Home" element={<Home />} />
             <Route path="register" element={<SignUp />} />
@@ -71,7 +71,7 @@ const App = () => {
             <Route path="AllExternalPingData" element={<AllExternalPingData />} />
             <Route path="Clients" element={<Clients />} />
             <Route path="Admin" element={<Admin />} />
-          </Route>
+          {/* </Route> */}
           <Route path="Login" element={<Login />} />
         </Routes>
       </BrowserRouter>
