@@ -14,7 +14,7 @@ const ClientCharts = () => {
     const [pingdata, setpingdata] = useState([])
 
     const [internalSpeed, setInternalSpeed] = useState([])
-    const url = `http://localhost:4001/api/speeds/read/${id}`
+    const url = `https://apispeeds.portkeylabs.net/api/speeds/read/${id}`
 
     const getSpeeds = () => {
         fetch(url)
@@ -26,7 +26,7 @@ const ClientCharts = () => {
                 const hostname = data.Ip
                 getpings(hostname);
 
-                fetch(`http://localhost:4001/api/internalspeeds/read/name/${hostname}`)
+                fetch(`https://apispeeds.portkeylabs.net/api/internalspeeds/read/name/${hostname}`)
                     .then((res) => res.json())
                     .then((data) => {
                         setInternalSpeed(data);
@@ -44,7 +44,7 @@ const ClientCharts = () => {
 
 
     const getpings = (hostname) => {
-        axios.get(`http://localhost:4001/api/externalpingdata/read/name/${hostname}`)
+        axios.get(`https://apispeeds.portkeylabs.net/api/externalpingdata/read/name/${hostname}`)
             .then((response) => {
                 setpingdata(response.data);
             })

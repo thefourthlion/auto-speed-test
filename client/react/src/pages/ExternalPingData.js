@@ -12,7 +12,7 @@ const ExternalPingData = () => {
     };
 
     const getSpeeds = () => {
-        fetch("http://localhost:4001/api/externalpingdata/read")
+        fetch("https://apispeeds.portkeylabs.net/api/externalpingdata/read")
             .then((res) => res.json())
             .then((data) => {
                 setpingdata(data);

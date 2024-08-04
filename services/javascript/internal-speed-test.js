@@ -4,19 +4,19 @@ const axios = require("axios");
 const os = require("os");
 
 const getData = (callback) => {
-    axios.get('http://localhost:4001/api/internalspeeds/read')
+    axios.get('https://apispeeds.portkeylabs.net/api/internalspeeds/read')
         .then(response => callback(null, response.data))
         .catch(error => callback(error));
 }
 
 const postData = (data) => {
-    axios.post('http://localhost:4001/api/internalspeeds/create', data)
+    axios.post('https://apispeeds.portkeylabs.net/api/internalspeeds/create', data)
         .then(response => console.log("Created data"))
         .catch(error => console.log(error));
 }
 
 const updateData = (id, data) => {
-    axios.post(`http://localhost:4001/api/internalspeeds/update/${id}`, data)
+    axios.post(`https://apispeeds.portkeylabs.net/api/internalspeeds/update/${id}`, data)
         .then(response => console.log("Updated data"))
         .catch(error => console.log(error));
 }

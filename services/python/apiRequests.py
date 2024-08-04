@@ -1,10 +1,10 @@
 import requests
 
-api_url = "http://localhost:4001/api/speeds/read"
+api_url = "https://apispeeds.portkeylabs.net/api/speeds/read"
 
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://localhost:4001/api/speeds/create"
+    api_url = "https://apispeeds.portkeylabs.net/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     # print(data)
@@ -12,7 +12,7 @@ def postData(Ip, name, download, upload, ping, timestamp):
 
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://localhost:4001/api/speeds/update/{id}"
+    api_url = f"https://apispeeds.portkeylabs.net/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     # print(data)

@@ -14,7 +14,7 @@ const Ping = () => {
     const id = (searchParams.get('id'));
     const navigate = useNavigate();
 
-    const url = `http://localhost:4001/api/speeds/read/${id}`
+    const url = `https://apispeeds.portkeylabs.net/api/speeds/read/${id}`
 
     const getSpeeds = () => {
         if (id == null) {
