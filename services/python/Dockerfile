@@ -1,6 +1,6 @@
 FROM python:3.9
 
-WORKDIR /speedtest-services-externalspeeds
+WORKDIR / speedtest-service
 
 COPY . .
 
@@ -10,5 +10,5 @@ EXPOSE 3002
 
 CMD ["python", "main.py"]
 
-
-# sudo docker run -d --network host -it --name speedtest-service speedtest-service
+# docker build -t speedtest-service .
+# docker run -d --network host -it --name speedtest-service speedtest-service

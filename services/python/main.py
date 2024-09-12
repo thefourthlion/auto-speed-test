@@ -14,16 +14,16 @@ hostname = platform.node()
 # Display the hostname of the device
 print("The hostname of this device is =", hostname)
 
-api_url = "http://127.0.0.1:3025/api/speeds/read"
+api_url = "http://apispeeds.portkeylabs.net/api/speeds/read"
 
 def postData(Ip, name, download, upload, ping, timestamp):
-    api_url = "http://127.0.0.1:3025/api/speeds/create"
+    api_url = "http://apispeeds.portkeylabs.net/api/speeds/create"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
 
 def updateData(Ip, name, download, upload, ping, timestamp, id):
-    api_url = f"http://127.0.0.1:3025/api/speeds/update/{id}"
+    api_url = f"http://apispeeds.portkeylabs.net/api/speeds/update/{id}"
     data = {"Ip": Ip, "name": name, "download": download,
             "upload": upload, "ping": ping, "timestamp": timestamp}
     response = requests.post(api_url, json=data)
@@ -37,14 +37,14 @@ def externalping():
     print("⌛⌛⌛⌛⌛⌛⌛⌛⌛⌛")  # Loading message for external ping check
 
     try:
-        websites = getData("http://127.0.0.1:3025/api/externalping/read")
+        websites = getData("http://apispeeds.portkeylabs.net/api/externalping/read")
     except Exception as e:
         print(f"Failed to get website data: {e}")
         return
 
     # URL for posting ping data to another database
-    api_url = "http://127.0.0.1:3025/api/externalpingdata/create"
-    get_url = "http://127.0.0.1:3025/api/externalpingdata/read"
+    api_url = "http://apispeeds.portkeylabs.net/api/externalpingdata/create"
+    get_url = "http://apispeeds.portkeylabs.net/api/externalpingdata/read"
 
     # Get date and time in PST
     pst = pytz.timezone('US/Pacific')
@@ -99,7 +99,7 @@ def externalping():
                     }
 
                     update_response = requests.post(
-                        f"http://127.0.0.1:3025/api/externalpingdata/update/{item_id}", json=data)
+                        f"http://apispeeds.portkeylabs.net/api/externalpingdata/update/{item_id}", json=data)
                     if update_response.status_code != 200:
                         print(
                             f"Failed to update data for {website.get('name')}")
@@ -151,7 +151,7 @@ def speedTest():
     print(f"Ping: {pingTime} ms")
 
     # ---------- data entry --------------------------------
-    data = getData("http://127.0.0.1:3025/api/speeds/read")
+    data = getData("http://apispeeds.portkeylabs.net/api/speeds/read")
 
     # Check if the public IP is in the data
     ip_in_data = any(entry for entry in data if entry['Ip'] == publicIp)
@@ -178,7 +178,7 @@ def speedTest():
         postData(publicIp, name, downloadMbps, uploadMbps, pingTime, date_and_time)
 
 def reset_if_outage():
-    url = f'http://127.0.0.1:3025/api/externalpingdata/read/name/{hostname}'
+    url = f'http://apispeeds.portkeylabs.net/api/externalpingdata/read/name/{hostname}'
 
     # Make the GET request
     response = requests.get(url)
