@@ -1,17 +1,8 @@
-version: "25.0.2"
 services:
   client:
-    build: /
+    build: .
     container_name: speedtest-client
     ports:
       - '3000:3000'
-    # wont work in windows
-    # volumes:
-    #   - ./client/react:/speedtest-client
     stdin_open: true
     tty: true
-#     networks:
-#       - docker-network
-# networks:
-#   docker-network:
-#     external: true
