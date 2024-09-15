@@ -16,7 +16,7 @@ RUN npm install
 COPY . .
 
 # which port to use and which port to map it to
-EXPOSE 4001
+EXPOSE 3025
 
 # what commands to run when container is up
 CMD ["npm", "run", "dev"]
