@@ -1,15 +1,9 @@
-version: "25.0.2"
 services:
   api:
-    build: /
+    build: .
     container_name: speedtest-server
     ports:
       - "4001:4001"
     volumes:
       - ./:/speedtest-server
       - /node_modules
-#     networks:
-#       - docker-network
-# networks:
-#   docker-network:
-#     external: true
