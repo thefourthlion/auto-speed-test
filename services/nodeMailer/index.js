@@ -11,8 +11,8 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const clientListURL = `https://apispeeds.portkeylabs.net/api/reportslist/read`;
-const speedsURL = `https://apispeeds.portkeylabs.net/api/speeds/read`;
+const clientListURL = `http://localhost:4001/api/reportslist/read`;
+const speedsURL = `http://localhost:4001/api/speeds/read`;
 
 const oneWeek = 168;
 const oneMonth = 672;

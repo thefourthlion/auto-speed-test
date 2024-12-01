@@ -9,7 +9,7 @@ const axios = require("axios");
 const os = require("os");
 
 const getData = (callback) => {
-    axios.get('https://apispeeds.portkeylabs.net/api/speeds/read')
+    axios.get('http://localhost:4001/api/speeds/read')
         .then(function (response) {
             callback(null, response.data);
         })
@@ -20,7 +20,7 @@ const getData = (callback) => {
 
 
 const postData = (data) => {
-    axios.post('https://apispeeds.portkeylabs.net/api/speeds/create', data)
+    axios.post('http://localhost:4001/api/speeds/create', data)
         .then(function (response) {
             // console.log(response.data);
             console.log("Created data")
@@ -31,7 +31,7 @@ const postData = (data) => {
 }
 
 const updateData = (id, data) => {
-    axios.post(`https://apispeeds.portkeylabs.net/api/speeds/update/${id}`, data)
+    axios.post(`http://localhost:4001/api/speeds/update/${id}`, data)
         .then(function (response) {
             // console.log(response.data);
             console.log("Updated data")

@@ -4,7 +4,7 @@ const Speeds = () => {
   const [speeds, setSpeeds] = useState([]);
 
   const getSpeeds = () => {
-    fetch("https://apispeeds.portkeylabs.net/api/speeds/read")
+    fetch("http://localhost:4001/api/speeds/read")
       .then((res) => res.json())
       .then((data) => {
         setSpeeds(data);

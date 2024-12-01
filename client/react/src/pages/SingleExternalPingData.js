@@ -13,7 +13,7 @@ const ExternalPingData = () => {
     const id = (searchParams.get('id'));
 
     const getSpeeds = () => {
-        fetch(`https://apispeeds.portkeylabs.net/api/externalpingdata/read/${id}`)
+        fetch(`http://localhost:4001/api/externalpingdata/read/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setPingData([data]);

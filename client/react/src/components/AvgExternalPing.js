@@ -20,7 +20,7 @@ const AvgExternalPing = () => {
     };
 
     const getSpeeds = () => {
-        fetch(`https://apispeeds.portkeylabs.net/api/speeds/read/group/${chosenGroup}`)
+        fetch(`http://localhost:4001/api/speeds/read/group/${chosenGroup}`)
             .then((res) => res.json())
             .then((data) => {
                 // setpingdata(data);
@@ -39,7 +39,7 @@ const AvgExternalPing = () => {
     };
 
     const getExternalPingData = (name) => {
-        fetch(`https://apispeeds.portkeylabs.net/api/externalpingdata/read/name/${name}`)
+        fetch(`http://localhost:4001/api/externalpingdata/read/name/${name}`)
             .then((res) => res.json())
             .then((data) => {
                 // console.log(data)
@@ -52,7 +52,7 @@ const AvgExternalPing = () => {
     };
 
     const getGroupData = () => {
-        fetch("https://apispeeds.portkeylabs.net/api/groups/read")
+        fetch("http://localhost:4001/api/groups/read")
             .then((res) => res.json())
             .then((data) => {
                 setGroups(data);

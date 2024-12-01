@@ -16,7 +16,7 @@ const Groups = () => {
 
     const getData = async () => {
         try {
-            const response = await axios.get('https://apispeeds.portkeylabs.net/api/Groups/read');
+            const response = await axios.get('http://localhost:4001/api/Groups/read');
             setGroups(response.data);
         } catch (error) {
             console.error('Error:', error);
@@ -25,7 +25,7 @@ const Groups = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await axios.post('https://apispeeds.portkeylabs.net/api/Groups/create', data);
+            const response = await axios.post('http://localhost:4001/api/Groups/create', data);
             console.log(response.data)
             refreshPage()
         } catch (error) {
@@ -35,7 +35,7 @@ const Groups = () => {
 
     const deleteItem = async (id) => {
         try {
-            const response = await axios.delete(`https://apispeeds.portkeylabs.net/api/Groups/delete/${id}`);
+            const response = await axios.delete(`http://localhost:4001/api/Groups/delete/${id}`);
             console.log(response.data)
             refreshPage()
         } catch (error) {

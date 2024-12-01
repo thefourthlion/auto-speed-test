@@ -3,7 +3,7 @@ import json
 import os
 
 # URL to make the GET request to
-url = 'https://apispeeds.portkeylabs.net/api/speeds/read'
+url = 'http://localhost:4001/api/speeds/read'
 
 # Make the GET request
 response = requests.get(url)

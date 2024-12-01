@@ -6,7 +6,7 @@ const SpeedCard = ({ Ip, download, upload, ping, timestamp, name, id }) => {
   const [changeName, setChangeName] = useState(false);
   const deleteItem = async (id) => {
     try {
-      await axios.delete(`https://apispeeds.portkeylabs.net/api/speeds/delete/${id}`);
+      await axios.delete(`http://localhost:4001/api/speeds/delete/${id}`);
       window.location.reload();
     } catch (error) {
       console.error("Error deleting item:", error);

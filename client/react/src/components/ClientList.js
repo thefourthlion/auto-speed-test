@@ -43,7 +43,7 @@ const ClientList = () => {
 
 
     const getData = () => {
-        fetch("https://apispeeds.portkeylabs.net/api/speeds/read")
+        fetch("http://localhost:4001/api/speeds/read")
             .then((res) => res.json())
             .then((data) => {
                 setSpeeds(data);
@@ -55,7 +55,7 @@ const ClientList = () => {
     };
 
     const getpackageData = () => {
-        fetch("https://apispeeds.portkeylabs.net/api/packages/read")
+        fetch("http://localhost:4001/api/packages/read")
             .then((res) => res.json())
             .then((data) => {
                 setpackages(data);
@@ -66,7 +66,7 @@ const ClientList = () => {
     };
 
     const getGroupData = () => {
-        fetch("https://apispeeds.portkeylabs.net/api/groups/read")
+        fetch("http://localhost:4001/api/groups/read")
             .then((res) => res.json())
             .then((data) => {
                 setGroups(data);
@@ -78,7 +78,7 @@ const ClientList = () => {
 
     const updateClientpackage = async (id) => {
         try {
-            const response = await axios.post(`https://apispeeds.portkeylabs.net/api/speeds/update/${id}`, { package: chosenSpeed });
+            const response = await axios.post(`http://localhost:4001/api/speeds/update/${id}`, { package: chosenSpeed });
             // console.log(response.data)
             refreshPage()
         } catch (error) {
@@ -88,7 +88,7 @@ const ClientList = () => {
 
     const updateClientGroup = async (id) => {
         try {
-            const response = await axios.post(`https://apispeeds.portkeylabs.net/api/speeds/update/${id}`, { group: chosenGroup });
+            const response = await axios.post(`http://localhost:4001/api/speeds/update/${id}`, { group: chosenGroup });
             // console.log(response.data)
             refreshPage()
         } catch (error) {
@@ -98,7 +98,7 @@ const ClientList = () => {
 
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`https://apispeeds.portkeylabs.net/api/speeds/delete/${id}`);
+            const response = await axios.delete(`http://localhost:4001/api/speeds/delete/${id}`);
             // console.log('Response:', response.data);
             refreshPage()
         } catch (error) {
